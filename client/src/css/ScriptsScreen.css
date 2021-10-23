@@ -1,0 +1,98 @@
+.scripts-card{
+    display:block;
+    margin:20px auto;
+    padding:10px;
+    width:60%;
+    height:30%;
+    border:2px solid black;
+    border-radius: 15px;
+}
+.scripts-card .read-script-button{
+    display:block;
+    margin:10px auto;
+    padding:10px;
+    width:40%;
+    border-radius:15px;
+    background-color: #212122;
+    color:white;
+}
+.add-scripts input{
+    display:block;
+    margin:10px auto;
+    height:20%;
+    width:60%;
+}
+.add-scripts textarea{
+    display:block;
+    margin:20px auto;
+    height:60%;
+    width:60%;
+    padding:10px;
+}
+.add-scripts button{
+    display:block;
+    margin:20px auto;
+    width:15%;
+}
+
+.scripts-button-area{
+    display:'grid';
+    grid-template-columns: 'auto auto';
+    grid-gap:20px;
+
+}
+.card-buttons{
+    color:white;
+    background-color: #212122;
+    text-align: center;
+    height:10%;
+    width:20%;
+}
+
+.edit-scripts-screen input{
+    display:block;
+    margin:10px auto;
+    width:60%;
+    height:20%;
+}
+
+.edit-scripts-screen textarea{
+    display:block;
+    margin:20px auto;
+    width:60%;
+    height:60%;
+    padding:10px;    
+}
+
+.edit-scripts-screen button{
+    display:block;
+    margin:10px auto;
+    width:15%;
+    text-align: center;
+}
+
+/* View Scripts Screen Styles */
+.view-scripts-screen{
+    padding:10px;
+    display:block;
+    margin:10px auto;
+    text-align: center;
+}
+/* .view-scripts-screen h1{
+    text-align: center;
+} */
+.view-scripts-screen .content-box{
+    /* display:inline-block;
+    box-sizing: border-box; */
+    display:block;
+    margin:20px auto;
+    text-align: center;
+    padding:20px;
+}
+
+.view-scripts-screen .contributor-box{
+    padding:10px;
+    /* justify-content: left; */
+    text-align: left;
+}
+/* View Scripts Screen Styles End*/
