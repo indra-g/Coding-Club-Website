@@ -152,7 +152,8 @@ router.post('/login',(req,res)=>{
     });*/
 
     try {
-        let currentUser = Users.find({ Email: req.body.email }).then((currentUser)=>{
+        Users.find({ Email: req.body.email }).then((currentUser)=>{
+            console.log(currentUser);
             if (currentUser !== []) {
                 console.log(currentUser[0].Password, req.body.password)
                 if (currentUser[0].Password === req.body.password) {
@@ -163,16 +164,16 @@ router.post('/login',(req,res)=>{
                 }
                 else {
                     console.log("password mismatch")
-                    return res.status(200).json({'success':false,message: "Invalid EmailID or Password"})
+                    return res.status(200).json({'success':false,"message": "Invalid Password"})
                 }
             }
             else {
                 console.log("Email mismatch")
-                return res.status(200).json({'success':false,message: "Invalid EmailID or Password"})
+                return res.status(200).json({'success':false,"message": "Invalid EmailID"})
             }
         });
     } catch (error) {
-        return res.status(200).json({'success':false,message: "Invalid EmailID or Password"})
+        return res.status(200).json({'success':false,"message": "Invalid EmailID or Password"})
     }
 
 });

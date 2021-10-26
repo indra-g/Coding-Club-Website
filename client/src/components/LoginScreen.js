@@ -17,7 +17,7 @@ function LoginScreen() {
     const submitFunction = () => {
         
         if (emailid !== "" && password !== "") {
-            if ("@psgtech.ac.in" in emailid) {
+            if (emailid.includes("@psgtech.ac.in")) {
                 Axios.post('/api/login',{
                 email:emailid,
                 password:password
@@ -29,16 +29,22 @@ function LoginScreen() {
                         // Object.freeze(User);
                     }
                     else {
+                        console.log(result);
                         setShowError(true);
                         setError(result.data.message);
+                        setTimeout(() => setShowError(false) , 3000)
+
                     }
                 }).catch((err)=>{
                     console.log(err);
+                    
                 });
             }
             else {
                 setShowError(true);
                 setError("Only PSG mails are allowed");
+                setTimeout(() => setShowError(false) , 3000)
+
             }
         }
         else {
@@ -68,14 +74,16 @@ function LoginScreen() {
                     <div className="col-sm-10 col-md-8 leftbox">
                         <div className="row">
                             <div className="col"></div>
-                            <div className="col-6 login">
+                                <div className="col-6 login">
+                                    <center>
                             {showError &&
                                 <Stack sx={{ width: '80%' }} >
                                     <Alert variant="filled" severity="error">
-                                        This is an error alert — check it out!
+                                        {error}
                                     </Alert>
                                 </Stack>                
                             }
+                            </center>
                             <center className="mb-4 loginTitle">Log In</center>
                                 <div className="mb-3">
                                 <label className="form-label formLabel">Email address</label>
