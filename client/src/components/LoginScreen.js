@@ -5,26 +5,51 @@ import Axios from 'axios';
 import userObj from '../config/user_credentials';
 import { Link, useHistory } from 'react-router-dom';
 import logo from '../assets/img/Finalwhitelogo.png'
-
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
 function LoginScreen() {
     const [emailid,setEmailid]=useState('');
     const [password,setPassword]=useState('');
+    const [error,setError]=useState('');
+    const [showError,setShowError]=useState(false);
     const history = useHistory();
-    const submitFunction=()=>{
-        Axios.post('/api/login',{
-            email:emailid,
-            password:password
-        }).then((result)=>{
-            if(result.data.success){
-                userObj.username = result.data.username;
-                alert('Successfully Logged In');
-                history.push("/");
-                // Object.freeze(User);
+    const submitFunction = () => {
+        
+        if (emailid !== "" && password !== "") {
+            if ("@psgtech.ac.in" in emailid) {
+                Axios.post('/api/login',{
+                email:emailid,
+                password:password
+                }).then((result)=>{
+                    if(result.data.success){
+                        userObj.username = result.data.username;
+                        alert('Successfully Logged In');
+                        history.push("/");
+                        // Object.freeze(User);
+                    }
+                    else {
+                        setShowError(true);
+                        setError(result.data.message);
+                    }
+                }).catch((err)=>{
+                    console.log(err);
+                });
             }
-        }).catch((err)=>{
-            console.log(err);
-        });
+            else {
+                setShowError(true);
+                setError("Only PSG mails are allowed");
+            }
+        }
+        else {
+            setShowError(true);
+            setError("Email address and password are required");
+            setTimeout(() => setShowError(false) , 3000)
+        }
+
+        
+
+
     }
         // return (
         //     <div className="login-area">
@@ -35,7 +60,6 @@ function LoginScreen() {
         //     </div>
         // );
     
-    
         return (
         <div className="container loginTop">
             <div className="row">
@@ -43,37 +67,46 @@ function LoginScreen() {
                     <div className="col"></div>
                     <div className="col-sm-10 col-md-8 leftbox">
                         <div className="row">
-            <div className="col"></div>
-            <div className="col-6 login">
-            <center className="mb-4 loginTitle">Log In</center>
-                <div className="mb-3">
-                <label className="form-label formLabel">Email address</label>
-                    <input type="email" value={emailid} onChange={e => setEmailid(e.target.value)} className="form-control inputField" id="Email1"/>
-                </div>
-                <div className="mb-3">
-                <label className="form-label formLabel">Password</label>
-                <input type="password" value={password} onChange={e => setPassword(e.target.value)} className="form-control inputField" id="Password1"/>
-                </div>
+                            <div className="col"></div>
+                            <div className="col-6 login">
+                            {showError &&
+                                <Stack sx={{ width: '80%' }} >
+                                    <Alert variant="filled" severity="error">
+                                        This is an error alert — check it out!
+                                    </Alert>
+                                </Stack>                
+                            }
+                            <center className="mb-4 loginTitle">Log In</center>
+                                <div className="mb-3">
+                                <label className="form-label formLabel">Email address</label>
+                                    <input type="email" value={emailid} onChange={e => setEmailid(e.target.value)} className="form-control inputField" id="Email1"/>
+                                </div>
+                                <div className="mb-3">
+                                <label className="form-label formLabel">Password</label>
+                                <input type="password" value={password} onChange={e => setPassword(e.target.value)} className="form-control inputField" id="Password1"/>
+                                </div>
 
-                <div className="row">
-                    <div className="col">
-                        Not a member? <Link to="/signup">Register</Link> 
-                    </div>
-                    <div className="col">
-                        <Link style={{float:"right"}} to="/forgetpassword">Forget Password?</Link>
-                    </div>
-                </div>
+                                <div className="row">
+                                    <div className="col">
+                                        Not a member? <Link to="/signup">Register</Link> 
+                                    </div>
+                                    <div className="col">
+                                        <Link style={{float:"right"}} to="/forgetpassword">Forget Password?</Link>
+                                    </div>
+                                </div>
 
-                <div className="row justify-content-center">
-                <div className="col"></div>
-                    <div className="col">
-                    <button type="submit" onClick={submitFunction} className="mt-4 btn btn-primary loginbutton">Login</button>
-                    </div>
-                <div className="col"></div>
-                </div>
-            </div>
-            <div className="col"></div>
-        </div>
+                                <div className="row justify-content-center">
+                                <div className="col"></div>
+                                    <div className="col">
+                                        <button type="submit" onClick={submitFunction} className="mt-4 btn btn-primary loginbutton">Login</button>
+                                    </div>
+                                        
+                            
+                                <div className="col"></div>
+                                </div>
+                            </div>
+                            <div className="col"></div>
+                        </div>
                     </div>
                     <div className="col"></div>
                 </div>

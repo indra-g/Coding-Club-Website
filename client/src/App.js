@@ -3,7 +3,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './App.css';
 import './css/eventScreen.css';
 import EventScreen from './components/EventScreen';
-import {BrowserRouter as Router , Switch,Route} from 'react-router-dom';
+import {BrowserRouter as Router , Switch,Route, Link} from 'react-router-dom';
 import LoginScreen from './components/LoginScreen';
 import SignUpScreen from './components/SignUpScreen';
 import AddEvents from './components/AddEvents';
@@ -33,6 +33,15 @@ function App() {
           <Route exact path="/contribute-scripts" component={ContributeScripts}/>
           <Route exact path="/edit-contributed-scripts/:id" component={EditContributedScripts}/>
           <Route exact path="/view-contributed-scripts" component={ViewContributedScripts}/>
+        
+        <Route path="*">
+          <div class="position-absolute top-50 start-50 translate-middle">
+            <h2>404, Page not found</h2>
+            <Link to="/">Back to Home Page</Link>
+          </div>
+          </Route>
+      
+      
         </Switch>
     </Router>
     // <div className="App">

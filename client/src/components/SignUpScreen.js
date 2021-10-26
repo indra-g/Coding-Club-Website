@@ -18,7 +18,7 @@ function SignUpScreen() {
             email:emailid,
             password:password,
             username:username,
-            // name:name
+            name:username
         }).then((result)=>{
             if(result.data.success){
                 alert('Successfully Added!!');

@@ -113,7 +113,7 @@ router.post('/login/add',(req,res)=>{
     const email = req.body.email;
     const password = req.body.password;
     const username = req.body.username;
-    //const name = req.body.name;
+    const name = req.body.name;
     const isjs =true;
 
     // console.log(email,username,name,password,isjs);
@@ -122,7 +122,7 @@ router.post('/login/add',(req,res)=>{
         Email:email,
         Password:password,
         Username:username,
-        // Name:name,
+        Name:name,
         isJs:isjs
     });
 
