@@ -171,7 +171,11 @@ router.post('/login',(req,res)=>{
                 console.log("Email mismatch")
                 return res.status(200).json({'success':false,"message": "Invalid EmailID"})
             }
-        });
+        })
+            .catch((e)=>{
+                console.log("Email mismatch")
+                return res.status(200).json({'success':false,"message": "Invalid EmailID"})
+             })
     } catch (error) {
         return res.status(200).json({'success':false,"message": "Invalid EmailID or Password"})
     }

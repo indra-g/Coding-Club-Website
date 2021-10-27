@@ -3,7 +3,7 @@ import '../css/signupScreen.css';
 import {useState} from 'react';
 import Axios from 'axios';
 import '../css/signupScreen.css'
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import logo from '../assets/img/Finalwhitelogo.png'
 
 
@@ -12,6 +12,7 @@ function SignUpScreen() {
     const [password,setPassword]=useState('');
     const [username,setUsername]=useState('');
     // const [name,setname]=useState('');
+    const history = useHistory();
 
     const submitfunction = ()=>{
         Axios.post('/api/login/add',{
@@ -21,7 +22,8 @@ function SignUpScreen() {
             name:username
         }).then((result)=>{
             if(result.data.success){
-                alert('Successfully Added!!');
+                alert('You are successfully registered!');
+                history.push('/login');
             }
             else{
                 alert('Not Added!!');

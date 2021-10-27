@@ -8,6 +8,9 @@ import SliderHome from './slider_home';
 import EventSlider from './eventSlider';
 // import EventCard from './EventCard';
 import User from '../config/user_credentials';
+import { Link } from 'react-router-dom';
+
+
 function EventScreen() {
     const [user, setuser] = useState(User)
     const logOutfunction = ()=>{
@@ -54,15 +57,15 @@ function EventScreen() {
             <div className="row scroller-header">
             <ul className="nav justify-content-end">
             <li className="nav-item">
-            {user.username == '' ?
+            {user.username === '' ?
             <a className="btn nav-link" href="/login">Login</a>:
             <a className="btn nav-link" onClick={logOutfunction} href="/">Logout</a>
             }
             </li>
             <li className="nav-item">
-            {user.username == '' ? 
+            {user.username === '' ? 
             <a className="btn nav-link signup" href="/signup">Sign Up</a>
-            :<a className="btn nav-link signup"> {user.username} </a>
+            :<Link className="btn nav-link signup"> {user.username} </Link>
             }
             </li>
             </ul>
