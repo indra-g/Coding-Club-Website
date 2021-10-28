@@ -1,13 +1,16 @@
 import React, { useState} from 'react';
 // import {useHistory} from 'react-router-dom';
-import '../css/eventScreen.css';
-import Navbar from './Navbar';
-import SliderHome from './slider_home';
+import '../../css/eventScreen.css';
+import Navbar from '../header/Navbar';
+import SliderHome from '../home/slider_home';
 // import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 // import { fas,faFacebook } from "@fortawesome/free-brands-svg-icons";
 import EventSlider from './eventSlider';
 // import EventCard from './EventCard';
-import User from '../config/user_credentials';
+import User from '../../config/user_credentials';
+import { Link } from 'react-router-dom';
+
+
 function EventScreen() {
     const [user, setuser] = useState(User)
     const logOutfunction = ()=>{
@@ -54,15 +57,15 @@ function EventScreen() {
             <div className="row scroller-header">
             <ul className="nav justify-content-end">
             <li className="nav-item">
-            {user.username == '' ?
+            {user.username === '' ?
             <a className="btn nav-link" href="/login">Login</a>:
             <a className="btn nav-link" onClick={logOutfunction} href="/">Logout</a>
             }
             </li>
             <li className="nav-item">
-            {user.username == '' ? 
+            {user.username === '' ? 
             <a className="btn nav-link signup" href="/signup">Sign Up</a>
-            :<a className="btn nav-link signup"> {user.username} </a>
+            :<Link className="btn nav-link signup"> {user.username} </Link>
             }
             </li>
             </ul>

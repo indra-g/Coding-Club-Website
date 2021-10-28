@@ -1,7 +1,7 @@
 import React from 'react'
-import logo from '../assets/img/logo1.png';
-import hamburger from '../assets/img/hamburger.jpg';
-import '../css/eventScreen.css';
+import logo from '../../assets/img/logo1.png';
+import hamburger from '../../assets/img/hamburger.jpg';
+import '../../css/eventScreen.css';
 
 function Navbar({username}) {
     return (
@@ -49,4 +49,3 @@ function Navbar({username}) {
         );
     }
     export default Navbar;
-    

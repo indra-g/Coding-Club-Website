@@ -11,4 +11,83 @@
     width:10%;
 }
 
+.rightbox {
+  position: relative;
+  /* width: 320px; */
+  height: 700px;
+  top: 30px;
+  background: linear-gradient(360deg, #251993 0%, rgba(62, 49, 183, 0.91) 99.48%);
+  border-radius: 20px;
+}
+
+.loginTop{
+    top: 30px;
+}
+
+.leftbox{
+    position: absolute;
+    /* width: 928px; */
+    height: 700px;
+    /* left: 31px; */
+    top: 30px;
+    background: rgba(196, 196, 196, 0.15);
+    border-radius: 20px;
+}
+
+.login {
+  margin-top: 20%;
+}
+
+.inputField{
+  border: 1px solid rgba(0, 0, 0, 0.37);
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+
+.formLabel{
+  font-family: Ubuntu;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  letter-spacing: -0.015em;
+}
+
+.loginTitle{
+    font-family: Ubuntu;
+    font-style: normal;
+    font-weight:bold;
+    font-size: 36px;
+    line-height: 41px;
+}
+
+.loginbutton{
+  width: 150px;
+  height: 43px;
+  color:white;
+  background: #2C219A;
+  border-radius: 10px;
+}
+
+.textStyle{
+  font-family: Ubuntu;
+  font-style: normal;
+  font-weight: bold;
+}
+img{
+    height: 250px;
+    width: 250px;
+}
+
+.img_container {
+    position: relative;
+}
+
+.text-block {
+    position: absolute;
+    bottom: 8px;
+    color: white;
+    text-align: center;
+}
+
+
 

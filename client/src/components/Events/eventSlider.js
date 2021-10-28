@@ -2,7 +2,7 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
-import '../css/eventScreen.css';
+import '../../css/eventScreen.css';
 import EventCard from "./EventCard";
 import {useState,useEffect} from 'react';
 import Axios from 'axios';
@@ -86,4 +86,3 @@ export default EventSlider;
 //             );
 //         }
 //     }
-    

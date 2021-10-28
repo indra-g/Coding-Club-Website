@@ -2,7 +2,7 @@ import  Axios  from 'axios';
 import React from 'react'
 import {useState,useEffect} from 'react';
 import {Link} from 'react-router-dom';
-import '../css/ScriptsScreen.css';
+import '../../css/ScriptsScreen.css';
 
 function ScriptsScreen() {
     const [scriptsList,setList]=useState([]);

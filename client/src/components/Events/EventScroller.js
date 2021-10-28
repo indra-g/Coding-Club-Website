@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
-import '../css/eventScreen.css';
-import articles from '../assets/img/articles2.jpg';
-import contribute from '../assets/img/contribute.jpg';
-import events from '../assets/img/events.jpg';
-import '../js/eventScreen';
+import '../../css/eventScreen.css';
+import articles from '../../assets/img/articles2.jpg';
+import contribute from '../../assets/img/contribute.jpg';
+import events from '../../assets/img/events.jpg';
+//import '../js/eventScreen';
 export default class SimpleSlider extends Component {
     render() {
         const settings = {
@@ -22,8 +22,8 @@ export default class SimpleSlider extends Component {
         
         const get_slider = ()=>{
             return [events,articles,contribute]
-            .map((url,index)=>{
-                return (<div key={index} className="slider-image">
+            .map((url)=>{
+                return (<div className="slider-image">
                    <img src={url}/>
                 </div>);
             });
@@ -37,4 +37,3 @@ export default class SimpleSlider extends Component {
             );
         }
     }
-    

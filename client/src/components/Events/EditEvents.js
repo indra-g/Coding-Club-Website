@@ -1,7 +1,7 @@
 import React from 'react'
 import {useEffect,useState} from 'react';
 import Axios from 'axios';
-import '../css/eventScreen.css';
+import '../../css/eventScreen.css';
 
 function EditEvents(props) {
     const [presentername,setpresenter]=useState('');

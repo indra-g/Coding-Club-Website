@@ -2,20 +2,24 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './App.css';
 import './css/eventScreen.css';
-import EventScreen from './components/EventScreen';
-import {BrowserRouter as Router , Switch,Route} from 'react-router-dom';
-import LoginScreen from './components/LoginScreen';
-import SignUpScreen from './components/SignUpScreen';
-import AddEvents from './components/AddEvents';
-import AddScripts from './components/AddScripts';
-import ScriptsScreen from './components/ScriptsScreen';
-import EditEvents from './components/EditEvents';
-import EditScripts from './components/EditScripts';
-import ViewScripts from './components/viewScripts';
-import ViewEvents from './components/viewEvents';
-import ContributeScripts from './components/contributeScripts';
-import EditContributedScripts from './components/EditContributedScripts';
-import ViewContributedScripts from './components/ViewContributedScripts';
+import EventScreen from './components/events/EventScreen';
+import {BrowserRouter as Router , Switch,Route, Link} from 'react-router-dom';
+
+import AddEvents from './components/events/AddEvents';
+import EditEvents from './components/events/EditEvents';
+import ViewEvents from './components/events/viewEvents';
+
+import LoginScreen from './components/login/LoginScreen';
+import SignUpScreen from './components/signup/SignUpScreen';
+
+import AddScripts from './components/scripts/AddScripts';
+import ScriptsScreen from './components/scripts/ScriptsScreen';
+import EditScripts from './components/scripts/EditScripts';
+import ViewScripts from './components/scripts/viewScripts';
+import ContributeScripts from './components/scripts/contributeScripts';
+import EditContributedScripts from './components/scripts/EditContributedScripts';
+import ViewContributedScripts from './components/scripts/ViewContributedScripts';
+
 function App() {
   return (
     <Router>
@@ -33,6 +37,15 @@ function App() {
           <Route exact path="/contribute-scripts" component={ContributeScripts}/>
           <Route exact path="/edit-contributed-scripts/:id" component={EditContributedScripts}/>
           <Route exact path="/view-contributed-scripts" component={ViewContributedScripts}/>
+        
+        <Route path="*">
+          <div class="position-absolute top-50 start-50 translate-middle">
+            <h2>404, Page not found</h2>
+            <Link to="/">Back to Home Page</Link>
+          </div>
+          </Route>
+      
+      
         </Switch>
     </Router>
     // <div className="App">
