@@ -1,9 +1,9 @@
 import React from 'react'
 import {useState,useEffect} from 'react';
 import Axios from 'axios';
-import userObj from '../config/user_credentials';
+import userObj from '../../config/user_credentials';
 import {Redirect} from 'react-router-dom';
-import '../css/contributeScriptsScreen.css';
+import '../../css/contributeScriptsScreen.css';
 function ViewContributedScripts() {
     const [scriptsList,setList]=useState([]);
     const [update,setUpdate]=useState(1);

@@ -1,7 +1,7 @@
 import React from 'react'
 import {useState} from 'react';
 import Axios from 'axios';
-import '../css/contributeScriptsScreen.css';
+import '../../css/contributeScriptsScreen.css';
 function ContributeScripts() {
     const [contributor,setcontributor]=useState('')
     const [title,settitle]=useState('')

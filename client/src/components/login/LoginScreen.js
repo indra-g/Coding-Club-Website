@@ -1,10 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
-import '../css/loginScreen.css';
+import '../../css/loginScreen.css';
 import Axios from 'axios';
-import userObj from '../config/user_credentials';
+import userObj from '../../config/user_credentials';
 import { Link, useHistory } from 'react-router-dom';
-import logo from '../assets/img/Finalwhitelogo.png'
+import logo from '../../assets/img/Finalwhitelogo.png'
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 

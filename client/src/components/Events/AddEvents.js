@@ -1,7 +1,7 @@
 import React from 'react'
 import {useState} from 'react';
 import Axios from 'axios';
-import '../css/eventScreen.css';
+import '../../css/eventScreen.css';
 function AddEvents() {
     const [presentername,setpresenter]=useState('');
     const [eventtitle,settitle]=useState('');

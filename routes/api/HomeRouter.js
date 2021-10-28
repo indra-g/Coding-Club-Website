@@ -164,12 +164,12 @@ router.post('/login',(req,res)=>{
                 }
                 else {
                     console.log("password mismatch")
-                    return res.status(200).json({'success':false,"message": "Invalid Password"})
+                    return res.status(200).json({'success':false,message: "Invalid EmailID or Password"})
                 }
             }
             else {
                 console.log("Email mismatch")
-                return res.status(200).json({'success':false,"message": "Invalid EmailID"})
+                return res.status(200).json({'success':false,message: "Invalid EmailID or Password"})
             }
         })
             .catch((e)=>{

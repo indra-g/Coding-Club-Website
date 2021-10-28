@@ -1,7 +1,7 @@
 import React from 'react'
 import {useState,useEffect} from 'react';
 import Axios from 'axios';
-import '../css/contributeScriptsScreen.css';
+import '../../css/contributeScriptsScreen.css';
 function EditContributedScripts(props) {
     const [contributor,setcontributor]=useState('')
     const [title,settitle]=useState('')

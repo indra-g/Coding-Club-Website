@@ -1,10 +1,10 @@
 import React from 'react'
-import '../css/signupScreen.css';
+import '../../css/signupScreen.css';
 import {useState} from 'react';
 import Axios from 'axios';
-import '../css/signupScreen.css'
+import '../../css/signupScreen.css'
 import { Link, useHistory } from 'react-router-dom';
-import logo from '../assets/img/Finalwhitelogo.png'
+import logo from '../../assets/img/Finalwhitelogo.png'
 
 
 function SignUpScreen() {

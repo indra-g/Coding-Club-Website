@@ -1,13 +1,13 @@
 import React, { useState} from 'react';
 // import {useHistory} from 'react-router-dom';
-import '../css/eventScreen.css';
-import Navbar from './Navbar';
-import SliderHome from './slider_home';
+import '../../css/eventScreen.css';
+import Navbar from '../header/Navbar';
+import SliderHome from '../home/slider_home';
 // import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 // import { fas,faFacebook } from "@fortawesome/free-brands-svg-icons";
 import EventSlider from './eventSlider';
 // import EventCard from './EventCard';
-import User from '../config/user_credentials';
+import User from '../../config/user_credentials';
 import { Link } from 'react-router-dom';
 
 
