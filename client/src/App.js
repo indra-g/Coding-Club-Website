@@ -2,12 +2,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './App.css';
 import './css/eventScreen.css';
-import EventScreen from './components/events/EventScreen';
+import EventScreen from './components/Events/EventScreen';
 import {BrowserRouter as Router , Switch,Route, Link} from 'react-router-dom';
 
-import AddEvents from './components/events/AddEvents';
-import EditEvents from './components/events/EditEvents';
-import ViewEvents from './components/events/viewEvents';
+import AddEvents from './components/Events/AddEvents';
+import EditEvents from './components/Events/EditEvents';
+import ViewEvents from './components/Events/viewEvents';
 
 import LoginScreen from './components/login/LoginScreen';
 import SignUpScreen from './components/signup/SignUpScreen';
