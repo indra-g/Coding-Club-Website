@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const jwt = require('jsonwebtoken')
 const Events = require('../../models/Events');
 const Users = require('../../models/Users');
 const Scripts = require('../../models/Scripts');
@@ -159,7 +160,10 @@ router.post('/login',(req,res)=>{
                 if (currentUser[0].Password === req.body.password) {
 
                     console.log("Password match")
-                    return res.status(200).json({'success':true,'username':currentUser.Username,'name':currentUser.Name})
+                    let payload = { subject : currentUser._id }
+                    let token = jwt.sign( payload, 'secretKey')
+                    //console.log("Token Gen is : " , token )
+                    return res.status(200).json({'success':true,'username':currentUser.Username,'name':currentUser.Name , 'token':token })
                     //return res.status(200).json({ currentUser: currentUser, message: "successfully"});
                 }
                 else {
@@ -173,7 +177,7 @@ router.post('/login',(req,res)=>{
             }
         })
             .catch((e)=>{
-                console.log("Email mismatch")
+                console.log("Email mismatch error caught ")
                 return res.status(200).json({'success':false,"message": "Invalid EmailID"})
              })
     } catch (error) {

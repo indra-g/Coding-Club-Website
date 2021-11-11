@@ -24,6 +24,8 @@ function LoginScreen() {
                 }).then((result)=>{
                     if(result.data.success){
                         userObj.username = result.data.username;
+                        localStorage.setItem( 'token' , result.data.token )
+                        //localStorage.setItem( 'email' , this.loginUserData.email )
                         alert('Successfully Logged In');
                         history.push("/");
                         // Object.freeze(User);
