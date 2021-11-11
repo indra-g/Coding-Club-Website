@@ -127,8 +127,11 @@ router.post('/login/add',(req,res)=>{
         isJs:isjs
     });
 
-    user.save().then(()=>{
-        res.status(200).json({'success':true});
+    user.save().then((k)=>{
+        let payload = { subject : user._id }
+        //console.log("The signed in user :" , user._id)
+        let token = jwt.sign( payload, 'secretKey')
+        res.status(200).json({'success':true, "name" : name ,"token":token});
     }).catch((err)=>{
         console.log(err.toString());
     });
