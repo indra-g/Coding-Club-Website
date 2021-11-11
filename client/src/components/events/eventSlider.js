@@ -4,8 +4,12 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import '../../css/eventScreen.css';
 import EventCard from "./EventCard";
+import ImgMediaCard from "./card"
 import {useState,useEffect} from 'react';
 import Axios from 'axios';
+import { ScrollMenu } from "react-horizontal-scrolling-menu";
+import { LeftArrow, RightArrow } from "./arrows";
+
 
 function EventSlider(){
     const [eventsList,setList]=useState([]);
@@ -47,19 +51,39 @@ function EventSlider(){
             });
         }
     }
-    if(eventsList && eventsList.length>0){
-        return(
-            <div className="events-main-scroller">
-                <Slider {...settings}>
-                    {get_slider()}
-                </Slider>
-            </div>
-        );
-    }else{
-        return(<div>
-            No Events Added
-        </div>);
-    }
+    // if(eventsList && eventsList.length>0){
+    //     return(
+    //         <div className="events-main-scroller">
+    //             <Slider {...settings}>
+    //                 {get_slider()}
+    //             </Slider>
+    //         </div>
+    //     );
+    // }else{
+    //     return(<div>
+    //         No Events Added
+    //     </div>);
+    // }
+
+    return (
+        <div>
+            <ScrollMenu
+                LeftArrow={LeftArrow}
+                RightArrow={RightArrow}
+
+            >
+                <ImgMediaCard/>
+                <ImgMediaCard/>
+                <ImgMediaCard/>
+                <ImgMediaCard/>
+
+            </ScrollMenu>
+
+
+        </div>
+    );
+
+
 }
 export default EventSlider;
 // export default class EventSlider extends Component {
