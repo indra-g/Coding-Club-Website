@@ -5,6 +5,7 @@ import Axios from 'axios';
 import '../../css/signupScreen.css'
 import { Link, useHistory } from 'react-router-dom';
 import logo from '../../assets/img/Finalwhitelogo.png'
+import userObj from "../../config/user_credentials";
 
 
 function SignUpScreen() {
@@ -22,6 +23,8 @@ function SignUpScreen() {
             name:username
         }).then((result)=>{
             if(result.data.success){
+                userObj.username = result.data.username;
+                localStorage.setItem( 'token' , result.data.token )
                 alert('You are successfully registered!');
                 history.push('/login');
             }

@@ -55,9 +55,6 @@ function LoginScreen() {
             setTimeout(() => setShowError(false) , 3000)
         }
 
-        
-
-
     }
         // return (
         //     <div className="login-area">

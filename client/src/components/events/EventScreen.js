@@ -16,6 +16,7 @@ function EventScreen() {
     alert("Logout Function Exceuted");
     User.username = "";
     setuser({ username: "" });
+    localStorage.removeItem( 'token' )
   };
   return (
     <div>
