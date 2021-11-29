@@ -5,6 +5,27 @@ const Events = require('../../models/Events');
 const Users = require('../../models/Users');
 const Scripts = require('../../models/Scripts');
 const Contributes = require('../../models/contributedScripts');
+
+/* Token Verifier */
+// Use this token verifier whenever verification of user is required
+function verifyToken( req , res , next ) {
+    if( !req.headers.authorization ){
+        return res.status(401).send( "Unauthorized request ")
+    }
+    let token = req.headers.authorization.split(' ')[1]
+    if( token === 'null' )
+    {
+        return res.status(401).send( "Unauthorized req ")
+    }
+    let payload = jwt.verify( token,'secretKey')
+    if( !payload ){
+        return res.status(401).send( "Unauthorized user ")
+    }
+    req.userId = payload.subject
+    next()
+}
+/* END Token Verifier */
+
 router.get('/events',(req,res)=>{
     Events.find()
     .sort({date:-1})
@@ -203,8 +224,9 @@ router.get('/scripts',(req,res)=>{
 });
 
 router.get('/scripts/:id',(req,res)=>{
-    Scripts.findById(req.params.id)
+    Scripts.findById( req.params.id )
     .then((script)=>{
+        //console.log( script )
         res.status(200).json(script);
     })
     .catch((err)=>{

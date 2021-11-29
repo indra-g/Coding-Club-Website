@@ -1,27 +1,32 @@
-import React from 'react'
-import {useState,useEffect} from 'react';
-import Axios from 'axios';
-import '../../css/ScriptsScreen.css';
-import logo from "../../assets/img/logoCropped.png";
+import React , {useEffect,useState}from 'react';
+import axios from "axios";
+import {Link} from 'react-router-dom'
+import logo from '../../../assets/img/logoCropped.png'
+import Axios from "axios";
 
-function ViewScripts(props) {
+function ItemDetail({ props }) {
+    useEffect(()=>{
+        fetchItem()
+        console.log("Item Props : " , props )
+    } , [])
+    const [item  , setItem ] = useState( {} )
     const [contributor,setcontributor]=useState('');
     const [title,settitle]=useState('')
     const [content,setcontent]=useState('')
     const [email,setemail]=useState('')
-
-    useEffect(()=>{
-        Axios.get(`/api/scripts/${props.match.params.id}`)
-        .then((script)=>{
+    const fetchItem = async () => {
+        axios.get(`https://jsonplaceholder.typicode.com/posts/1`).then(response =>{
+            setItem( response.data )
+            console.log(response )
+        }).catch( reject => {console.log(reject)})
+        axios.get(`/api/scripts/${props.match.params.id}`).then(script =>{
+            console.log(script )
             setcontributor(script.data.Contributor)
             settitle(script.data.Title)
             setemail(script.data.Email)
             setcontent(script.data.Content)
-        })
-        .catch((err)=>{
-            console.log(err)
-        })
-    })
+        }).catch( reject => {console.log(reject)})
+    }
     return (
         <div className="row">
             <div>
@@ -55,8 +60,18 @@ function ViewScripts(props) {
                     </div>
                 </div>
             </div>
+            {/*<h1>Item</h1>
+            <p>{
+                item.id
+            }</p>
+            <p> BODY : {
+                item.body
+            }</p>
+            <p> TITLE : {
+                item.title
+            }</p>*/}
         </div>
-    )
-}
+    );
+};
 
-export default ViewScripts
+export default ItemDetail;

@@ -19,6 +19,7 @@ import ViewScripts from './components/scripts/viewScripts';
 import ContributeScripts from './components/scripts/contributeScripts';
 import EditContributedScripts from './components/scripts/EditContributedScripts';
 import ViewContributedScripts from './components/scripts/ViewContributedScripts';
+import ItemDetail from "./components/scripts/scriptsSingle/scriptSingle";
 
 function App() {
   return (
