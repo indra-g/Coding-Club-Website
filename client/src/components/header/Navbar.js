@@ -6,8 +6,16 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useHistory } from "react-router-dom";
 
 export default function ButtonAppBar() {
+  const history = useHistory();
+
+  const goToPage = (page) => {
+    if (page === "script") history.push("/allScripts");
+    else history.push("/allEvents");
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar color="transparent" elevation={0} position="static">
@@ -22,8 +30,12 @@ export default function ButtonAppBar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Coding Club
           </Typography>
-          <Button color="inherit">Scripts</Button>
-          <Button color="inherit">Events</Button>
+          <Button onClick={() => goToPage("script")} color="inherit">
+            Scripts
+          </Button>
+          <Button onClick={() => goToPage("event")} color="inherit">
+            Events
+          </Button>
           <IconButton size="large">
             <MenuIcon />
           </IconButton>
