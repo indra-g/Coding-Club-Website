@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import {Link} from 'react-router-dom'
+//import logo from '../../../assets/img/logoCropped.png'
 import logo from "../../../assets/img/logo.png";
-import Axios from "axios";
 
 function ItemDetail({ props }) {
   useEffect(() => {

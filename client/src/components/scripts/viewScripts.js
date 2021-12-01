@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Axios from "axios";
 import "../../css/ScriptsScreen.css";
-import logo from "../../assets/img/logo.png";
+import logo from "../../assets/img/logoCropped.png";
 
 function ViewScripts(props) {
   const [contributor, setcontributor] = useState("");

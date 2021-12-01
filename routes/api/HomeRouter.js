@@ -1,6 +1,11 @@
 const express = require('express')
 const router = express.Router()
 const jwt = require('jsonwebtoken')
+const multer = require("multer");
+const fs = require("fs");
+const { google } = require('googleapis');
+const path = require('path');
+
 const Events = require('../../models/Events');
 const Users = require('../../models/Users');
 const Scripts = require('../../models/Scripts');
@@ -105,6 +110,102 @@ router.post('/events',(req,res)=>{
         }else{
             res.status(200).json({'success' : true});
         }   
+    });
+});
+
+/* Image Upload with google drive API */
+const CLIENT_ID = '492089325216-tvhvcd3367hn0vrq587a3ssm9s8oobr6.apps.googleusercontent.com';
+const CLIENT_SECRET = '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';
+const REDIRECT_URI = 'https://developers.google.com/oauthplayground';
+const REFRESH_TOKEN = '1//04yAwALQuhMzPCgYIARAAGAQSNwF-L9Ir_H0KJ6lnq4xvDblPkBynZNoDC_9UPri909NZwuUYkUJB6B7G_8oy1xm5fW9n2MlXBFc';
+
+const oauth2Client = new google.auth.OAuth2(
+    CLIENT_ID,CLIENT_SECRET,REDIRECT_URI
+);
+
+oauth2Client.setCredentials({refresh_token:REFRESH_TOKEN})
+
+const drive = google.drive({
+    version:'v3',
+    auth:oauth2Client
+})
+
+let user_img_name,user_img_ext,isValidImage;
+const MIME_TYPE_MAP = {
+    'image/png': 'png',
+    'image/jpeg': 'jpeg',
+    'image/jpg': 'jpg'
+};
+const imageStorage = multer.diskStorage({
+    destination: (req,file,callback) => {
+        //console.log(file,MIME_TYPE_MAP[file.mimetype]);
+        isValidImage = MIME_TYPE_MAP[file.mimetype];
+        let error = new Error("Invalid Mime Type");
+        if(isValidImage){
+            user_img_ext = file.mimetype;
+            error = null;
+        }
+        callback(error,"images"); //path should be relative to server.js file
+    },
+    filename: (req,file,callback) => {
+        const name = file.originalname.toLowerCase().split(' ').join('-');
+        let ext = MIME_TYPE_MAP[file.mimetype];
+        user_img_name = req.body.name+'.'+ ext;
+        callback(null,user_img_name);
+    }
+});
+
+async function uploadFile(filename,ext) {
+
+    const filePath = path.join(__dirname,'./images/'+filename+'.'+ext)
+
+    try{
+        const response = await drive.files.create({
+            requestBody:{
+                name:'event-image.png',
+                mimeType: 'image/png'
+            },
+            media:{
+                mimeType:'image/png',
+                body: fs.createReadStream(filePath)
+            }
+        })
+
+        console.log(response.data);
+        return response.data.id;
+    } catch(error){
+        console.log(error.message);
+        return null;
+    }
+}
+
+router.post('/events/forTesting',multer({storage:imageStorage}).single("image"),(req,res)=>{
+    const PresenterName = req.body.presenter_name;
+    const EventTitle = req.body.event_title;
+    const Description = req.body.description;
+    const Link = req.body.link;
+    const uploadedFileId = uploadFile(user_img_name,user_img_ext);
+    let imgUrl = ''
+    if(uploadedFileId)  imgUrl = "https://drive.google.com/uc?export=view&id=" + uploadedFileId;
+
+    //const ImageUrl = req.body.imageUrl;
+    const date = req.body.date;
+    const event = new Events({
+        PresenterName:PresenterName,
+        EventTitle : EventTitle,
+        Description:Description,
+        EventLink : Link,
+        ImageUrl:imgUrl,
+        Date:date,
+    });
+    event.save((err)=>{
+        if(err){
+            console.log(err.toString());
+            console.log('Error Occurred while adding');
+            res.status(404).json({'success':false})
+        }else{
+            res.status(200).json({'success' : true});
+        }
     });
 });
 
