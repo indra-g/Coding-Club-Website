@@ -20,7 +20,7 @@ function SignUpScreen() {
     //For Username Validation
     const [nameError,setNameError] = useState(null);
     const validateName = (name) => {
-        (name.length >= 3)?setNameError(null):setNameError("Invalid Name, Need atleast 3 characters");
+        (name.length >= 3)?setNameError(null):setNameError("Invalid Name, Need atleast three characters");
     }
 
     // For Email Validation
