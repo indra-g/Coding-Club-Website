@@ -7,9 +7,28 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import food from "../../assets/img/food.jpg";
 import { grey } from "@mui/material/colors";
+import { Link, useHistory } from "react-router-dom";
+import { Axios } from "axios";
 
-export default function MediaCard() {
+export default function MediaCard(props) {
   const grey800 = grey[800];
+  const history = useHistory();
+
+  const individualScript = (id) => {
+    history.push(`/edit-script/${id}`);
+  };
+
+  const deletefunction = (id) => {
+    Axios.delete(`/api/scripts/${id}`)
+      .then((result) => {
+        if (result.data.success) {
+          alert("Deleted Successfully!!");
+        }
+      })
+      .catch((err) => {
+        console.log(err.toString());
+      });
+  };
 
   return (
     <Card
@@ -23,10 +42,10 @@ export default function MediaCard() {
           gutterBottom
           component="div"
         >
-          Topic here
+          {props.scriptData.Title}
         </Typography>
         <Typography sx={{ mx: "auto", pb: 1 }} variant="body2">
-          Contributer name
+          {props.scriptData.Contributor}
         </Typography>
         <Typography sx={{ mx: "auto" }} variant="body2">
           Date here
@@ -35,17 +54,19 @@ export default function MediaCard() {
       <CardActions sx={{ pb: 3 }}>
         <Button
           sx={{ borderRadius: 2, mx: "auto", fontWeight: 600 }}
-          size="small"
+          size="medium"
           style={{ backgroundColor: grey800, color: "white" }}
+          onClick={() => individualScript(props.scriptData._id)}
         >
           Read
         </Button>
         <Button
           sx={{ borderRadius: 2, mx: "auto", fontWeight: 600 }}
-          size="small"
+          size="medium"
           style={{ backgroundColor: grey800, color: "white" }}
+          onClick={() => deletefunction(props.scriptData._id)}
         >
-          Write
+          Delete
         </Button>
       </CardActions>
     </Card>
