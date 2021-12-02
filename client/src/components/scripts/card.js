@@ -58,7 +58,7 @@ export default function MediaCard(props) {
           style={{ backgroundColor: grey800, color: "white" }}
           onClick={() => individualScript(props.scriptData._id)}
         >
-          Read
+          Edit
         </Button>
         <Button
           sx={{ borderRadius: 2, mx: "auto", fontWeight: 600 }}
