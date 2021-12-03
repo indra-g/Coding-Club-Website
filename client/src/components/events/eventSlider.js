@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import Axios from "axios";
 import { ScrollMenu } from "react-horizontal-scrolling-menu";
 import { LeftArrow, RightArrow } from "./arrows";
+import MediaCard from "./card";
 
 function EventSlider() {
   const [eventsList, setList] = useState([]);
@@ -72,15 +73,23 @@ function EventSlider() {
       <div className="album py-5">
         <div className="container">
           <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            <div className="col">
-              <MultiActionAreaCard />
-            </div>
-            <div className="col">
-              <MultiActionAreaCard />
-            </div>
-            <div className="col">
-              <MultiActionAreaCard />
-            </div>
+            {/*<div className="col">*/}
+            {/*  <MultiActionAreaCard />*/}
+            {/*</div>*/}
+            {/*<div className="col">*/}
+            {/*  <MultiActionAreaCard />*/}
+            {/*</div>*/}
+            {/*<div className="col">*/}
+            {/*  <MultiActionAreaCard />*/}
+            {/*</div>*/}
+            {eventsList &&
+            eventsList.map((event) => {
+              return (
+                  <div className="col" key={event._id}>
+                    <MediaCard eventData={event} />
+                  </div>
+              );
+            })}
           </div>
         </div>
       </div>

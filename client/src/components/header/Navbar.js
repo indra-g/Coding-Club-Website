@@ -8,12 +8,17 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useHistory } from "react-router-dom";
 import logo from "../../assets/img/logoCropped.png";
+import {Nav, NavDropdown} from "react-bootstrap";
 
 export default function ButtonAppBar() {
   const history = useHistory();
 
+  const token = localStorage.getItem( 'token' );
+
   const goToPage = (page) => {
     if (page === "script") history.push("/allScripts");
+    else if(page === "add-event") history.push("/add-event");
+    else if(page === "add-script") history.push("/add-script");
     else history.push("/allEvents");
   };
 
@@ -43,8 +48,29 @@ export default function ButtonAppBar() {
           <Button onClick={() => goToPage("event")} color="inherit">
             Events
           </Button>
+
           <IconButton size="large">
             <MenuIcon />
+            <Nav>
+              <NavDropdown>
+                <NavDropdown.Item>
+                  {token?
+                      <Button onClick={() => goToPage("add-event")} color="inherit">
+                        Add Events
+                      </Button>
+                      :null
+                  }
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                  {token?
+                      <Button onClick={() => goToPage("add-script")} color="inherit">
+                        Add Scripts
+                      </Button>
+                      :null
+                  }
+                </NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
           </IconButton>
         </Toolbar>
       </AppBar>

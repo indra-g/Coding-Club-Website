@@ -9,10 +9,22 @@ import food from "../../assets/img/food.jpg";
 import { grey } from "@mui/material/colors";
 import { useHistory } from "react-router-dom";
 import { CardActionArea } from "@mui/material";
+import {useEffect, useState} from "react";
 
 export default function MediaCard(props) {
   const grey800 = grey[800];
   const history = useHistory();
+  const [data, setData] = useState({
+    ImageUrl:'',
+    EventTitle:'',
+    PresenterName:'',
+    Date:''
+  });
+
+  useEffect(() => {
+    setData(props.eventData);
+  },[]);
+  //console.log(props.eventData);
 
   const viewEventsPage = () => {
     history.push("/view-event/123");
@@ -27,7 +39,7 @@ export default function MediaCard(props) {
         <CardMedia
           component="img"
           height="140"
-          image={food}
+          image={data?data.ImageUrl:''}
           alt="green iguana"
         />
         <CardContent sx={{ textAlign: "center" }}>
@@ -36,13 +48,13 @@ export default function MediaCard(props) {
             gutterBottom
             component="div"
           >
-            {props.eventData.EventTitle}
+            {data?data.EventTitle:''}
           </Typography>
           <Typography sx={{ mx: "auto", pb: 1 }} variant="body2">
-            {props.eventData.PresenterName}
+            {data?data.PresenterName:''}
           </Typography>
           <Typography sx={{ mx: "auto" }} variant="body2">
-            {props.eventData.Date}
+            {data?data.Date:''}
           </Typography>
         </CardContent>
       </CardActionArea>

@@ -89,10 +89,9 @@ const ListOfEvents = () => {
           {eventsList &&
             eventsList.map((event) => {
               return (
-                // <div className="col" key={event._id}>
-                //   <MediaCard eventId={event} />
-                // </div>
-                <h1>dgdfh</h1>
+                <div className="col" key={event._id}>
+                  <MediaCard eventData={event} />
+                </div>
               );
             })}
         </div>
@@ -101,13 +100,13 @@ const ListOfEvents = () => {
         <hr />
         <ul className="social-media-list">
           <li className="social-media-icon">
-            <Link to="/" class="fa fa-instagram"></Link>
+            <Link to="/" className="fa fa-instagram"/>
           </li>
           <li>
-            <Link to="/" class="fa fa-facebook"></Link>
+            <Link to="/" className="fa fa-facebook"/>
           </li>
           <li className="social-media-icon">
-            <Link to="/" class="fa fa-envelope-square"></Link>
+            <Link to="/" class="fa fa-envelope-square"/>
           </li>
         </ul>
         <div className="copyright-text">

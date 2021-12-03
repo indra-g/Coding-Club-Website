@@ -87,31 +87,31 @@ router.post('/events/:id',(req,res)=>{
     })
     
 })
-router.post('/events',(req,res)=>{
-    const PresenterName = req.body.presenter_name;
-    const EventTitle = req.body.event_title;
-    const Description = req.body.description;
-    const Link = req.body.link;
-    const ImageUrl = req.body.imageUrl;
-    const date = req.body.date;
-    const event = new Events({
-        PresenterName:PresenterName,
-        EventTitle : EventTitle,
-        Description:Description,
-        EventLink : Link,
-        ImageUrl:ImageUrl,
-        Date:date,
-    });
-    event.save((err)=>{
-        if(err){
-            console.log(err.toString());
-            console.log('Error Occurred while adding');
-            res.status(404).json({'success':false})
-        }else{
-            res.status(200).json({'success' : true});
-        }   
-    });
-});
+// router.post('/events',(req,res)=>{
+//     const PresenterName = req.body.presenter_name;
+//     const EventTitle = req.body.event_title;
+//     const Description = req.body.description;
+//     const Link = req.body.link;
+//     const ImageUrl = req.body.imageUrl;
+//     const date = req.body.date;
+//     const event = new Events({
+//         PresenterName:PresenterName,
+//         EventTitle : EventTitle,
+//         Description:Description,
+//         EventLink : Link,
+//         ImageUrl:ImageUrl,
+//         Date:date,
+//     });
+//     event.save((err)=>{
+//         if(err){
+//             console.log(err.toString());
+//             console.log('Error Occurred while adding');
+//             res.status(404).json({'success':false})
+//         }else{
+//             res.status(200).json({'success' : true});
+//         }
+//     });
+// });
 
 /* Image Upload with google drive API */
 const CLIENT_ID = '492089325216-tvhvcd3367hn0vrq587a3ssm9s8oobr6.apps.googleusercontent.com';
@@ -155,9 +155,33 @@ const imageStorage = multer.diskStorage({
     }
 });
 
+async function generatePublicUrl(file_Id){
+    try{
+        //const fileId = '1Q8KOOPU2vw-MjUzCeaUTvY5cDFVNb5z5'
+        const fileId = file_Id
+        await drive.permissions.create({
+            fileId: fileId,
+            requestBody:{
+                role:'reader',
+                type:'anyone'
+            }
+        })
+
+        const result = await drive.files.get({
+            fileId: fileId,
+            fields: 'webViewLink, webContentLink'
+        })
+
+        console.log(result.data);
+    }catch(error){
+        console.log(error.message);
+    }
+}
+
+
 async function uploadFile(filename,ext) {
 
-    const filePath = path.join(__dirname,'./images/'+filename+'.'+ext)
+    const filePath = path.join(__dirname,'../../images/'+filename)
 
     try{
         const response = await drive.files.create({
@@ -172,6 +196,7 @@ async function uploadFile(filename,ext) {
         })
 
         console.log(response.data);
+        await generatePublicUrl(response.data.id);
         return response.data.id;
     } catch(error){
         console.log(error.message);
@@ -179,12 +204,13 @@ async function uploadFile(filename,ext) {
     }
 }
 
-router.post('/events/forTesting',multer({storage:imageStorage}).single("image"),(req,res)=>{
+router.post('/events',multer({storage:imageStorage}).single("image"),async (req,res)=>{
+    console.log("Hello World")
     const PresenterName = req.body.presenter_name;
     const EventTitle = req.body.event_title;
     const Description = req.body.description;
     const Link = req.body.link;
-    const uploadedFileId = uploadFile(user_img_name,user_img_ext);
+    const uploadedFileId = await uploadFile(user_img_name,user_img_ext);
     let imgUrl = ''
     if(uploadedFileId)  imgUrl = "https://drive.google.com/uc?export=view&id=" + uploadedFileId;
 

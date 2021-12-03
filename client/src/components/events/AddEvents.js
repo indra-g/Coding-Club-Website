@@ -35,38 +35,38 @@ function AddEvents() {
     }
 
     const submitfunction=()=>{
-        Axios.post('/api/events',{
-            presenter_name:presentername,
-            event_title:eventtitle,
-            description:description,
-            link:eventlink,
-            imageUrl:imageurl,
-            date:(new Date(date)).toISOString().substr(0,10)
-        }).then((result)=>{
-            if(result.data.success){
-                alert('Event Added Successfully!!');
-            }
-        }).catch((err)=>{
-            console.log(err.toString());
-        });
-
-        // const record = new FormData();
-        // record.append("presenter_name",presentername);
-        // record.append("event_title",eventtitle);
-        // record.append("description",description);
-        // record.append("link",eventlink);
-        // record.append('image',selectedimage,presentername);
-        // record.append('date',(new Date(date)).toISOString().substr(0,10));
-        //
-        //
-        //
-        // Axios.post('/api/events/clienttest',record).then((result)=>{
+        // Axios.post('/api/events',{
+        //     presenter_name:presentername,
+        //     event_title:eventtitle,
+        //     description:description,
+        //     link:eventlink,
+        //     imageUrl:imageurl,
+        //     date:(new Date(date)).toISOString().substr(0,10)
+        // }).then((result)=>{
         //     if(result.data.success){
         //         alert('Event Added Successfully!!');
         //     }
         // }).catch((err)=>{
         //     console.log(err.toString());
         // });
+
+        const record = new FormData();
+        record.append("presenter_name",presentername);
+        record.append("event_title",eventtitle);
+        record.append("description",description);
+        record.append("link",eventlink);
+        record.append('image',selectedimage,presentername);
+        record.append('date',(new Date(date)).toISOString().substr(0,10));
+
+
+
+        Axios.post('/api/events',record).then((result)=>{
+            if(result.data.success){
+                alert('Event Added Successfully!!');
+            }
+        }).catch((err)=>{
+            console.log(err.toString());
+        });
     }
 
     return (
@@ -83,8 +83,8 @@ function AddEvents() {
                     <input type="date" placeholder="Enter Date Of Event" name="date" onChange={(e)=>{setdate(e.target.value)}}/>
                     <div className={"label-style"}>Link</div>
                     <input type="text" placeholder="Enter Event Link" name="link" onChange={(e)=>{setlink(e.target.value)}}/>
-                    <div className={"label-style"}>Image Url</div>
-                    <input type="text" placeholder="Enter Image URL" name="imageurl" onChange={(e)=>{setimage(e.target.value)}}/>
+                    {/*<div className={"label-style"}>Image Url</div>*/}
+                    {/*<input type="text" placeholder="Enter Image URL" name="imageurl" onChange={(e)=>{setimage(e.target.value)}}/>*/}
                     <button type="submit" onClick={submitfunction}> Submit </button>
                     {/*<TextField id="standard-basic" label="Standard" variant="standard" />*/}
                 </div>

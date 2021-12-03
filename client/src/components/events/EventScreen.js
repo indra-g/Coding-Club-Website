@@ -37,13 +37,13 @@ function EventScreen() {
             <div className="event-screen-scroller-footer">
               <ul className="social-media-list">
                 <li className="social-media-icon">
-                  <Link to="/" class="fa fa-instagram"></Link>
+                  <Link to="/" class="fa fa-instagram"/>
                 </li>
                 <li>
-                  <Link to="/" class="fa fa-facebook"></Link>
+                  <Link to="/" class="fa fa-facebook"/>
                 </li>
                 <li className="social-media-icon">
-                  <Link to="/" class="fa fa-envelope-square"></Link>
+                  <Link to="/" class="fa fa-envelope-square"/>
                 </li>
               </ul>
               <div className="copyright-text">
