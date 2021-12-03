@@ -16,7 +16,7 @@ function EventScreen() {
     alert("Logout Function Exceuted");
     User.username = "";
     setuser({ username: "" });
-    localStorage.removeItem( 'token' )
+    localStorage.removeItem("token");
   };
   return (
     <div>
@@ -33,23 +33,23 @@ function EventScreen() {
               {/* <EventCard/> */}
               <EventSlider />
             </div>
-            {/* <hr/>
-        <div className="event-screen-scroller-footer">
-        <ul className="social-media-list">
-        <li className="social-media-icon">
-        <p>Icon-1</p>
-        </li>
-        <li className="social-media-icon">
-        <p> Icon-2 </p>
-        </li>
-        <li className="social-media-icon">
-        <p> Icon-3 </p>
-        </li>
-        </ul>
-        <div className="copyright-text">
-        <p> &copy; Copyright 2021 Coding Club</p>
-        </div>
-        </div> */}
+            <hr />
+            <div className="event-screen-scroller-footer">
+              <ul className="social-media-list">
+                <li className="social-media-icon">
+                  <Link to="/" class="fa fa-instagram"></Link>
+                </li>
+                <li>
+                  <Link to="/" class="fa fa-facebook"></Link>
+                </li>
+                <li className="social-media-icon">
+                  <Link to="/" class="fa fa-envelope-square"></Link>
+                </li>
+              </ul>
+              <div className="copyright-text">
+                <p> &copy; Copyright 2021 Coding Club</p>
+              </div>
+            </div>
           </div>
           {/* The Right side scroller screen */}
           <div className="scroller event-scroller">

@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap");
 
-*{
-    margin:0;
-    padding:0;
+* {
+  margin: 0;
+  padding: 0;
 }
 /* html,body{
     display: inline-block;
@@ -86,14 +86,14 @@
   background-color: rgba(255, 255, 255, 0.19);
 }
 
-.scroller-home{
-    /*display:absolute;*/
-    margin:0 auto 25px;
-    padding:5%;
+.scroller-home {
+  /*display:absolute;*/
+  margin: 0 auto 25px;
+  padding: 5%;
 }
 
 .scroller-home {
-  display:inherit;
+  display: inherit;
   margin: 0 auto 25px;
   padding: 5%;
 }
@@ -242,84 +242,84 @@ ul.social-media-list li:not(:last-child) {
 }
 
 /* Add Events Screen Styles */
-.add-events-screen{
-    background: #E5E5E5;
+.add-events-screen {
+  background: #e5e5e5;
 }
 
 .add-events-screen input {
-    display: block;
-    margin: 10px auto;
-    height: 50px;
-    width: 500px;
-    border: 1px solid;
-    border-radius: 5px;
-    padding-left: 20px;
+  display: block;
+  margin: 10px auto;
+  height: 50px;
+  width: 500px;
+  border: 1px solid;
+  border-radius: 5px;
+  padding-left: 20px;
 }
 
-.add-events-screen button{
-    display:block;
-    margin:10px auto;
-    background: #2C219A;
-    color: #fff;
-    border-radius:5px;
+.add-events-screen button {
+  display: block;
+  margin: 10px auto;
+  background: #2c219a;
+  color: #fff;
+  border-radius: 5px;
 }
 
 .custom-file-input {
-    color: transparent;
+  color: transparent;
 }
 .custom-file-input::-webkit-file-upload-button {
-    visibility: hidden;
+  visibility: hidden;
 }
 .custom-file-input::before {
-    content: 'Upload Image';
-    color: white;
-    display: inline-block;
-    background: #2C219A;
-    border: 1px solid #999;
-    border-radius: 3px;
-    padding: 5px 8px;
-    outline: none;
-    white-space: nowrap;
-    -webkit-user-select: none;
-    cursor: pointer;
+  content: "Upload Image";
+  color: white;
+  display: inline-block;
+  background: #2c219a;
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
 }
 .custom-file-input:hover::before {
-    border-color: black;
+  border-color: black;
 }
 .custom-file-input:active {
-    outline: 0;
+  outline: 0;
 }
 .custom-file-input:active::before {
-    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
 
-.label-style{
-    /*position: absolute;*/
-    /*width: 201px;*/
-    /*height: 28px;*/
-    /*left: 103px;*/
-    /*top: 86px;*/
-    margin-left: 100px;
+.label-style {
+  /*position: absolute;*/
+  /*width: 201px;*/
+  /*height: 28px;*/
+  /*left: 103px;*/
+  /*top: 86px;*/
+  margin-left: 100px;
 
-    font-family: Ubuntu, sans-serif;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 24px;
-    line-height: 28px;
-    /* identical to box height */
+  font-family: Ubuntu, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+  /* identical to box height */
 
-    display: flex;
-    align-items: center;
-    letter-spacing: -0.015em;
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.015em;
 
-    color: #000000;
+  color: #000000;
 }
 
-.image-style{
-    width: 100%;
-    height: 70%;
-    margin-top: 70px;
-    border: 1px solid #000000;
+.image-style {
+  width: 100%;
+  height: 70%;
+  margin-top: 70px;
+  border: 1px solid #000000;
 }
 
 /* Add Events Screen Styles End*/
@@ -340,8 +340,8 @@ ul.social-media-list li:not(:last-child) {
 /* View Events Screen Styles*/
 
 .img-view-events {
-  position: absolute;
-  width: 829px;
+  position: relative;
+  width: 600px;
   height: 459px;
   left: 65px;
   border-radius: 10px;

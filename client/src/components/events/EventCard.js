@@ -19,7 +19,8 @@ function EventCard({event,deletefun}) {
     return (
         <div className="event-card">
             <div className="event-card-header">
-                <a href={`/view-event/${event._id}`}><img alt="Event Image" className='event-header-image' src={url}/></a>
+                <a href={`/view-event/${event._id}`}>
+                <img alt="Event Image" className='event-header-image' src={url} /></a>
             </div>
             <div className="event-card-body">
                 <h4 className="event-title">{title}</h4><br/>

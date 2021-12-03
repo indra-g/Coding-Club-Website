@@ -8,14 +8,15 @@ import Typography from "@mui/material/Typography";
 import food from "../../assets/img/food.jpg";
 import { grey } from "@mui/material/colors";
 import { Link, useHistory } from "react-router-dom";
-import { Axios } from "axios";
+import Axios from "axios";
 
 export default function MediaCard(props) {
   const grey800 = grey[800];
   const history = useHistory();
 
-  const individualScript = (id) => {
-    history.push(`/edit-script/${id}`);
+  const individualScript = (id, btnType) => {
+    if (btnType === "edit") history.push(`/edit-script/${id}`);
+    else history.push(`/view-script/${id}`);
   };
 
   const deletefunction = (id) => {
@@ -23,6 +24,7 @@ export default function MediaCard(props) {
       .then((result) => {
         if (result.data.success) {
           alert("Deleted Successfully!!");
+          history.push("/");
         }
       })
       .catch((err) => {
@@ -56,7 +58,15 @@ export default function MediaCard(props) {
           sx={{ borderRadius: 2, mx: "auto", fontWeight: 600 }}
           size="medium"
           style={{ backgroundColor: grey800, color: "white" }}
-          onClick={() => individualScript(props.scriptData._id)}
+          onClick={() => individualScript(props.scriptData._id, "read")}
+        >
+          Read
+        </Button>
+        <Button
+          sx={{ borderRadius: 2, mx: "auto", fontWeight: 600 }}
+          size="medium"
+          style={{ backgroundColor: grey800, color: "white" }}
+          onClick={() => individualScript(props.scriptData._id, "edit")}
         >
           Edit
         </Button>
