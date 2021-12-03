@@ -10,7 +10,7 @@ import { grey } from "@mui/material/colors";
 import { useHistory } from "react-router-dom";
 import { CardActionArea } from "@mui/material";
 
-export default function MediaCard() {
+export default function MediaCard(props) {
   const grey800 = grey[800];
   const history = useHistory();
 
@@ -36,13 +36,13 @@ export default function MediaCard() {
             gutterBottom
             component="div"
           >
-            Topic here
+            {props.eventData.EventTitle}
           </Typography>
           <Typography sx={{ mx: "auto", pb: 1 }} variant="body2">
-            Contributer name
+            {props.eventData.PresenterName}
           </Typography>
           <Typography sx={{ mx: "auto" }} variant="body2">
-            Date here
+            {props.eventData.Date}
           </Typography>
         </CardContent>
       </CardActionArea>

@@ -1,5 +1,5 @@
 import React from "react";
-import MultiActionAreaCard from "./card";
+import MediaCard from "./card";
 import { useState, useEffect } from "react";
 import Axios from "axios";
 import logo from "../../assets/img/logoCropped.png";
@@ -13,7 +13,46 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
 import "../../css/eventScreen.css";
 
-function listofEvents() {
+const ListOfEvents = () => {
+  const [eventsList, setList] = useState([]);
+  const [eventsUpdate, setUpdate] = useState(1);
+  useEffect(() => {
+    Axios.get("/api/events/")
+      .then((result) => {
+        if (result.data.success) {
+          setList(result.data.events);
+        }
+      })
+      .catch((err) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+  }, [eventsUpdate]);
+  // const editfunction=(id)=>{
+  //     history.replace(`/edit-script/${id}`)
+  //     // Axios.put(`/api/scripts/${id}`,{
+  //     // })
+  //     // .then((result)=>{
+  //     //     if(result.data.succes){
+  //     //         alert('Edited Successfully!!');
+  //     //     }
+  //     // })
+  //     // .catch((err)=>{console.log(err.toString())});
+  // }
+  // const deletefunction = (id) => {
+  //   Axios.delete(`/api/scripts/${id}`)
+  //     .then((result) => {
+  //       if (result.data.success) {
+  //         alert("Deleted Successfully!!");
+  //         setUpdate(eventsUpdate + 1);
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.toString());
+  //     });
+  // };
+
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>
@@ -47,14 +86,15 @@ function listofEvents() {
       <hr />
       <div className="container">
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          {/* {scriptsList &&
-            scriptsList.map((script) => {
+          {eventsList &&
+            eventsList.map((event) => {
               return (
-                <div className="col" key={script._id}>
-                  <MultiActionAreaCard scriptData={script} />
-                </div>
+                // <div className="col" key={event._id}>
+                //   <MediaCard eventId={event} />
+                // </div>
+                <h1>dgdfh</h1>
               );
-            })} */}
+            })}
         </div>
       </div>
       <div className="event-screen-scroller-footer">
@@ -76,5 +116,5 @@ function listofEvents() {
       </div>
     </div>
   );
-}
-export default listofEvents;
+};
+export default ListOfEvents;
