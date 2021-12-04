@@ -28,12 +28,12 @@ function EventScreen() {
             <div className="event-screen-scroller-heading">
               <h4 className="event-screen-scroller-heading-title">Events</h4>
             </div>
-            <hr />
+            <hr/>
             <div className="event-screen-scroller-body">
               {/* <EventCard/> */}
               <EventSlider />
             </div>
-            <hr />
+            <hr/>
             <div className="event-screen-scroller-footer">
               <ul className="social-media-list">
                 <li className="social-media-icon">

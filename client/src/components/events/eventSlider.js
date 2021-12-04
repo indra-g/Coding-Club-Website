@@ -30,7 +30,9 @@ function EventSlider() {
     Axios.get("/api/events")
       .then((result) => {
         if (result.data.success) {
-          setList(result.data.events);
+          let temp;
+          temp = [result.data.events[0],result.data.events[1],result.data.events[2]]
+          setList(temp);
         }
       })
       .catch((err) => {

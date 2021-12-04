@@ -19,6 +19,9 @@ export default function ButtonAppBar() {
     if (page === "script") history.push("/allScripts");
     else if(page === "add-event") history.push("/add-event");
     else if(page === "add-script") history.push("/add-script");
+    else if( page === "about" ) history.push("/about");
+    else if( page === "what" ) history.push("/what");
+    else if( page === "officeBearers" ) history.push("/officebearers");
     else history.push("/allEvents");
   };
 
@@ -47,6 +50,15 @@ export default function ButtonAppBar() {
           </Button>
           <Button onClick={() => goToPage("event")} color="inherit">
             Events
+          </Button>
+          <Button onClick={() => goToPage("about")} color="inherit">
+            About US
+          </Button>
+          <Button onClick={() => goToPage("what")} color="inherit">
+            What
+          </Button>
+          <Button onClick={() => goToPage("officeBearers")} color="inherit">
+            Office Bearers
           </Button>
 
           <IconButton size="large">

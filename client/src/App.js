@@ -22,7 +22,9 @@ import ContributeScripts from "./components/scripts/contributeScripts";
 import EditContributedScripts from "./components/scripts/EditContributedScripts";
 import ViewContributedScripts from "./components/scripts/ViewContributedScripts";
 import ItemDetail from "./components/scripts/scriptsSingle/scriptSingle";
-
+import About from "./components/About/about";
+import What from "./components/WhatWeDo/what"
+import Officebearers from "./components/OfficeBearers/officebearers";
 function App() {
   return (
     <Router>
@@ -40,6 +42,9 @@ function App() {
         <Route exact path="/view-script/:id" component={ViewScripts} />
         <Route exact path="/view-event/:id" component={ViewEvents} />
         <Route exact path="/contribute-scripts" component={ContributeScripts} />
+        <Route exact path="/about" component={About} />
+        <Route exact path="/what" component={What} />
+        <Route exact path="/officebearers" component={Officebearers} />
         <Route
           exact
           path="/edit-contributed-scripts/:id"

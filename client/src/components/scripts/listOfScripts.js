@@ -83,13 +83,14 @@ const ListofScripts = () => {
           </Toolbar>
         </AppBar>
       </Box>
-      <hr />
+      <hr/>
       <div className="container">
-        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        {/*<div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">*/}
+        <div className="row">
           {scriptsList &&
             scriptsList.map((script) => {
               return (
-                <div className="col" key={script._id}>
+                <div className="col-xm-3" key={script._id}>
                   <MultiActionAreaCard scriptData={script} />
                 </div>
               );
@@ -97,7 +98,6 @@ const ListofScripts = () => {
         </div>
       </div>
       <div className="event-screen-scroller-footer">
-        <hr />
         <ul className="social-media-list">
           <li className="social-media-icon">
             <Link to="/" class="fa fa-instagram"></Link>
@@ -109,8 +109,9 @@ const ListofScripts = () => {
             <Link to="/" class="fa fa-envelope-square"></Link>
           </li>
         </ul>
+        <hr/>
         <div className="copyright-text">
-          <p> &copy; Copyright 2021 Coding Club</p>
+          <p > &copy; Copyright 2021 Coding Club</p>
         </div>
       </div>
     </div>
