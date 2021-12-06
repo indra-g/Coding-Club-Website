@@ -377,3 +377,28 @@ ul.social-media-list li:not(:last-child) {
 }
 /* View Events Screen Styles End*/
 /* Event Screen Styles End */
+
+/*Page Layout EventScreen.js Start*/
+.right-box {
+  position: relative;
+  /* width: 320px; */
+  height: 740px;
+  top: 30px;
+  background: linear-gradient(360deg, #251993 0%, rgba(62, 49, 183, 0.91) 99.48%);
+  border-radius: 20px;
+}
+
+.page-top{
+  top: 30px;
+}
+
+.left-box{
+  position: absolute;
+  /* width: 928px; */
+  /*height: 700px;*/
+  /* left: 31px; */
+  top: 30px;
+  background: rgba(196, 196, 196, 0.15);
+  border-radius: 20px;
+}
+/*Page Layout EventScreen.js End*/

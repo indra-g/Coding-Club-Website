@@ -39,7 +39,7 @@ function EditContributedScripts(props) {
         .catch((err)=>{
             console.log(err.toString())
         })
-    },[])
+    },[props.match.params.id])
     return (
         <div className="edit-contribute-screen">
             <input type="text" placeholder="Enter Contributor" value={contributor} onChange={(e)=>{setcontributor(e.target.value)}}/>

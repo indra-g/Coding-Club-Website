@@ -14,7 +14,7 @@ import { grey } from "@mui/material/colors";
 function ScriptsScreen() {
   const grey800 = grey[800];
   const [scriptsList, setList] = useState([]);
-  const [scriptsUpdate, setUpdate] = useState(1);
+  //const [scriptsUpdate, setUpdate] = useState(1);
   useEffect(() => {
     Axios.get("/api/scripts/")
       .then((result) => {
@@ -27,7 +27,8 @@ function ScriptsScreen() {
           console.log(err);
         }
       });
-  }, [scriptsUpdate]);
+  });
+
   // const editfunction=(id)=>{
   //     history.replace(`/edit-script/${id}`)
   //     // Axios.put(`/api/scripts/${id}`,{
@@ -39,18 +40,20 @@ function ScriptsScreen() {
   //     // })
   //     // .catch((err)=>{console.log(err.toString())});
   // }
-  const deletefunction = (id) => {
-    Axios.delete(`/api/scripts/${id}`)
-      .then((result) => {
-        if (result.data.success) {
-          alert("Deleted Successfully!!");
-          setUpdate(scriptsUpdate + 1);
-        }
-      })
-      .catch((err) => {
-        console.log(err.toString());
-      });
-  };
+
+  /* Delete Function */
+  // const deletefunction = (id) => {
+  //   Axios.delete(`/api/scripts/${id}`)
+  //     .then((result) => {
+  //       if (result.data.success) {
+  //         alert("Deleted Successfully!!");
+  //         setUpdate(scriptsUpdate + 1);
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.toString());
+  //     });
+  // };
   return (
     <div className="album py-5 bg-light">
       <div className="container">

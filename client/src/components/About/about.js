@@ -52,8 +52,8 @@ export default class About extends Component {
                         each from the Student Executive Committee of all departments, functioning,
                         under the expertise of Faculty Advisor Dr.V.Senthil Kumaran.
                 </p>
-            </div>
-                <div className="event-screen-scroller-footer">
+                <hr/>
+                <div>
                     <ul className="social-media-list">
                         <li className="social-media-icon">
                             <Link to="/" class="fa fa-instagram"/>
@@ -65,10 +65,9 @@ export default class About extends Component {
                             <Link to="/" class="fa fa-envelope-square"/>
                         </li>
                     </ul>
-                    <div className="copyright-text">
-                        <p> &copy; Copyright 2021 Coding Club</p>
-                    </div>
-        </div>
+                    <span className="copyright-text"><p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &copy; Copyright 2021 Coding Club</p></span>
+                </div>
+            </div>
             </div>
         );
     }

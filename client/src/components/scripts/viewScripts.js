@@ -18,6 +18,7 @@ function ViewScripts(props) {
         setcontributor(script.data.Contributor);
         settitle(script.data.Title);
         setemail(script.data.Email);
+        console.log('Email at viewScripts :',email)
         setcontent(script.data.Content);
       })
       .catch((err) => {

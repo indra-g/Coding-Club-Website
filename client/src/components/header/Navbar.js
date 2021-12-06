@@ -9,16 +9,27 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useHistory } from "react-router-dom";
 import logo from "../../assets/img/logoCropped.png";
 import {Nav, NavDropdown} from "react-bootstrap";
+import User from "../../config/user_credentials";
+import {useState} from "react";
 
 export default function ButtonAppBar() {
   const history = useHistory();
+  const [user, setuser] = useState(User);
 
-  const token = localStorage.getItem( 'token' );
+  const logOutfunction = () => {
+    alert("Logout Function Exceuted");
+    User.username = "";
+    setuser({ username: "" });
+    console.log("Username after logged out",user);
+    localStorage.removeItem("token");
+    history.push('/');
+  };
 
   const goToPage = (page) => {
     if (page === "script") history.push("/allScripts");
     else if(page === "add-event") history.push("/add-event");
     else if(page === "add-script") history.push("/add-script");
+    else if(page === "contribute-script") history.push("/contribute-scripts");
     else if( page === "about" ) history.push("/about");
     else if( page === "what" ) history.push("/what");
     else if( page === "officeBearers" ) history.push("/officebearers");
@@ -52,35 +63,47 @@ export default function ButtonAppBar() {
             Events
           </Button>
           <Button onClick={() => goToPage("about")} color="inherit">
-            About US
+            About
           </Button>
           <Button onClick={() => goToPage("what")} color="inherit">
             What
           </Button>
           <Button onClick={() => goToPage("officeBearers")} color="inherit">
-            Office Bearers
+            Team
           </Button>
 
           <IconButton size="large">
             <MenuIcon />
             <Nav>
               <NavDropdown>
-                <NavDropdown.Item>
-                  {token?
+                  {localStorage.getItem( 'token' )?
+                      <NavDropdown.Item>
                       <Button onClick={() => goToPage("add-event")} color="inherit">
                         Add Events
                       </Button>
+                      </NavDropdown.Item>
+                      :<NavDropdown.Item>
+                          <Button onClick={() => goToPage("contribute-script")} color="inherit">
+                          Contribute Scripts
+                          </Button>
+                       </NavDropdown.Item>
+                  }
+                  {localStorage.getItem( 'token' )?
+                      <NavDropdown.Item>
+                        <Button onClick={() => goToPage("add-script")} color="inherit">
+                          Add Scripts
+                        </Button>
+                      </NavDropdown.Item>
                       :null
                   }
-                </NavDropdown.Item>
-                <NavDropdown.Item>
-                  {token?
-                      <Button onClick={() => goToPage("add-script")} color="inherit">
-                        Add Scripts
-                      </Button>
+                  {localStorage.getItem( 'token' )?
+                      <NavDropdown.Item>
+                        <Button onClick={logOutfunction} color="inherit">
+                          Log Out
+                        </Button>
+                      </NavDropdown.Item>
                       :null
                   }
-                </NavDropdown.Item>
               </NavDropdown>
             </Nav>
           </IconButton>

@@ -3,16 +3,19 @@ import {useState} from 'react';
 import Axios from 'axios';
 import '../../css/eventScreen.css';
 import logo from "../../assets/img/logo.png";
+import {useHistory} from "react-router-dom";
 
 function AddEvents() {
+    const history = useHistory()
     const [presentername,setpresenter]=useState('');
     const [eventtitle,settitle]=useState('');
     const [description,setdescription]=useState('');
-    const [date,setdate]=useState(new Date());
+    const [date,setdate]=useState(null);
     const [eventlink,setlink]=useState('');
-    const [imageurl,setimage]=useState('');
-    const [selectedimage, setselectedimage] = useState();
+    //const [imageurl,setimage]=useState('');
+    const [selectedimage, setselectedimage] = useState(null);
     const [preview, setpreview] = useState();
+    const [redirect, setRedirect] = useState(false);
 
     useEffect(() => {
         if (!selectedimage) {
@@ -50,6 +53,13 @@ function AddEvents() {
         //     console.log(err.toString());
         // });
 
+        if(presentername===''){alert("Presenter Name Could not be Empty.");return;}
+        if(eventtitle===''){alert("Event Title Name Could not be Empty.");return;}
+        if(description===''){alert("Event Description Name Could not be Empty.");return;}
+        if(eventlink===''){alert("Event Link Name Could not be Empty.");return;}
+        if(selectedimage===null){alert("No Image Uploaded");return;}
+        if(date===null){alert("Event Date Could not be Empty.");return;}
+
         const record = new FormData();
         record.append("presenter_name",presentername);
         record.append("event_title",eventtitle);
@@ -63,10 +73,15 @@ function AddEvents() {
         Axios.post('/api/events',record).then((result)=>{
             if(result.data.success){
                 alert('Event Added Successfully!!');
+                setRedirect(true);
             }
         }).catch((err)=>{
             console.log(err.toString());
         });
+    }
+
+    if(redirect){
+        history.push('/allEvents');
     }
 
     return (
@@ -74,25 +89,25 @@ function AddEvents() {
             <div className="modal-body row">
                 <div className="col-md-6">
                     <div className={"label-style"}>Presenter's name</div>
-                    <input type="text" placeholder="Enter Presenter Name" name="presentername" onChange={(e)=>{setpresenter(e.target.value)}}/>
+                    <input type="text" placeholder="Enter Presenter Name" name="presentername" onChange={(e)=>{setpresenter(e.target.value)}} required={true}/>
                     <div className={"label-style"}>Event Title</div>
-                    <input type="text" placeholder="Enter Event Title" name="title" onChange={(e)=>{settitle(e.target.value)}}/>
+                    <input type="text" placeholder="Enter Event Title" name="title" onChange={(e)=>{settitle(e.target.value)}} required={true}/>
                     <div className={"label-style"}>Description</div>
-                    <input type="text" placeholder="Enter Description" name="description" onChange={(e)=>{setdescription(e.target.value)}}/>
+                    <input type="text" placeholder="Enter Description" name="description" onChange={(e)=>{setdescription(e.target.value)}} required={true}/>
                     <div className={"label-style"}>Date</div>
-                    <input type="date" placeholder="Enter Date Of Event" name="date" onChange={(e)=>{setdate(e.target.value)}}/>
+                    <input type="date" placeholder="Enter Date Of Event" name="date" onChange={(e)=>{setdate(e.target.value)}} required={true}/>
                     <div className={"label-style"}>Link</div>
-                    <input type="text" placeholder="Enter Event Link" name="link" onChange={(e)=>{setlink(e.target.value)}}/>
+                    <input type="text" placeholder="Enter Event Link" name="link" onChange={(e)=>{setlink(e.target.value)}} required={true}/>
                     {/*<div className={"label-style"}>Image Url</div>*/}
-                    {/*<input type="text" placeholder="Enter Image URL" name="imageurl" onChange={(e)=>{setimage(e.target.value)}}/>*/}
+                    {/*<input type="text" placeholder="Enter Image URL" name="imageurl" onChange={(e)=>{setimage(e.target.value)}} required={true}/>*/}
                     <button type="submit" onClick={submitfunction}> Submit </button>
                     {/*<TextField id="standard-basic" label="Standard" variant="standard" />*/}
                 </div>
                 <div className="col-md-6">
                     {selectedimage?
-                        <img src={preview} alt="loaded image" className={'image-style'}/>
-                        : <img src={logo} alt="loaded image" className={'image-style'}/>}
-                        <input type='file' className={"custom-file-input"} onChange={onselectimage} />
+                        <img src={preview} alt="loaded event" className={'image-style'}/>
+                        : <img src={logo} alt="loaded event" className={'image-style'}/>}
+                        <input type='file' className={"custom-file-input"} onChange={onselectimage} required={true}/>
                 </div>
             </div>
         </div>

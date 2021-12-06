@@ -7,15 +7,15 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
+//import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+//import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
 import "../../css/eventScreen.css";
 
 const ListOfEvents = () => {
   const [eventsList, setList] = useState([]);
-  const [eventsUpdate, setUpdate] = useState(1);
+  //const [eventsUpdate, setUpdate] = useState(1);
   useEffect(() => {
     Axios.get("/api/events/")
       .then((result) => {
@@ -28,7 +28,7 @@ const ListOfEvents = () => {
           console.log(err);
         }
       });
-  }, [eventsUpdate]);
+  });
   // const editfunction=(id)=>{
   //     history.replace(`/edit-script/${id}`)
   //     // Axios.put(`/api/scripts/${id}`,{
@@ -96,22 +96,22 @@ const ListOfEvents = () => {
             })}
         </div>
       </div>
-      <div className="event-screen-scroller-footer">
-        <hr />
+      <hr/>
+      <div>
         <ul className="social-media-list">
           <li className="social-media-icon">
-            <Link to="/" className="fa fa-instagram"/>
+            <Link to="/" class="fa fa-instagram"/>
           </li>
           <li>
-            <Link to="/" className="fa fa-facebook"/>
+            <Link to="/" class="fa fa-facebook"/>
           </li>
           <li className="social-media-icon">
             <Link to="/" class="fa fa-envelope-square"/>
           </li>
         </ul>
-        <div className="copyright-text">
-          <p> &copy; Copyright 2021 Coding Club</p>
-        </div>
+        <span className="copyright-text">
+                <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &copy; Copyright 2021 Coding Club</p>
+              </span>
       </div>
     </div>
   );

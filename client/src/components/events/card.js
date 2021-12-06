@@ -5,7 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import food from "../../assets/img/food.jpg";
+//import food from "../../assets/img/food.jpg";
 import { grey } from "@mui/material/colors";
 import { useHistory } from "react-router-dom";
 import { CardActionArea } from "@mui/material";
@@ -23,7 +23,7 @@ export default function MediaCard(props) {
 
   useEffect(() => {
     setData(props.eventData);
-  },[]);
+  },[props.eventData]);
   //console.log(props.eventData);
 
   const viewEventsPage = () => {

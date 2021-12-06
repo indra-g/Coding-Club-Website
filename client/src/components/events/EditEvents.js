@@ -45,7 +45,7 @@ function EditEvents(props) {
         }).catch((err)=>{
             console.log(err.toString());
         })
-    },[])
+    },[props.match.params.id])
     return (
         <div className="edit-events-screen">
             {/* <h1>{props.match.params.id}</h1> */}

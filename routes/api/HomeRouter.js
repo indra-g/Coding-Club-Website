@@ -275,8 +275,8 @@ router.post('/login/add',(req,res)=>{
         isJs:isjs
     });
 
-    user.save().then((k)=>{
-        let payload = { subject : user._id }
+    user.save().then(response =>{
+        let payload = {subject:user._id,username:username}
         //console.log("The signed in user :" , user._id)
         let token = jwt.sign( payload, 'secretKey')
         res.status(200).json({'success':true, "name" : name ,"token":token});
@@ -311,10 +311,17 @@ router.post('/login',(req,res)=>{
                 if (currentUser[0].Password === req.body.password) {
 
                     console.log("Password match")
-                    let payload = { subject : currentUser._id }
-                    let token = jwt.sign( payload, 'secretKey')
+                    const id = currentUser[0]._id;
+                    const username = currentUser[0].Username;
+                    const payload = {id,username};
+                    jwt.sign( payload, 'secretKey',{expiresIn:"1d"}, (err,token) => {
+                        if(err) console.log(err);
+                        else{
+                            return res.status(200).json({'success':true,'username':currentUser.Username,'name':currentUser.Name , token:token})
+                            //return res.status(200).json({'success':true,'username':currentUser.Username,'name':currentUser.Name , 'token':token})
+                        }
+                    });
                     //console.log("Token Gen is : " , token )
-                    return res.status(200).json({'success':true,'username':currentUser.Username,'name':currentUser.Name , 'token':token })
                     //return res.status(200).json({ currentUser: currentUser, message: "successfully"});
                 }
                 else {

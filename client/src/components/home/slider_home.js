@@ -16,15 +16,15 @@ export default class SimpleSlider extends Component {
             autoplay:true,
             autoplaySpeed:3000,
             speed: 3000,
-            slidesToShow: 1.5,
-            slidesToScroll: 1.5
+            slidesToShow: 1,
+            slidesToScroll: 1
         };
         
         const get_slider = ()=>{
             return [events,articles,contribute]
             .map((url,index)=>{
                 return (<div key={index} className="slider-image">
-                   <img src={url}/>
+                   <img src={url} alt={"slider content"}/>
                 </div>);
             });
         }

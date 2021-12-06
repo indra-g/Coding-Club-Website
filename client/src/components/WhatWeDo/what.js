@@ -64,23 +64,22 @@ export default class What extends Component {
                                 </span>
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="event-screen-scroller-footer">
-                                <ul className="social-media-list">
-                                    <li className="social-media-icon">
-                                        <Link to="/" class="fa fa-instagram"/>
-                                    </li>
-                                    <li>
-                                        <Link to="/" class="fa fa-facebook"/>
-                                    </li>
-                                    <li className="social-media-icon">
-                                        <Link to="/" class="fa fa-envelope-square"/>
-                                    </li>
-                                </ul>
-                                <div className="copyright-text">
-                                    <p> &copy; Copyright 2021 Coding Club</p>
-                                </div>
-                            </div>
+                        <hr/>
+                        <div>
+                            <ul className="social-media-list">
+                                <li className="social-media-icon">
+                                    <Link to="/" class="fa fa-instagram"/>
+                                </li>
+                                <li>
+                                    <Link to="/" class="fa fa-facebook"/>
+                                </li>
+                                <li className="social-media-icon">
+                                    <Link to="/" class="fa fa-envelope-square"/>
+                                </li>
+                            </ul>
+                            <span className="copyright-text">
+                                <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &copy; Copyright 2021 Coding Club</p>
+                            </span>
                         </div>
                     </p>
                 </div>

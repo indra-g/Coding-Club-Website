@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import {Link} from 'react-router-dom'
+//import {Link} from 'react-router-dom'
 //import logo from '../../../assets/img/logoCropped.png'
 import logo from "../../../assets/img/logo.png";
 
@@ -8,7 +8,7 @@ function ItemDetail({ props }) {
   useEffect(() => {
     fetchItem();
     console.log("Item Props : ", props);
-  }, []);
+  });
   const [item, setItem] = useState({});
   const [contributor, setcontributor] = useState("");
   const [title, settitle] = useState("");
@@ -19,7 +19,7 @@ function ItemDetail({ props }) {
       .get(`https://jsonplaceholder.typicode.com/posts/1`)
       .then((response) => {
         setItem(response.data);
-        console.log(response);
+        console.log(response,item);
       })
       .catch((reject) => {
         console.log(reject);
@@ -31,6 +31,7 @@ function ItemDetail({ props }) {
         setcontributor(script.data.Contributor);
         settitle(script.data.Title);
         setemail(script.data.Email);
+        console.log("Email at script Single",email);
         setcontent(script.data.Content);
       })
       .catch((reject) => {
@@ -58,7 +59,7 @@ function ItemDetail({ props }) {
                   <b>PSG TECH CODING CLUB</b>
                 </h3>
               </div>
-              <div className="col-sm-7"></div>
+              <div className="col-sm-7"/>
             </div>
           </div>
           <div className="card-body" style={{ background: "#f2f2f2" }}>

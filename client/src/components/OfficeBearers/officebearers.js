@@ -10,9 +10,9 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import '../../css/about.css';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+//import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {Link} from "react-router-dom";
-import {Carousel} from "bootstrap";
+//import {Carousel} from "bootstrap";
 
 export default class Officebearers extends Component {
     render() {
@@ -42,7 +42,8 @@ export default class Officebearers extends Component {
                     <p>
                         <div className="row">
                             <div className="heading">
-                                <span className="text-primary">Office</span> Bearers
+                                {/*<span className="text-primary">Office</span> Bearers*/}
+                                {/*<span className="text-primary">TEAM</span>*/}
                             </div>
                         </div>
                         <div className="row">
@@ -83,23 +84,20 @@ export default class Officebearers extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="row" style={{ paddingTop : "10px" }}>
-                            <div className="event-screen-scroller-footer">
-                                <ul className="social-media-list">
-                                    <li className="social-media-icon">
-                                        <Link to="/" class="fa fa-instagram"/>
-                                    </li>
-                                    <li>
-                                        <Link to="/" class="fa fa-facebook"/>
-                                    </li>
-                                    <li className="social-media-icon">
-                                        <Link to="/" class="fa fa-envelope-square"/>
-                                    </li>
-                                </ul>
-                                <div className="copyright-text">
-                                    <p> &copy; Copyright 2021 Coding Club</p>
-                                </div>
-                            </div>
+                        <hr/>
+                        <div>
+                            <ul className="social-media-list">
+                                <li className="social-media-icon">
+                                    <Link to="/" class="fa fa-instagram"/>
+                                </li>
+                                <li>
+                                    <Link to="/" class="fa fa-facebook"/>
+                                </li>
+                                <li className="social-media-icon">
+                                    <Link to="/" class="fa fa-envelope-square"/>
+                                </li>
+                            </ul>
+                            <span className="copyright-text"><p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &copy; Copyright 2021 Coding Club</p></span>
                         </div>
                     </p>
                 </div>

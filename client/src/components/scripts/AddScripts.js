@@ -1,13 +1,17 @@
 import React from 'react'
-import {useState,useEffect} from 'react';
+import {useState} from 'react';
 import Axios from 'axios';
 import '../../css/ScriptsScreen.css';
+import {useHistory} from "react-router-dom";
 
 function AddScripts() {
+    const history = useHistory()
     const [contributor,setcontributor]=useState('');
     const [title,settitle]=useState('');
     const [content,setcontent]=useState('');
     const [email,setemail]=useState('');
+    const [redirect, setRedirect] = useState(false);
+
     const submitfunction = ()=>{
         Axios.post('/api/scripts',{
             contributor:contributor,
@@ -17,10 +21,15 @@ function AddScripts() {
         }).then((result)=>{
             if(result.data.success){
                 alert("Scripts Contributed");
+                setRedirect(true);
             }
         }).catch((err)=>{
             console.log(err.toString());
         });
+    }
+
+    if(redirect){
+        history.push('/allScripts');
     }
     return (
         <div className='add-scripts'>
@@ -41,4 +50,4 @@ function AddScripts() {
     )
 }
 
-export default AddScripts 
+export default AddScripts;

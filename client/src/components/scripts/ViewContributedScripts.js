@@ -2,7 +2,7 @@ import React from 'react'
 import {useState,useEffect} from 'react';
 import Axios from 'axios';
 import userObj from '../../config/user_credentials';
-import {Redirect} from 'react-router-dom';
+//import {Redirect} from 'react-router-dom';
 import '../../css/contributeScriptsScreen.css';
 function ViewContributedScripts() {
     const [scriptsList,setList]=useState([]);
@@ -32,7 +32,7 @@ function ViewContributedScripts() {
         })
     }
     useEffect(()=>{
-        if(userObj.username!=''){
+        if(userObj.username!==''){
             setusername(userObj.username)
         }
         Axios.get('/api/contribute-scripts')

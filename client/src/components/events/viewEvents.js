@@ -54,7 +54,7 @@ function ViewEvents(props) {
         Super dream companies at your reach
       </Typography>
       <div className="col-md-7 order-md-1">
-        <img className="img-view-events" src={food} alt="error" />
+        <img className="img-view-events" src={food} alt="event" />
       </div>
       <div className="col-md-5 order-md-2">
         <Typography variant="h5" sx={{ fontWeight: "bold", pb: 3, pt:5 }}>

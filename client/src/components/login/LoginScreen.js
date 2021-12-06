@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import '../../css/loginScreen.css';
+import '../../css/signupScreen.css';
 import Axios from 'axios';
 import userObj from '../../config/user_credentials';
 import { Link, useHistory } from 'react-router-dom';
@@ -69,7 +70,7 @@ function LoginScreen() {
         <div className="container loginTop">
             <div className="row">
                 <div className="col-md-12 col-lg-9">
-                    <div className="col"></div>
+                    <div className="col"/>
                     <div className="col-sm-10 col-md-8 leftbox">
                         <div className="row">
                             <div className="col"></div>
@@ -103,22 +104,22 @@ function LoginScreen() {
                                 </div>
 
                                 <div className="row justify-content-center">
-                                <div className="col"></div>
+                                <div className="col"/>
                                     <div className="col">
                                         <button type="submit" onClick={submitFunction} className="mt-4 btn btn-primary loginbutton">Login</button>
                                     </div>
                                         
                             
-                                <div className="col"></div>
+                                <div className="col"/>
                                 </div>
                             </div>
-                            <div className="col"></div>
+                            <div className="col"/>
                         </div>
                     </div>
-                    <div className="col"></div>
+                    <div className="col"/>
                 </div>
                 
-                    <div className="col-lg-3 rightbox textStyle d-none d-lg-block d-xl-block">
+                <div className="col-lg-3 rightbox textStyle d-none d-lg-block d-xl-block">
                         <br/><br/><br/>
                         <br/><br/><br/>
                     <div className="img_container">

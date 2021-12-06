@@ -6,7 +6,7 @@ import '../../css/signupScreen.css'
 import validator from 'validator'
 import { Link, useHistory } from 'react-router-dom';
 import logo from '../../assets/img/Finalwhitelogo.png'
-import userObj from "../../config/user_credentials";
+//import userObj from "../../config/user_credentials";
 
 
 function SignUpScreen() {
@@ -85,6 +85,7 @@ function SignUpScreen() {
         else {
             setShowError(true);
             setError("Email address and password are required");
+            console.log(error,showError);
             setTimeout(() => setShowError(false) , 3000)
         }
     }
@@ -157,7 +158,6 @@ function SignUpScreen() {
                 </div>
             </div>
         </div>
-
     );
 }
 

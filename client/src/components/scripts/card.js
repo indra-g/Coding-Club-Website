@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import food from "../../assets/img/food.jpg";
 import { grey } from "@mui/material/colors";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Axios from "axios";
 
 export default function MediaCard(props) {
