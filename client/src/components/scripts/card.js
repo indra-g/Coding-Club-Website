@@ -62,14 +62,18 @@ export default function MediaCard(props) {
         >
           Read
         </Button>
-        <Button
-          sx={{ borderRadius: 2, mx: "auto", fontWeight: 600 }}
-          size="medium"
-          style={{ backgroundColor: grey800, color: "white" }}
-          onClick={() => individualScript(props.scriptData._id, "edit")}
-        >
-          Edit
-        </Button>
+        {localStorage.getItem('token')?
+            <Button
+                sx={{ borderRadius: 2, mx: "auto", fontWeight: 600 }}
+                size="medium"
+                style={{ backgroundColor: grey800, color: "white" }}
+                onClick={() => individualScript(props.scriptData._id, "edit")}
+            >
+              Edit
+            </Button>
+            :null}
+
+        {localStorage.getItem('token')?
         <Button
           sx={{ borderRadius: 2, mx: "auto", fontWeight: 600 }}
           size="medium"
@@ -78,6 +82,7 @@ export default function MediaCard(props) {
         >
           Delete
         </Button>
+            :null}
       </CardActions>
     </Card>
   );

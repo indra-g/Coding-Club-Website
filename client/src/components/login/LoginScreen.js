@@ -124,7 +124,7 @@ function LoginScreen() {
                         <br/><br/><br/>
                     <div className="img_container">
                         <center>
-                            <img src={logo} alt="can't fetch"/>
+                            <img src={logo} alt="can't fetch" height={"250px"} width={"250px"}/>
                         </center>
                             <br/><br/><br/>
                             <div className="text-block">

@@ -1,5 +1,6 @@
 import * as React from "react";
 import Card from "@mui/material/Card";
+import "../../css/card.css"
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -18,7 +19,8 @@ export default function MediaCard(props) {
     ImageUrl:'',
     EventTitle:'',
     PresenterName:'',
-    Date:''
+    Date:'',
+    EventLink:''
   });
 
   useEffect(() => {
@@ -59,12 +61,12 @@ export default function MediaCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions sx={{ pb: 3 }}>
-        <Button
+        <Button onClick={() => { }}
           sx={{ borderRadius: 2, mx: "auto", fontWeight: 600 }}
           size="small"
           style={{ backgroundColor: grey800, color: "white" }}
         >
-          Join
+          <a target={'_blank'} href={data?data.EventLink:''} className={"anchor-style"}> View Event </a>
         </Button>
       </CardActions>
     </Card>

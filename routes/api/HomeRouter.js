@@ -205,7 +205,6 @@ async function uploadFile(filename,ext) {
 }
 
 router.post('/events',multer({storage:imageStorage}).single("image"),async (req,res)=>{
-    console.log("Hello World")
     const PresenterName = req.body.presenter_name;
     const EventTitle = req.body.event_title;
     const Description = req.body.description;
