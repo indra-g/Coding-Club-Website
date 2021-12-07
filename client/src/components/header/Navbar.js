@@ -11,10 +11,13 @@ import logo from "../../assets/img/logoCropped.png";
 import {Nav, NavDropdown} from "react-bootstrap";
 import User from "../../config/user_credentials";
 import {useState} from "react";
+import {Link} from "react-router-dom";
+//import "./navbar.css";
 
 export default function ButtonAppBar() {
   const history = useHistory();
   const [user, setuser] = useState(User);
+  const [isMobile,setIsMobile] = useState(false);
 
   const logOutfunction = () => {
     alert("Logout Function Exceuted");
@@ -37,6 +40,17 @@ export default function ButtonAppBar() {
   };
 
   return (
+      // <nav className={"navbar"}>
+      //   <h3 className={"logo"}>Logo</h3>
+      //   <ul className={isMobile ?"nav-links-mobile":"nav-links"} onClick={() => setIsMobile(false)}>
+      //     <Link to={"/"} className={"home"}><li>Home</li></Link>
+      //     <Link to={"/about"} className={"about"}><li>About</li></Link>
+      //     <Link to={"/contact"} className={"contact"}><li>Contact</li></Link>
+      //   </ul>
+      //   <button className={"mobile-menu-icon"} onClick={() => setIsMobile(!isMobile)}>
+      //     {isMobile?<i className={"fas fa-times"}/>:<i className={"fas fa-bars"}/>}
+      //   </button>
+      // </nav>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar color="transparent" elevation={0} position="static">
           <Toolbar>

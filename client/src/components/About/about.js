@@ -17,7 +17,7 @@ export default class About extends Component {
                 <Box sx={{ flexGrow: 1 }}>
                     <AppBar color="transparent" elevation={0} position="static">
                         <Toolbar>
-                            <Link to="/">
+                            <Link to="/events-home">
                             <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
                                 <img
                                     src={logo}

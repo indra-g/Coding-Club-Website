@@ -58,7 +58,7 @@ const ListofScripts = () => {
       <Box sx={{ flexGrow: 1 }}>
         <AppBar color="transparent" elevation={0} position="static">
           <Toolbar>
-            <Link to="/">
+            <Link to="/events-home">
               <IconButton
                 size="large"
                 edge="start"

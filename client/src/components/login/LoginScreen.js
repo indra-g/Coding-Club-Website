@@ -28,7 +28,7 @@ function LoginScreen() {
                         localStorage.setItem( 'token' , result.data.token )
                         //localStorage.setItem( 'email' , this.loginUserData.email )
                         alert('Successfully Logged In');
-                        history.push("/");
+                        history.push("/events-home");
                         // Object.freeze(User);
                     }
                     else {

@@ -18,23 +18,27 @@ function EventScreen() {
         <div className="col-md-12 col-lg-9">
           <div className="col"/>
           <div className="col-sm-10 col-md-8 left-box">
-              <Navbar username={user.username} />
-              <EventSlider />
-              <div>
-                <ul className="social-media-list">
-                  <li className="social-media-icon">
-                    <Link to="/" class="fa fa-instagram"/>
-                  </li>
-                  <li>
-                    <Link to="/" class="fa fa-facebook"/>
-                  </li>
-                  <li className="social-media-icon">
-                    <Link to="/" class="fa fa-envelope-square"/>
-                  </li>
-                </ul>
-                <span className="copyright-text">
-                <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &copy; Copyright 2021 Coding Club</p>
-              </span>
+              <div className={"row"}>
+                  <div className="col"></div>
+                  <div className="col">
+                      <Navbar username={user.username} />
+                      <EventSlider />
+                      <div>
+                          <ul className="social-media-list">
+                              <li className="social-media-icon">
+                                  <Link to="/" class="fa fa-instagram"/>
+                              </li>
+                              <li>
+                                  <Link to="/" class="fa fa-facebook"/>
+                              </li>
+                              <li className="social-media-icon">
+                                  <Link to="/" class="fa fa-envelope-square"/>
+                              </li>
+                          </ul>
+                          <span className="copyright-text"><p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &copy; Copyright 2021 Coding Club</p></span>
+                      </div>
+                  </div>
+                  <div className="col"></div>
               </div>
           </div>
           <div className="col"/>
