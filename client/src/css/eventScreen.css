@@ -382,8 +382,9 @@ ul.social-media-list li:not(:last-child) {
 .right-box {
   position: relative;
   /* width: 320px; */
-  height: 740px;
-  top: 30px;
+  height: 760px;
+  top: 10px;
+  bottom: 10px;
   background: linear-gradient(360deg, #251993 0%, rgba(62, 49, 183, 0.91) 99.48%);
   border-radius: 20px;
 }
@@ -397,7 +398,8 @@ ul.social-media-list li:not(:last-child) {
   /* width: 928px; */
   /*height: 700px;*/
   /* left: 31px; */
-  top: 30px;
+  top: 10px;
+  bottom: 10px;
   background: rgba(196, 196, 196, 0.15);
   border-radius: 20px;
 }

@@ -37,7 +37,8 @@ export default function MediaCard(props) {
       sx={{ maxWidth: 345, borderRadius: 5 }}
       style={{ backgroundColor: "black", color: "white" }}
     >
-      <CardMedia component="img" height="140" image={food} alt="green iguana" />
+      {/*<CardMedia component="img" height="140" image={food} alt="green iguana" style={{objectFit:"contain"}} />*/}
+      <CardMedia component="img" height="140" image={food} alt="green iguana"/>
       <CardContent sx={{ textAlign: "center" }}>
         <Typography
           sx={{ fontWeight: 700, fontSize: 18, pb: 2 }}

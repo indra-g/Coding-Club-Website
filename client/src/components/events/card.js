@@ -44,6 +44,13 @@ export default function MediaCard(props) {
           image={data?data.ImageUrl:''}
           alt="green iguana"
         />
+        {/*<CardMedia*/}
+        {/*    component="img"*/}
+        {/*    height="140"*/}
+        {/*    image={data?data.ImageUrl:''}*/}
+        {/*    style={{objectFit:"contain",margin:10}}*/}
+        {/*    alt="green iguana"*/}
+        {/*/>*/}
         <CardContent sx={{ textAlign: "center" }}>
           <Typography
             sx={{ fontWeight: 700, fontSize: 18, pb: 2 }}

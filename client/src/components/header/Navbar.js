@@ -37,56 +37,56 @@ export default function ButtonAppBar() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar color="transparent" elevation={0} position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <img
-              src={logo}
-              alt="can't fetch"
-              style={{ height: "50px", width: "90px" }}
-            />
-          </IconButton>
-          <Typography variant="h5" component="div" sx={{ flexGrow: 1, fontWeight:"bold" }}>
-            PSG Tech Coding Club
-          </Typography>
-          <Button onClick={() => goToPage("script")} color="inherit">
-            Scripts
-          </Button>
-          <Button onClick={() => goToPage("event")} color="inherit">
-            Events
-          </Button>
-          <Button onClick={() => goToPage("about")} color="inherit">
-            About
-          </Button>
-          <Button onClick={() => goToPage("what")} color="inherit">
-            What
-          </Button>
-          <Button onClick={() => goToPage("officeBearers")} color="inherit">
-            Team
-          </Button>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar color="transparent" elevation={0} position="static">
+          <Toolbar>
+            <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{ mr: 2 }}
+            >
+              <img
+                  src={logo}
+                  alt="can't fetch"
+                  style={{ height: "50px", width: "90px" }}
+              />
+            </IconButton>
+            <Typography variant="h5" component="div" sx={{ flexGrow: 1, fontWeight:"bold" }}>
+              PSG Tech Coding Club
+            </Typography>
+            <Button onClick={() => goToPage("script")} color="inherit">
+              Scripts
+            </Button>
+            <Button onClick={() => goToPage("event")} color="inherit">
+              Events
+            </Button>
+            <Button onClick={() => goToPage("about")} color="inherit">
+              About
+            </Button>
+            <Button onClick={() => goToPage("what")} color="inherit">
+              What
+            </Button>
+            <Button onClick={() => goToPage("officeBearers")} color="inherit">
+              Team
+            </Button>
 
-          <IconButton size="large">
-            <MenuIcon />
-            <Nav>
-              <NavDropdown>
+            <IconButton size="large">
+              <MenuIcon />
+              <Nav>
+                <NavDropdown>
                   {localStorage.getItem( 'token' )?
                       <NavDropdown.Item>
-                      <Button onClick={() => goToPage("add-event")} color="inherit">
-                        Add Events
-                      </Button>
+                        <Button onClick={() => goToPage("add-event")} color="inherit">
+                          Add Events
+                        </Button>
                       </NavDropdown.Item>
                       :<NavDropdown.Item>
-                          <Button onClick={() => goToPage("contribute-script")} color="inherit">
+                        <Button onClick={() => goToPage("contribute-script")} color="inherit">
                           Contribute Scripts
-                          </Button>
-                       </NavDropdown.Item>
+                        </Button>
+                      </NavDropdown.Item>
                   }
                   {localStorage.getItem( 'token' )?
                       <NavDropdown.Item>
@@ -104,11 +104,11 @@ export default function ButtonAppBar() {
                       </NavDropdown.Item>
                       :null
                   }
-              </NavDropdown>
-            </Nav>
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-    </Box>
+                </NavDropdown>
+              </Nav>
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+      </Box>
   );
 }
