@@ -1,9 +1,36 @@
 const express = require('express')
 const router = express.Router()
+const jwt = require('jsonwebtoken')
+const multer = require("multer");
+const fs = require("fs");
+const { google } = require('googleapis');
+const path = require('path');
+
 const Events = require('../../models/Events');
 const Users = require('../../models/Users');
 const Scripts = require('../../models/Scripts');
 const Contributes = require('../../models/contributedScripts');
+
+/* Token Verifier */
+// Use this token verifier whenever verification of user is required
+function verifyToken( req , res , next ) {
+    if( !req.headers.authorization ){
+        return res.status(401).send( "Unauthorized request ")
+    }
+    let token = req.headers.authorization.split(' ')[1]
+    if( token === 'null' )
+    {
+        return res.status(401).send( "Unauthorized req ")
+    }
+    let payload = jwt.verify( token,'secretKey')
+    if( !payload ){
+        return res.status(401).send( "Unauthorized user ")
+    }
+    req.userId = payload.subject
+    next()
+}
+/* END Token Verifier */
+
 router.get('/events',(req,res)=>{
     Events.find()
     .sort({date:-1})
@@ -60,19 +87,140 @@ router.post('/events/:id',(req,res)=>{
     })
     
 })
-router.post('/events',(req,res)=>{
+// router.post('/events',(req,res)=>{
+//     const PresenterName = req.body.presenter_name;
+//     const EventTitle = req.body.event_title;
+//     const Description = req.body.description;
+//     const Link = req.body.link;
+//     const ImageUrl = req.body.imageUrl;
+//     const date = req.body.date;
+//     const event = new Events({
+//         PresenterName:PresenterName,
+//         EventTitle : EventTitle,
+//         Description:Description,
+//         EventLink : Link,
+//         ImageUrl:ImageUrl,
+//         Date:date,
+//     });
+//     event.save((err)=>{
+//         if(err){
+//             console.log(err.toString());
+//             console.log('Error Occurred while adding');
+//             res.status(404).json({'success':false})
+//         }else{
+//             res.status(200).json({'success' : true});
+//         }
+//     });
+// });
+
+/* Image Upload with google drive API */
+const CLIENT_ID = '492089325216-tvhvcd3367hn0vrq587a3ssm9s8oobr6.apps.googleusercontent.com';
+const CLIENT_SECRET = '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';
+const REDIRECT_URI = 'https://developers.google.com/oauthplayground';
+const REFRESH_TOKEN = '1//04yAwALQuhMzPCgYIARAAGAQSNwF-L9Ir_H0KJ6lnq4xvDblPkBynZNoDC_9UPri909NZwuUYkUJB6B7G_8oy1xm5fW9n2MlXBFc';
+
+const oauth2Client = new google.auth.OAuth2(
+    CLIENT_ID,CLIENT_SECRET,REDIRECT_URI
+);
+
+oauth2Client.setCredentials({refresh_token:REFRESH_TOKEN})
+
+const drive = google.drive({
+    version:'v3',
+    auth:oauth2Client
+})
+
+let user_img_name,user_img_ext,isValidImage;
+const MIME_TYPE_MAP = {
+    'image/png': 'png',
+    'image/jpeg': 'jpeg',
+    'image/jpg': 'jpg'
+};
+const imageStorage = multer.diskStorage({
+    destination: (req,file,callback) => {
+        //console.log(file,MIME_TYPE_MAP[file.mimetype]);
+        isValidImage = MIME_TYPE_MAP[file.mimetype];
+        let error = new Error("Invalid Mime Type");
+        if(isValidImage){
+            user_img_ext = file.mimetype;
+            error = null;
+        }
+        callback(error,"images"); //path should be relative to server.js file
+    },
+    filename: (req,file,callback) => {
+        const name = file.originalname.toLowerCase().split(' ').join('-');
+        let ext = MIME_TYPE_MAP[file.mimetype];
+        user_img_name = req.body.name+'.'+ ext;
+        callback(null,user_img_name);
+    }
+});
+
+async function generatePublicUrl(file_Id){
+    try{
+        //const fileId = '1Q8KOOPU2vw-MjUzCeaUTvY5cDFVNb5z5'
+        const fileId = file_Id
+        await drive.permissions.create({
+            fileId: fileId,
+            requestBody:{
+                role:'reader',
+                type:'anyone'
+            }
+        })
+
+        const result = await drive.files.get({
+            fileId: fileId,
+            fields: 'webViewLink, webContentLink'
+        })
+
+        console.log(result.data);
+    }catch(error){
+        console.log(error.message);
+    }
+}
+
+
+async function uploadFile(filename,ext) {
+
+    const filePath = path.join(__dirname,'../../images/'+filename)
+
+    try{
+        const response = await drive.files.create({
+            requestBody:{
+                name:'event-image.png',
+                mimeType: 'image/png'
+            },
+            media:{
+                mimeType:'image/png',
+                body: fs.createReadStream(filePath)
+            }
+        })
+
+        console.log(response.data);
+        await generatePublicUrl(response.data.id);
+        return response.data.id;
+    } catch(error){
+        console.log(error.message);
+        return null;
+    }
+}
+
+router.post('/events',multer({storage:imageStorage}).single("image"),async (req,res)=>{
     const PresenterName = req.body.presenter_name;
     const EventTitle = req.body.event_title;
     const Description = req.body.description;
     const Link = req.body.link;
-    const ImageUrl = req.body.imageUrl;
+    const uploadedFileId = await uploadFile(user_img_name,user_img_ext);
+    let imgUrl = ''
+    if(uploadedFileId)  imgUrl = "https://drive.google.com/uc?export=view&id=" + uploadedFileId;
+
+    //const ImageUrl = req.body.imageUrl;
     const date = req.body.date;
     const event = new Events({
         PresenterName:PresenterName,
         EventTitle : EventTitle,
         Description:Description,
         EventLink : Link,
-        ImageUrl:ImageUrl,
+        ImageUrl:imgUrl,
         Date:date,
     });
     event.save((err)=>{
@@ -82,7 +230,7 @@ router.post('/events',(req,res)=>{
             res.status(404).json({'success':false})
         }else{
             res.status(200).json({'success' : true});
-        }   
+        }
     });
 });
 
@@ -126,7 +274,10 @@ router.post('/login/add',(req,res)=>{
         isJs:isjs
     });
 
-    user.save().then(()=>{
+    user.save().then(response =>{
+        //let payload = {subject:user._id,username:username}
+        //console.log("The signed in user :" , user._id)
+        //let token = jwt.sign( payload, 'secretKey')
         res.status(200).json({'success':true});
     }).catch((err)=>{
         console.log(err.toString());
@@ -134,7 +285,7 @@ router.post('/login/add',(req,res)=>{
 });
 
 router.post('/login',(req,res)=>{
-    const email = req.body.email;
+    /*const email = req.body.email;
     const password = req.body.password;
     Users.find({Email:email}).then((users)=>{
         users.forEach((user)=>{
@@ -149,7 +300,46 @@ router.post('/login',(req,res)=>{
         });
     }).catch((err)=>{
         console.log(err.toString());
-    });
+    });*/
+
+    try {
+        Users.find({ Email: req.body.email }).then((currentUser)=>{
+            console.log(currentUser);
+            if (currentUser !== []) {
+                console.log(currentUser[0].Password, req.body.password)
+                if (currentUser[0].Password === req.body.password) {
+
+                    console.log("Password match")
+                    const id = currentUser[0]._id;
+                    const username = currentUser[0].Username;
+                    const payload = {id,username};
+                    jwt.sign( payload, 'secretKey',{expiresIn:"1d"}, (err,token) => {
+                        if(err) console.log(err);
+                        else{
+                            return res.status(200).json({'success':true,'username':currentUser.Username,'name':currentUser.Name , token:token})
+                            //return res.status(200).json({'success':true,'username':currentUser.Username,'name':currentUser.Name , 'token':token})
+                        }
+                    });
+                    //console.log("Token Gen is : " , token )
+                    //return res.status(200).json({ currentUser: currentUser, message: "successfully"});
+                }
+                else {
+                    console.log("password mismatch")
+                    return res.status(200).json({'success':false,message: "Invalid EmailID or Password"})
+                }
+            }
+            else {
+                console.log("Email mismatch")
+                return res.status(200).json({'success':false,message: "Invalid EmailID or Password"})
+            }
+        })
+            .catch((e)=>{
+                console.log("Email mismatch error caught ")
+                return res.status(200).json({'success':false,"message": "Invalid EmailID"})
+             })
+    } catch (error) {
+        return res.status(200).json({'success':false,"message": "Invalid EmailID or Password"})
+    }
 
 });
 
@@ -167,8 +357,9 @@ router.get('/scripts',(req,res)=>{
 });
 
 router.get('/scripts/:id',(req,res)=>{
-    Scripts.findById(req.params.id)
+    Scripts.findById( req.params.id )
     .then((script)=>{
+        //console.log( script )
         res.status(200).json(script);
     })
     .catch((err)=>{
