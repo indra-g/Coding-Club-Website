@@ -12,6 +12,42 @@ import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 function EventSlider() {
     const [eventsList, setList] = useState([]);
     const sliderRef = useRef(null);
+
+    var settings = {
+        dots: true,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        initialSlide: 0,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    initialSlide: 2
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
+    };
+
     useEffect(() => {
     Axios.get("/api/events")
       .then((result) => {
@@ -44,7 +80,7 @@ function EventSlider() {
             <div className="album py-5">
               <div className="container">
                 <div>
-                    <Slider ref={sliderRef} slidesToShow={2}>
+                    <Slider ref={sliderRef} {...settings}>
                         {eventsList && eventsList.map((event) => (
                             <div style={{margin:20}} className="col" key={event._id}>
                               <MediaCard eventData={event} />

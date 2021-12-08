@@ -21,6 +21,7 @@ function SignUpScreen() {
     const [nameError,setNameError] = useState(null);
     const validateName = (name) => {
         (name.length >= 3)?setNameError(null):setNameError("Invalid Name, Need atleast three characters");
+        return name;
     }
 
     // For Email Validation
@@ -33,6 +34,7 @@ function SignUpScreen() {
         } else {
             setEmailError('Enter valid Email!')
         }
+        return email;
     }
 
     // For Password Validation
@@ -51,9 +53,12 @@ function SignUpScreen() {
             setPasswordError('Password is weak!')
             setPasswordErrorColor('red')
         }
+        return value;
     }
 
     const submitfunction = ()=>{
+
+        // console.log(emailid,password,username);
 
         if (emailid !== "" && password !== "") {
             if (emailid.includes("@psgtech.ac.in")) {
@@ -65,11 +70,11 @@ function SignUpScreen() {
                     name:username
                 }).then((result)=>{
                     if(result.data.success){
-                        alert('You are successfully registered!');
+                        alert(result.data.message);
                         history.push('/login');
                     }
                     else{
-                        alert('Not Added!!');
+                        alert(result.data.message);
                     }
                 }).catch((err)=>{
                     console.log(err.toString());
