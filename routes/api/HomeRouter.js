@@ -257,7 +257,7 @@ router.get('/login',(req,res)=>{
     res.json({'Hello':'From Server'});
 });
 
-router.post('/login/add',(req,res)=>{
+router.post('/login/add',async (req,res)=>{
     const email = req.body.email;
     const password = req.body.password;
     const username = req.body.username;
@@ -265,6 +265,10 @@ router.post('/login/add',(req,res)=>{
     const isjs =true;
 
     // console.log(email,username,name,password,isjs);
+    const userExists = await Users.findOne({ Email: email});
+    //console.log(email,userExists);
+    if(userExists)
+        return res.json({'success':false, message:"User already exists"});
 
     const user = new Users({
         Email:email,
@@ -278,7 +282,7 @@ router.post('/login/add',(req,res)=>{
         //let payload = {subject:user._id,username:username}
         //console.log("The signed in user :" , user._id)
         //let token = jwt.sign( payload, 'secretKey')
-        res.status(200).json({'success':true});
+        res.status(200).json({'success':true, message:"Registration Successful"});
     }).catch((err)=>{
         console.log(err.toString());
     });
