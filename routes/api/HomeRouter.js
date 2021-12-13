@@ -59,34 +59,7 @@ router.get('/events/:id',(req,res)=>{
         console.log(err.toString())
     });
 });
-router.post('/events/:id',(req,res)=>{
-    const presentername = req.body.presentername;
-    const title = req.body.title;
-    const link = req.body.link;
-    const description = req.body.description;
-    const url=req.body.imageurl;
-    const date = req.body.date;
 
-    Events.findById(req.params.id)
-    .then((event)=>{
-        event.PresenterName=presentername;
-        event.EventTitle=title;
-        event.Description=description;
-        event.ImageUrl=url;
-        event.EventLink=link;
-        event.Date=date;
-        event.save().then(()=>{
-            res.status(200).json({'success':true})
-        })
-        .catch((err)=>{
-            console.log(err.toString());
-        });
-    })
-    .catch((err)=>{
-        console.log(err.toString());
-    })
-    
-})
 // router.post('/events',(req,res)=>{
 //     const PresenterName = req.body.presenter_name;
 //     const EventTitle = req.body.event_title;
@@ -117,7 +90,8 @@ router.post('/events/:id',(req,res)=>{
 const CLIENT_ID = '492089325216-tvhvcd3367hn0vrq587a3ssm9s8oobr6.apps.googleusercontent.com';
 const CLIENT_SECRET = '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';
 const REDIRECT_URI = 'https://developers.google.com/oauthplayground';
-const REFRESH_TOKEN = '1//04yAwALQuhMzPCgYIARAAGAQSNwF-L9Ir_H0KJ6lnq4xvDblPkBynZNoDC_9UPri909NZwuUYkUJB6B7G_8oy1xm5fW9n2MlXBFc';
+//const REFRESH_TOKEN = '1//04yAwALQuhMzPCgYIARAAGAQSNwF-L9Ir_H0KJ6lnq4xvDblPkBynZNoDC_9UPri909NZwuUYkUJB6B7G_8oy1xm5fW9n2MlXBFc';
+const REFRESH_TOKEN = '1//04r9snNgYmR2lCgYIARAAGAQSNwF-L9IrS3p2sYaGwYUb1eY4G-KaixdK_A7cHwquoxHkJelLakLMKpFFQcVCj4GIDIsQbkpZj8U';
 
 const oauth2Client = new google.auth.OAuth2(
     CLIENT_ID,CLIENT_SECRET,REDIRECT_URI
@@ -234,6 +208,54 @@ router.post('/events',multer({storage:imageStorage}).single("image"),async (req,
     });
 });
 
+router.post('/events/:id',multer({storage:imageStorage}).single("image"), async (req,res)=>{
+    const presentername = req.body.presenter_name;
+    const title = req.body.event_title;
+    const link = req.body.link;
+    const description = req.body.description;
+    let imgUrl = null;
+    console.log("isValidImage :",isValidImage);
+    if(isValidImage){
+        const uploadedFileId = await uploadFile(user_img_name,user_img_ext);
+        if(uploadedFileId)  imgUrl = "https://drive.google.com/uc?export=view&id=" + uploadedFileId;
+    }
+    //const url=req.body.imageurl;
+    const url = imgUrl;
+    const date = req.body.date;
+
+    Events.findById(req.params.id)
+        .then((event)=>{
+            event.PresenterName=presentername;
+            event.EventTitle=title;
+            event.Description=description;
+            if(url!=null) event.ImageUrl=url;
+            // console.log(url);
+            event.EventLink=link;
+            event.Date=date;
+            event.save().then(()=>{
+                res.status(200).json({'success':true})
+            })
+                .catch((err)=>{
+                    console.log(err.toString());
+                });
+        })
+        .catch((err)=>{
+            console.log(err.toString());
+        })
+
+})
+
+async function deleteFile(id) {
+    try{
+        const response = await drive.files.delete({
+            fileId: id,
+        });
+        console.log(response.data,response.status);
+    } catch(error){
+        console.log(error.message);
+    }
+}
+
 router.delete('/events/:id',(req,res)=>{
     Events.findById(req.params.id)
     .then((event)=>{
@@ -241,6 +263,11 @@ router.delete('/events/:id',(req,res)=>{
             res.status(404).json({failure : 'No Such Id'});
         }
         else{
+            const fileId = event.ImageUrl;
+            console.log(fileId.split('id=')[1]);
+            deleteFile(fileId.split('id=')[1]).then(() => {
+                console.log('File Deleted Successful')
+            })
             event.remove()
             .then(()=>{res.status(200).json({success : true})})
             .catch((err)=> {res.status(404).json({success : false})});

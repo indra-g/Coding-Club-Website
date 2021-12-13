@@ -64,7 +64,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/events-home" component={EventScreen} />
           <ProtectedEntryRoute exact path="/login" component={LoginScreen} />
-          <ProtectedEntryRoute exact path="/signup" component={SignUpScreen} />
+          <ProtectedRoute exact path="/signup" component={SignUpScreen} />
           <ProtectedRoute exact path="/add-event" component={AddEvents} />
           <ProtectedRoute exact path="/edit-event/:id" component={EditEvents} />
           <ProtectedRoute exact path="/add-script" component={AddScripts} />
