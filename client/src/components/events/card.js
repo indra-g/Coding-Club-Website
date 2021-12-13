@@ -11,10 +11,12 @@ import { grey } from "@mui/material/colors";
 import { useHistory } from "react-router-dom";
 import { CardActionArea } from "@mui/material";
 import {useEffect, useState} from "react";
+import Axios from "axios";
 
 export default function MediaCard(props) {
   const grey800 = grey[800];
   const history = useHistory();
+
   const [data, setData] = useState({
     ImageUrl:'',
     EventTitle:'',
@@ -28,16 +30,37 @@ export default function MediaCard(props) {
   },[props.eventData]);
   //console.log(props.eventData);
 
-  const viewEventsPage = () => {
-    history.push("/view-event/123");
+  const editEvent = (id) =>{
+    console.log(id);
+    history.push(`/edit-event/${id}`);
+  }
+
+  const deleteEvent = async (id) => {
+    console.log(id);
+    Axios.delete(`/api/events/${id}`)
+        .then((result) => {
+          if (result.data.success) {
+            alert("Deleted Successfully!!");
+            history.push("/events-home");
+          }
+        })
+        .catch((err) => {
+          console.log(err.toString());
+        });
+  };
+
+  const viewEvent = (id) => {
+    console.log(id);
+    //history.push("/view-event/123");
+    history.push(`/view-event/${id}`);
   };
 
   return (
     <Card
-      sx={{ maxWidth: 345, borderRadius: 5 }}
+      sx={{ maxWidth: 395, borderRadius: 5 }}
       style={{ backgroundColor: "black", color: "white" }}
     >
-      <CardActionArea onClick={viewEventsPage}>
+      <CardActionArea>
         <CardMedia
           component="img"
           height="140"
@@ -63,18 +86,39 @@ export default function MediaCard(props) {
             {data?data.PresenterName:''}
           </Typography>
           <Typography sx={{ mx: "auto" }} variant="body2">
-            {data?data.Date:''}
+            {data?new Date(data.Date).toDateString():''}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions sx={{ pb: 3 }}>
-        <Button onClick={() => { }}
+        <Button onClick={() => viewEvent(props.eventData._id)}
           sx={{ borderRadius: 2, mx: "auto", fontWeight: 600 }}
           size="small"
-          style={{ backgroundColor: grey800, color: "white" }}
-        >
-          <a target={'_blank'} href={data?data.EventLink:''} className={"anchor-style"}> View Event </a>
+          style={{ backgroundColor: grey800, color: "white" }}>
+          {/*<a target={'_blank'} href={data?data.EventLink:''} className={"anchor-style"}> View </a>*/}
+          View
         </Button>
+        {localStorage.getItem('token')?
+            <Button
+                sx={{ borderRadius: 2, mx: "auto", fontWeight: 600 }}
+                size="medium"
+                style={{ backgroundColor: grey800, color: "white" }}
+                onClick={() => editEvent(props.eventData._id)}
+            >
+              Edit
+            </Button>
+            :null}
+
+        {localStorage.getItem('token')?
+            <Button
+                sx={{ borderRadius: 2, mx: "auto", fontWeight: 600 }}
+                size="medium"
+                style={{ backgroundColor: grey800, color: "white" }}
+                onClick={() => deleteEvent(props.eventData._id)}
+            >
+              Delete
+            </Button>
+            :null}
       </CardActions>
     </Card>
   );
