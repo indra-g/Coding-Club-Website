@@ -13,10 +13,8 @@ import { ProtectedEntryRoute } from "./components/RouteProtection/ProtectedEntry
 // import EditEvents from "./components/events/EditEvents";
 // import ViewEvents from "./components/events/viewEvents";
 // import ListOfEvents from "./components/events/listOfEvents";
-
 // import LoginScreen from "./components/login/LoginScreen";
 // import SignUpScreen from "./components/signup/SignUpScreen";
-
 // import AddScripts from "./components/scripts/AddScripts";
 // import ListOfScripts from "./components/scripts/listOfScripts";
 // import ScriptsScreen from "./components/scripts/ScriptsScreen";
@@ -25,7 +23,7 @@ import { ProtectedEntryRoute } from "./components/RouteProtection/ProtectedEntry
 // import ContributeScripts from "./components/scripts/contributeScripts";
 // import EditContributedScripts from "./components/scripts/EditContributedScripts";
 // import ViewContributedScripts from "./components/scripts/ViewContributedScripts";
-//import ItemDetail from "./components/scripts/scriptsSingle/scriptSingle";
+// import ItemDetail from "./components/scripts/scriptsSingle/scriptSingle";
 // import About from "./components/About/about";
 // import What from "./components/WhatWeDo/what"
 // import Officebearers from "./components/OfficeBearers/officebearers";
