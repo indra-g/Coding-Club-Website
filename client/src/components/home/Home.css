@@ -203,20 +203,22 @@ p {
 
 .img {
   margin-top: -180px;
+  margin-bottom: -80px;
 }
 
 /* For Mobile */
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
   #home-showcase .showcase-content img {
-    height: 200px;
-    width: 200px;
+    height: 250px;
+    width: 250px;
   }
   .heading {
     font-size: 1.5rem;
   }
   .l-leading {
     font-size: 3rem;
+    margin-top: 10px;
   }
   .lead {
     font-size: 1.5rem;
