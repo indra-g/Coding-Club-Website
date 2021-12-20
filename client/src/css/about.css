@@ -85,9 +85,56 @@
   position: absolute;
   top: 0;
 }
-.wrapper{
-    margin: 50px;
+.wrapper {
+  margin: 50px;
 }
 .border-col {
   border: 15px solid #251993;
+}
+
+/* Indra  */
+
+.img-wrapper {
+  width: 100%;
+  text-align: center;
+}
+.main-image {
+  width: 90vh;
+}
+.about-wrapper {
+  margin: 10px 100px;
+}
+.inside-text {
+  width: 80%;
+  font-weight: 300;
+  font-size: 80%;
+  text-align: start;
+}
+.inside-text-2 {
+  margin-top: 57px;
+}
+.heading-about {
+  margin-left: 10%;
+  text-align: start;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+.col-lg {
+  text-align: -webkit-center;
+}
+.line {
+  margin: 50px 70px;
+  color: black;
+  opacity: 100%;
+}
+.fa {
+  padding: 0px;
+}
+.footer {
+  text-align: center;
+}
+@media screen and (max-width: 991px) {
+  .about-wrapper {
+    margin: 30px 30px;
+  }
 }
