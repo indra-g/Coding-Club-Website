@@ -159,7 +159,7 @@ function LoginScreen() {
     //     </div>
     //   </div>
     // </div>
-    <div class="container">
+    <div class="wrapper">
       <div class="row top-box">
         <div class="col-8 background">
           <div class="login-wrapper">
@@ -186,7 +186,7 @@ function LoginScreen() {
               <div className="col">
                 <h5 className="bot-text">
                   Not a member?
-                  <Link to="/signup"> Register</Link>
+                  <Link to="/signup"> Register </Link>
                 </h5>
               </div>
               <div className="col">

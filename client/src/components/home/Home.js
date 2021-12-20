@@ -1,5 +1,5 @@
 import React from 'react';
-import './Home.css'
+import '../../css/Home.css'
 import PSGLogo from "../../assets/img/PSGWhiteLogo.png";
 import CodingClubLogo from "../../assets/img/Finalwhitelogo.png";
 import { useHistory } from "react-router-dom";

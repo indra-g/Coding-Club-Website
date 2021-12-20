@@ -13,21 +13,19 @@
   font-weight: 100;
   font-size: 20px;
 }
-.container {
-  height: 99vh;
-  padding: 0;
+.wrapper {
+  margin: 30px;
 }
 .col-8 {
   display: flex;
   vertical-align: middle;
-  height: 90vh;
-  margin-top: 50px;
+  height: 93vh;
   background-color: rgba(196, 196, 196, 0.15);
 }
 .rightbox {
   display: flex;
-  height: 90vh;
-  margin: 50px 10px;
+  height: 93vh;
+  margin-left: 10px;
   background: linear-gradient(
     360deg,
     #251993 0%,
@@ -87,7 +85,7 @@
   text-align: center;
 }
 .loginbutton {
-  margin-top: 45px;
+  margin-top: 40px;
   font-family: Ubuntu;
   font-size: 15px;
 }
@@ -104,12 +102,10 @@
   .rightbox {
     display: none;
   }
-  .top-box {
-    margin-left: -80px;
-    margin-right: -80px;
+  .col-8 {
+    width: 100%;
   }
-  .login-wrapper{
+  .login-wrapper {
     width: 80%;
   }
-  
 }
