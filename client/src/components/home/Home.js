@@ -12,7 +12,7 @@ const Home = () => {
     return (
       <div>
         <nav id="home-navbar">
-          <h1 className="logo heading">
+          <h1 className="logoo heading">
             <img src={PSGLogo} alt="PSG logo" width={"50px"} height={"50px"} /> 
             {/*<span className="text-primary">P</span>SG COLLEGE OF TECHNOLOGY*/}
             PSG COLLEGE OF TECHNOLOGY

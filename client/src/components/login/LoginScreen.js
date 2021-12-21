@@ -18,6 +18,7 @@ function LoginScreen() {
   const submitFunction = () => {
     if (emailid !== "" && password !== "") {
       if (emailid.includes("@psgtech.ac.in")) {
+        console.log("Hey");
         Axios.post("/api/login", {
           email: emailid,
           password: password,
