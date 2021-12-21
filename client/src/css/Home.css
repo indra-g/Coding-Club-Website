@@ -27,16 +27,13 @@ p {
 
 .text {
   color: #40d0e0;
-  font-family: "Cormorant Garamond", serif;
   font-weight: 600;
 }
 
 .l-leading {
-  font-size: 4rem;
+  font-size: 3.5rem;
   margin-bottom: 0.75rem;
   line-height: 1.1;
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 600;
 }
 
 .m-heading {
@@ -51,17 +48,15 @@ p {
 }
 
 .lead {
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 600;
-  font-size: 1.8rem;
+  font-weight: 400;
+  font-size: 1.5rem;
   margin-bottom: 2rem;
 }
 
 #home-navbar .logo {
   align-items: center;
   color: #40d0e0;
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 700;
+  font-size: 1.7rem;
 }
 
 .py-1 {
@@ -88,16 +83,14 @@ p {
   background-color: #40d0e0;
   border-color: #40d0e0;
   color: black;
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 1.2rem;
 }
 
 .btn-primary:hover {
   background-color: #40d0e0;
   color: black;
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 1.2rem;
   border: 1px solid black;
 }
@@ -206,6 +199,10 @@ p {
   margin-bottom: -80px;
 }
 
+h1{
+  margin: 0;
+}
+
 /* For Mobile */
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
@@ -213,8 +210,8 @@ p {
     height: 250px;
     width: 250px;
   }
-  .heading {
-    font-size: 1.5rem;
+  .logo {
+    font-size: 1.2rem !important;
   }
   .l-leading {
     font-size: 3rem;
@@ -222,5 +219,18 @@ p {
   }
   .lead {
     font-size: 1.5rem;
+  }
+}
+@media only screen and (max-width: 365px) {
+  /* For mobile phones: */
+  .logo {
+    font-size: 1.0rem !important;
+  }
+  .l-leading {
+    font-size: 2rem;
+    margin-top: 10px;
+  }
+  .lead {
+    font-size: 1.0rem;
   }
 }

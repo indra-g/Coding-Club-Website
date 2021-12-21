@@ -385,15 +385,19 @@ ul.social-media-list li:not(:last-child) {
   height: 760px;
   top: 10px;
   bottom: 10px;
-  background: linear-gradient(360deg, #251993 0%, rgba(62, 49, 183, 0.91) 99.48%);
+  background: linear-gradient(
+    360deg,
+    #251993 0%,
+    rgba(62, 49, 183, 0.91) 99.48%
+  );
   border-radius: 20px;
 }
 
-.page-top{
+.page-top {
   top: 30px;
 }
 
-.left-box{
+.left-box {
   position: absolute;
   /* width: 928px;*/
   /*height: 700px;*/
@@ -404,3 +408,32 @@ ul.social-media-list li:not(:last-child) {
   border-radius: 20px;
 }
 /*Page Layout EventScreen.js End*/
+
+/* Indra Css */
+
+.col-8 {
+  height: 93vh;
+  background-color: rgba(196, 196, 196, 0.15);
+}
+.rightBox {
+  height: 93vh;
+  margin-left: 10px;
+  background: linear-gradient(
+    360deg,
+    #251993 0%,
+    rgba(62, 49, 183, 0.91) 99.48%
+  );
+}
+.content-wrapper{
+  margin: 30px;
+}
+.logo{
+  width: 150px;
+  height: 150px;
+}
+
+@media screen and (max-width: 764px) {
+    .rightBox {
+    display: none;
+  }
+}
