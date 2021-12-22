@@ -2,6 +2,10 @@
   font-size: 30px;
   text-align: center;
 }
+.line {
+  margin-left: 8%;
+  margin-right: 8%;
+}
 .mycontainer {
   background-color: rgba(196, 196, 196, 0.19);
   display: inline-block;
@@ -123,7 +127,6 @@
   text-align: -webkit-center;
 }
 .line {
-  margin: 50px 70px;
   color: black;
   opacity: 100%;
 }
@@ -133,11 +136,22 @@
 .footer {
   text-align: center;
 }
-p{
+p {
   font-size: 20px;
 }
 @media screen and (max-width: 991px) {
   .about-wrapper {
     margin: 30px 30px;
   }
+}
+@media screen and (max-width: 600px) {
+  .line {
+    margin-top: 10%;
+  }
+  p {
+    font-size: 15px;
+  }
+}
+.content-wrapper {
+  margin: 0;
 }
