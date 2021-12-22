@@ -89,12 +89,12 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/events-home" component={EventScreen} />
-          <ProtectedEntryRoute exact path="/login" component={LoginScreen} />
+          <Route exact path="/login" component={LoginScreen} />
           <Route exact path="/signup" component={SignUpScreen} />
-          <ProtectedRoute exact path="/add-event" component={AddEvents} />
-          <ProtectedRoute exact path="/edit-event/:id" component={EditEvents} />
-          <ProtectedRoute exact path="/add-script" component={AddScripts} />
-          <ProtectedRoute
+          <Route exact path="/add-event" component={AddEvents} />
+          <Route exact path="/edit-event/:id" component={EditEvents} />
+          <Route exact path="/add-script" component={AddScripts} />
+          <Route
             exact
             path="/edit-script/:id"
             component={EditScripts}

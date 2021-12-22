@@ -7,6 +7,11 @@ import { Link } from "react-router-dom";
 import jwt from "jsonwebtoken";
 import img1 from "../../assets/img/articles.jpg";
 import img2 from "../../assets/img/articles2.jpg";
+import img3 from "../../assets/img/img3.jpg";
+import img4 from "../../assets/img/img4.jpg";
+import img6 from "../../assets/img/img5.jpg";
+import img5 from "../../assets/img/img6.jpg";
+import img7 from "../../assets/img/img7.jpg";
 import logo from "../../assets/img/logo.png";
 
 function EventScreen() {
@@ -85,11 +90,11 @@ function EventScreen() {
     // </div>
     <div class="content-wrapper">
       <div class="row">
-        <div class="col-md-8 background ">
+        <div class="col-lg-8 background ">
           <nav className="navbar navbar-expand-lg navbar-light">
             <div className="container-fluid">
               <img className="logo" src={logo} alt="logo"></img>
-              <h4>Psg Tech Coding Club</h4>
+              <h4 className="title">Psg Tech Coding Club</h4>
               <button
                 class="navbar-toggler"
                 type="button"
@@ -110,7 +115,7 @@ function EventScreen() {
                     <a
                       class="nav-link active align-middle events"
                       aria-current="page"
-                      href="#"
+                      href="/events-home"
                     >
                       Events
                     </a>
@@ -119,9 +124,44 @@ function EventScreen() {
                     <a
                       class="nav-link active align-middle"
                       aria-current="page"
-                      href="#"
+                      href="/scripts"
                     >
                       Scripts
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      class="nav-link active align-middle login"
+                      aria-current="page"
+                      href="/login"
+                    >
+                      Login
+                    </a>
+                  </li>
+                  <li>
+                    <a class="nav-link active align-middle login" href="/about">
+                      About
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="nav-link active align-middle login"
+                      href="/officebearers"
+                    >
+                      Team
+                    </a>
+                  </li>
+                  <li>
+                    <a class="nav-link active align-middle login" href="/what">
+                      What we do
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="nav-link active align-middle login"
+                      href="/add-script"
+                    >
+                      Contribute Scripts
                     </a>
                   </li>
                   <li class="nav-item dropdown">
@@ -137,22 +177,22 @@ function EventScreen() {
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                       <li>
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="/what">
                           What we do
                         </a>
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="/officebearers">
                           Team
                         </a>
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="/about">
                           About
                         </a>
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="/add-script">
                           Contribute Scripts
                         </a>
                       </li>
@@ -166,13 +206,18 @@ function EventScreen() {
           <hr className="line" />
         </div>
         <div class="col rightBox background">
-          {/* <a className="btn nav-link" href="/login">
+          <a className="btn nav-link margin" href="/login">
             Login
-          </a> */}
+          </a>
           <div className="content-wrapperr">
             <div class="carousel" data-flickity>
               <img class="carousel-cell" src={img1}></img>
               <img class="carousel-cell" src={img2}></img>
+              <img class="carousel-cell" src={img3}></img>
+              <img class="carousel-cell" src={img4}></img>
+              <img class="carousel-cell" src={img5}></img>
+              <img class="carousel-cell" src={img6}></img>
+              <img class="carousel-cell" src={img7}></img>
             </div>
           </div>
         </div>
