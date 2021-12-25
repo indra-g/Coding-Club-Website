@@ -102,7 +102,7 @@ function App() {
           <Route exact path="/scripts" component={ScriptsScreen} />
           <Route exact path="/allScripts" component={ListOfScripts} />
           <Route exact path="/allEvents" component={ListOfEvents} />
-          <Route exact path="/view-script" component={ViewScripts} />
+          <Route exact path="/view-script/:id" component={ViewScripts} />
           <Route exact path="/view-event/:id" component={ViewEvents} />
           <Route
             exact
