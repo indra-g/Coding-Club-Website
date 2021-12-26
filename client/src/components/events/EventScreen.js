@@ -5,6 +5,7 @@ import EventSlider from "./eventSlider";
 import User from "../../config/user_credentials";
 import { Link } from "react-router-dom";
 import jwt from "jsonwebtoken";
+import Card from "./card";
 import img1 from "../../assets/img/articles.jpg";
 import img2 from "../../assets/img/articles2.jpg";
 import img3 from "../../assets/img/img3.jpg";
@@ -13,6 +14,7 @@ import img6 from "../../assets/img/img5.jpg";
 import img5 from "../../assets/img/img6.jpg";
 import img7 from "../../assets/img/img7.jpg";
 import logo from "../../assets/img/logo.png";
+import sampleImg from "../../assets/img/SUPER DREAM OFFERS 2.png";
 
 function EventScreen() {
   const user = useState(User);
@@ -204,20 +206,41 @@ function EventScreen() {
           </nav>
           <h4 className="heading">Events</h4>
           <hr className="line" />
+          <div className="content-wrapperr">
+            <div className="carousel here" data-flickity>
+              <Card />
+              <Card />
+              <Card />
+              <Card />
+              <Card />
+              <Card />
+              <Card />
+              <Card />
+            </div>
+          </div>
+          <hr size="3" className="line bot-line"></hr>
+          <div className="footer">
+            <Link to="/" class="fa fa-instagram" />
+            <Link to="/" class="fa fa-facebook" />
+            <Link to="/" class="fa fa-envelope-square" />
+            <span className="copyright-text">
+              <p>© Copyright 2021 Coding Club</p>
+            </span>
+          </div>
         </div>
         <div class="col rightBox background">
           <a className="btn nav-link margin" href="/login">
             Login
           </a>
           <div className="content-wrapperr">
-            <div class="carousel" data-flickity>
-              <img class="carousel-cell" src={img1}></img>
-              <img class="carousel-cell" src={img2}></img>
-              <img class="carousel-cell" src={img3}></img>
-              <img class="carousel-cell" src={img4}></img>
-              <img class="carousel-cell" src={img5}></img>
-              <img class="carousel-cell" src={img6}></img>
-              <img class="carousel-cell" src={img7}></img>
+            <div className="carousel" data-flickity>
+              <img className="carousel-cell" src={img1}></img>
+              <img className="carousel-cell" src={img2}></img>
+              <img className="carousel-cell" src={img3}></img>
+              <img className="carousel-cell" src={img4}></img>
+              <img className="carousel-cell" src={img5}></img>
+              <img className="carousel-cell" src={img6}></img>
+              <img className="carousel-cell" src={img7}></img>
             </div>
           </div>
         </div>

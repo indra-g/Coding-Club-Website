@@ -9,6 +9,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import food from "../../assets/img/food.jpg";
+import { Link } from "react-router-dom";
 import { grey } from "@mui/material/colors";
 import img1 from "../../assets/img/articles.jpg";
 import img2 from "../../assets/img/articles2.jpg";
@@ -248,20 +249,41 @@ function ScriptsScreen() {
           </nav>
           <h4 className="heading">Scripts</h4>
           <hr className="line" />
+          <div className="content-wrapperr">
+            <div className="carousel here" data-flickity>
+              <Card />
+              <Card />
+              <Card />
+              <Card />
+              <Card />
+              <Card />
+              <Card />
+              <Card />
+            </div>
+          </div>
+          <hr size="3" className="line bot-line"></hr>
+          <div className="footer">
+            <Link to="/" class="fa fa-instagram" />
+            <Link to="/" class="fa fa-facebook" />
+            <Link to="/" class="fa fa-envelope-square" />
+            <span className="copyright-text">
+              <p>© Copyright 2021 Coding Club</p>
+            </span>
+          </div>
         </div>
         <div class="col rightBox background">
           <a className="btn nav-link margin" href="/login">
             Login
           </a>
           <div className="content-wrapperr">
-            <div class="carousel" data-flickity>
-              <img class="carousel-cell" src={img1}></img>
-              <img class="carousel-cell" src={img2}></img>
-              <img class="carousel-cell" src={img3}></img>
-              <img class="carousel-cell" src={img4}></img>
-              <img class="carousel-cell" src={img5}></img>
-              <img class="carousel-cell" src={img6}></img>
-              <img class="carousel-cell" src={img7}></img>
+            <div className="carousel" data-flickity>
+              <img className="carousel-cell" src={img1}></img>
+              <img className="carousel-cell" src={img2}></img>
+              <img className="carousel-cell" src={img3}></img>
+              <img className="carousel-cell" src={img4}></img>
+              <img className="carousel-cell" src={img5}></img>
+              <img className="carousel-cell" src={img6}></img>
+              <img className="carousel-cell" src={img7}></img>
             </div>
           </div>
         </div>

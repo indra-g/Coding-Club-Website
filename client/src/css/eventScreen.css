@@ -98,6 +98,9 @@ h4 {
     position: relative;
     bottom: 30px;
   }
+  p {
+    font-size: 15px !important;
+  }
 }
 
 @media screen and (max-width: 1072px) {
@@ -113,6 +116,9 @@ h4 {
   }
   .line {
     margin: 4% 4%;
+  }
+  .col-lg-8 {
+    height: 100%;
   }
 }
 
@@ -161,6 +167,9 @@ body {
 .flickity-viewport {
   height: 55vh !important;
 }
+.here {
+  height: 47vh !important;
+}
 .carousel-cell {
   height: 100%;
   width: 70%;
@@ -180,4 +189,26 @@ body {
   margin-left: 22%;
   margin-top: 3%;
   color: white !important;
+}
+.footer {
+  text-align: center;
+}
+p {
+  font-size: 20px;
+}
+.fa {
+  padding: 0 !important;
+}
+.flickity-page-dots {
+  display: none;
+}
+.bot-line {
+  bottom: 0 !important;
+}
+.img-size {
+  height: 150px;
+  weight: 150px;
+}
+.css-qz3j4x-MuiPaper-root-MuiCard-root {
+  height: 47vh;
 }
