@@ -3,6 +3,7 @@ import { useState } from "react";
 import Axios from "axios";
 import "../../css/eventScreen.css";
 import "../../css/add-scripts.css";
+import "../../css/loginScreen.css";
 import img1 from "../../assets/img/articles.jpg";
 import img2 from "../../assets/img/articles2.jpg";
 import img3 from "../../assets/img/img3.jpg";
@@ -58,12 +59,12 @@ function AddScripts() {
     //         </div>
     //     </div>
     // </div>
-    <div class="content-wrapper">
-      <div class="row">
-        <div class="col-lg-8 background ">
-          <div class="contribute-wrapper">
-            <h1 className="head">Contribute Scripts</h1>
-            <label className="form-label formLabel">Name</label>
+    <div class="wrapper">
+      <div class="row top-box">
+        <div class="col-8 background">
+          <div class="login-wrapper">
+            <h1 className="heading-text">Contribute Script</h1>
+            <label className="form-labell formLabel">Name</label>
             <input
               type="text"
               name="contributor"
@@ -88,26 +89,36 @@ function AddScripts() {
             <label className="form-labell formLabel">Title</label>
             <input
               type="text"
-              placeholder="Enter Your Password"
+              placeholder="Enter Your Title"
               onChange={(e) => {
                 setcontent(e.target.value);
               }}
               className="form-control inputField"
-              id="Password1"
+              id="Content"
             />
+            <label for="formFile" class="form-labell formLabel">
+              Upload your image
+            </label>
+            <input class="form-control inputField" type="file" id="formFile" />
+            <label for="formFile" class="form-labell formLabel">
+              Your Script
+            </label>
+            <textarea
+              id="formFile1"
+              className="form-control inputField"
+              rows="6"
+              cols="50"
+              placeholder="Enter your script here"
+            ></textarea>
           </div>
         </div>
-        <div class="col rightBox background">
-          <div className="content-wrapperr">
-            <div class="carousel" data-flickity>
-              <img class="carousel-cell" src={img1}></img>
-              <img class="carousel-cell" src={img2}></img>
-              <img class="carousel-cell" src={img3}></img>
-              <img class="carousel-cell" src={img4}></img>
-              <img class="carousel-cell" src={img5}></img>
-              <img class="carousel-cell" src={img6}></img>
-              <img class="carousel-cell" src={img7}></img>
-            </div>
+        <div class="col rightbox background">
+          <div className="content-wrapper">
+            <img className="img" src={logo} alt="logo" />
+            <h4 className="texts">Psg Tech Coding Club</h4>
+            <h5 className="texts bot-text1">
+              Simple things should be simple, complex things should be possible
+            </h5>
           </div>
         </div>
       </div>
