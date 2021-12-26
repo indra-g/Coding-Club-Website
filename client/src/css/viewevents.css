@@ -1,0 +1,41 @@
+.title {
+  display: inline-block;
+}
+.background {
+  height: 93vh;
+  background-color: rgba(196, 196, 196, 0.15);
+  margin: 0 30px;
+}
+.event-wrapper {
+  text-align: center;
+}
+.container {
+  margin: 30px;
+  margin-top: 70px;
+}
+.img1 {
+}
+@media screen and (max-width: 600px) {
+  .container {
+    margin: 10px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .img1 {
+    height: 100% !important;
+    width: 100%;
+  }
+  .wrap {
+    margin-top: 20px;
+  }
+}
+.wrap {
+  display: flex;
+}
+.text-wrapper {
+  margin: auto;
+}
+.img1 {
+  height: 120%;
+  width: 100%;
+}
