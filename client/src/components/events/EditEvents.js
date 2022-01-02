@@ -1,17 +1,11 @@
 import React from 'react'
 import {useEffect,useState} from 'react';
 import Axios from 'axios';
-import '../../css/eventScreen.css';
+import '../../css/EditEvents.css';
 import logo from "../../assets/img/logo.png";
 import {useHistory} from "react-router-dom";
 
 function EditEvents(props) {
-    // const [presentername,setpresenter]=useState('');
-    // const [title,settitle]=useState('');
-    // const [description,setdescription]=useState('');
-    // const [link,setlink]=useState('');
-    // const [imageurl,seturl]=useState('');
-    // const [date,setdate]=useState(new Date());
 
     const history = useHistory()
     const [presentername,setpresenter]=useState('');
@@ -121,32 +115,36 @@ function EditEvents(props) {
         //     <button type="submit" onClick={submitfunction}>Submit </button>
         //     <a href="/">Back To Events</a>
         // </div>
-        <div className="add-events-screen">
-            <div className="modal-body row">
-                <div className="col-md-6">
-                    <div className={"label-style"}>Presenter's name</div>
-                    <input type="text" placeholder="Enter Presenter Name" name="presentername" value={presentername} onChange={(e)=>{setpresenter(e.target.value)}} required={true}/>
-                    <div className={"label-style"}>Event Title</div>
-                    <input type="text" placeholder="Enter Event Title" name="title" value={eventtitle} onChange={(e)=>{settitle(e.target.value)}} required={true}/>
-                    <div className={"label-style"}>Description</div>
-                    <input type="text" placeholder="Enter Description" name="description" value={description} onChange={(e)=>{setdescription(e.target.value)}} required={true}/>
-                    <div className={"label-style"}>Date</div>
-                    <input type="date" placeholder="Enter Date Of Event" name="date" value={new Date(date).toISOString().substr(0,10)} onChange={(e)=>{setdate(e.target.value)}} required={true}/>
-                    <div className={"label-style"}>Link</div>
-                    <input type="text" placeholder="Enter Event Link" name="link" value={eventlink} onChange={(e)=>{setlink(e.target.value)}} required={true}/>
-                    {/*<div className={"label-style"}>Image Url</div>*/}
-                    {/*<input type="text" placeholder="Enter Image URL" name="imageurl" onChange={(e)=>{setimage(e.target.value)}} required={true}/>*/}
-                    <button type="submit" onClick={submitfunction}> Submit </button>
-                    {/*<TextField id="standard-basic" label="Standard" variant="standard" />*/}
-                </div>
-                <div className="col-md-6">
-                    {selectedimage?
-                        <img src={preview} alt="loaded event" className={'image-style'}/>
-                        : <img src={imageurl} alt="loaded event" className={'image-style'}/>}
-                    <input type='file' className={"custom-file-input"} onChange={onselectimage} required={true}/>
-                </div>
+
+    <div className="content-background">
+        <div className="modal-body row">
+            <div className="col-md-6">
+                <div><a href={'/events-home'} className={'back-to-home'}> &lt; Back to Home</a></div>
+                <img className="logo" src={logo} alt="logo"></img>
+                <h4 className="title">Psg Tech Coding Club</h4>
+                <div className={"label-style"}>Presenter's name</div>
+                <input type="text" className={"inputField"} value={presentername} placeholder="Enter Presenter Name" name="presentername" onChange={(e)=>{setpresenter(e.target.value)}} required={true}/>
+                <div className={"label-style"}>Event Title</div>
+                <input type="text" className={"inputField"} value={eventtitle} placeholder="Enter Event Title" name="title" onChange={(e)=>{settitle(e.target.value)}} required={true}/>
+                <div className={"label-style"}>Description</div>
+                <input type="text" className={"inputField"} value={description} placeholder="Enter Description" name="description" onChange={(e)=>{setdescription(e.target.value)}} required={true}/>
+                <div className={"label-style"}>Date</div>
+                <input type="date" className={"inputField"} placeholder="Enter Date Of Event" name="date" value={new Date(date).toISOString().substr(0,10)} onChange={(e)=>{setdate(e.target.value)}} required={true}/>
+                <div className={"label-style"}>Link</div>
+                <input type="text" className={"inputField"} value={eventlink} placeholder="Enter Event Link" name="link" onChange={(e)=>{setlink(e.target.value)}} required={true}/>
+                {/*<div className={"label-style"}>Image Url</div>*/}
+                {/*<input type="text" placeholder="Enter Image URL" name="imageurl" onChange={(e)=>{setimage(e.target.value)}} required={true}/>*/}
+                <div><button type="submit" className={"button-style"} onClick={submitfunction}> Submit </button></div>
+                {/*<TextField id="standard-basic" label="Standard" variant="standard" />*/}
+            </div>
+            <div className="col-md-6">
+                {selectedimage?
+                    <img src={preview} alt="loaded event" className={'image-style'}/>
+                    : <img src={imageurl} alt="loaded event" className={'image-style'}/>}
+                <input type='file' className={"custom-file-input"} onChange={onselectimage} required={true}/>
             </div>
         </div>
+    </div>
     )
 }
 

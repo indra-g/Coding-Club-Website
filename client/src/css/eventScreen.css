@@ -11,6 +11,7 @@
 .rightBox {
   height: 93vh;
   margin-left: 10px;
+  text-align: end;
   background: linear-gradient(
     360deg,
     #251993 0%,
@@ -25,13 +26,13 @@
   height: 150px;
   margin: -10px -40px;
 }
-.background {
+.content-background {
   border-radius: 15px;
+  height:auto;
 }
 h4 {
-  margin: 0;
   font-weight: 600;
-  margin-left: 10px;
+  margin: 0 0 0 10px;
 }
 .nav-link {
   font-weight: 500;
@@ -168,7 +169,7 @@ body {
   height: 55vh !important;
 }
 .here {
-  height: 47vh !important;
+  height: 35vh !important;
 }
 .carousel-cell {
   height: 100%;
@@ -207,8 +208,11 @@ p {
 }
 .img-size {
   height: 150px;
-  weight: 150px;
+  width: 150px;
 }
 .css-qz3j4x-MuiPaper-root-MuiCard-root {
   height: 47vh;
+}
+.logout-style{
+  cursor: pointer;
 }

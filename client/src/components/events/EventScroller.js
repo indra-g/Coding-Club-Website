@@ -6,7 +6,7 @@ import '../../css/eventScreen.css';
 import articles from '../../assets/img/articles2.jpg';
 import contribute from '../../assets/img/contribute.jpg';
 import events from '../../assets/img/events.jpg';
-//import '../js/eventScreen';
+
 export default class SimpleSlider extends Component {
     render() {
         const settings = {

@@ -5,7 +5,6 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import food from "../../assets/img/food.jpg";
 import { grey } from "@mui/material/colors";
 import { useHistory } from "react-router-dom";
 import Axios from "axios";
@@ -24,7 +23,7 @@ export default function MediaCard(props) {
       .then((result) => {
         if (result.data.success) {
           alert("Deleted Successfully!!");
-          history.push("/");
+          history.push("/scripts");
         }
       })
       .catch((err) => {
@@ -37,8 +36,7 @@ export default function MediaCard(props) {
       sx={{ maxWidth: 345, borderRadius: 5 }}
       style={{ backgroundColor: "black", color: "white" }}
     >
-      {/*<CardMedia component="img" height="140" image={food} alt="green iguana" style={{objectFit:"contain"}} />*/}
-      <CardMedia component="img" height="140" image={food} alt="green iguana"/>
+      <CardMedia sx={{ borderRadius: '50%',height:'200px',width:'200px',margin:'auto',padding:'2%'}} component="img" image={props.scriptData?props.scriptData.ImageUrl:''} alt="green iguana"/>
       <CardContent sx={{ textAlign: "center" }}>
         <Typography
           sx={{ fontWeight: 700, fontSize: 18, pb: 2 }}
@@ -51,7 +49,7 @@ export default function MediaCard(props) {
           {props.scriptData.Contributor}
         </Typography>
         <Typography sx={{ mx: "auto" }} variant="body2">
-          Date here
+          {props.scriptData.Date?new Date(props.scriptData.Date).toDateString():''}
         </Typography>
       </CardContent>
       <CardActions sx={{ pb: 3 }}>

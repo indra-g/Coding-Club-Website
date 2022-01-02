@@ -3,17 +3,15 @@ import "../../css/eventSlider.css";
 import { useState, useEffect, useRef } from "react";
 import Axios from "axios";
 import MediaCard from "./card";
-
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 
 function EventSlider() {
     const [eventsList, setList] = useState([]);
     const sliderRef = useRef(null);
 
-    var settings = {
+    let settings = {
         dots: true,
         infinite: false,
         speed: 500,
@@ -24,14 +22,14 @@ function EventSlider() {
             {
                 breakpoint: 1024,
                 settings: {
-                    slidesToShow: 1,
+                    slidesToShow: 2,
                     slidesToScroll: 1,
                     infinite: true,
                     dots: true
                 }
             },
             {
-                breakpoint: 600,
+                breakpoint: 780,
                 settings: {
                     slidesToShow: 1,
                     slidesToScroll: 1,
@@ -54,7 +52,10 @@ function EventSlider() {
         if (result.data.success) {
           // let temp;
           // temp = [result.data.events[0],result.data.events[1],result.data.events[2],result.data.events[3]]
-          setList(result.data.events);
+            if(result.data.events.length > 4)
+                setList([result.data.events[0],result.data.events[1],result.data.events[2],result.data.events[3]]);
+            else
+                setList(result.data.events);
         }
       })
       .catch((err) => {
@@ -65,16 +66,20 @@ function EventSlider() {
 
     return (
       <div>
-        <div className="event-screen-scroller-heading justify-content-between">
-            <h4 className="event-screen-scroller-heading-title">Events</h4>
-            <div style={{float:"right",marginRight:"20px",display:"flex"}}>
-                <div className="prev-event" onClick={() => sliderRef.current.slickPrev()}><ArrowBackIos/></div>
-                <div className="next-event" onClick={() => sliderRef.current.slickNext()}><ArrowForwardIos/></div>
-                {/*<button className="prev-event"><i className="fa fa-angle-left"/></button>*/}
-                {/*<button className="next-event"><i className="fa fa-angle-right"/></button>*/}
-            </div>
-        </div>
-        <hr/>
+          <div className="d-flex justify-content-between p-3">
+              <div><h4>Events</h4></div>
+              {/*<div className="event-screen-scroller-heading justify-content-between">*/}
+              {/*    <h4 className="event-screen-scroller-heading-title">Events</h4>*/}
+              <div style={{float:"right",marginRight:"20px",display:"flex"}}>
+                  <div className="prev-event" onClick={() => sliderRef.current.slickPrev()}>
+                      <span className="left"></span>
+                  </div>
+                  <div className="next-event" onClick={() => sliderRef.current.slickNext()}>
+                      <span className="right"></span>
+                  </div>
+              </div>
+          </div>
+          <h4><hr className={"line"}/></h4>
         <div className="event-screen-scroller-body">
           <div>
             <div className="album py-5">
@@ -87,13 +92,16 @@ function EventSlider() {
                             </div>
                             )
                         )}
+                        <div>
+                               <a href={"/allEvents"} className={"more-events-style"}> All Events </a>
+                        </div>
                     </Slider>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <hr/>
+          <h4><hr className={"line"}/></h4>
       </div>
     );
 }

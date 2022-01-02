@@ -14,7 +14,8 @@ button {
   margin-top: 30px;
 }
 .cont {
-  height: 93vh !important;
+  /*height: 93vh !important;*/
+  height:auto;
 }
 @media screen and (max-width: 465px) {
   .main-title {

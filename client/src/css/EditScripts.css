@@ -1,88 +1,3 @@
-/*.contribute-scripts-screen input{*/
-/*    display:block;*/
-/*    margin:10px auto;*/
-/*    width:60%;*/
-/*    height:20%;*/
-/*}*/
-/*.contribute-scripts-screen textarea{*/
-/*    display:block;*/
-/*    margin:20px auto;*/
-/*    width:60%;*/
-/*    height:60%;*/
-/*}*/
-
-/*.contribute-scripts-screen button{*/
-/*    display:block;*/
-/*    margin:10px auto;*/
-/*    width:20%;*/
-/*    border-radius: 15px;*/
-/*    background-color:#212122;*/
-/*    color:white;*/
-/*}*/
-
-/*!* View Contribute Scripts Styles *!*/
-
-/*.contribute-script-card{*/
-/*    text-align:center;*/
-/*    display:block;*/
-/*    margin:10px auto;*/
-/*    padding:10px;*/
-/*    width:50%;*/
-/*    height:20%;*/
-/*    border:2px solid black;*/
-/*}*/
-
-/*.add-contribute-button{*/
-/*    display:block;*/
-/*    margin:10px auto;*/
-/*    width:20%;*/
-/*    border-radius: 15px;*/
-/*    background-color:#212122;*/
-/*    color:white;*/
-/*}*/
-
-/*.edit-delete-area{*/
-/*    display:grid;*/
-/*    grid-template-columns: 1fr 1fr;*/
-/*    grid-gap:10rem;*/
-/*}*/
-
-/*.edit-delete-area button{*/
-/*    display:block;*/
-/*    margin:10px auto;*/
-/*    width:20%;*/
-/*    border-radius: 15px;*/
-/*    background-color:#212122;*/
-/*    color:white; */
-/*}*/
-/*!* View Contribute Scripts Styles End *!*/
-
-/*!* Edit Contributed Scripts Screen Styles *!*/
-
-/*.edit-contribute-screen input{*/
-/*    display:block;*/
-/*    margin:10px auto;*/
-/*    width:60%;*/
-/*    height:20%;*/
-/*}*/
-
-/*.edit-contribute-screen textarea{*/
-/*    display:block;*/
-/*    margin:20px auto;*/
-/*    width:60%;*/
-/*    height:60%;*/
-/*}*/
-
-/*.edit-contribute-screen button{*/
-/*    display:block;*/
-/*    margin:10px auto;*/
-/*    width:20%;*/
-/*    border-radius:15px;*/
-/*    background-color: #212122;*/
-/*    color:white;*/
-/*}*/
-/*!* Edit Contributed Scripts Screen Styles End*!*/
-
 .head {
     margin: 30px;
     font-size: 30px;
@@ -131,6 +46,7 @@
     }
 }
 
+/* login screen copied begins*/
 .login-area input {
     display: block;
     margin: 10px auto;
@@ -172,7 +88,7 @@
     text-align: center;
     margin: auto;
 }
-.img {
+.sidebar-img {
     height: 200px;
     width: 200px;
     margin-bottom: -80px;
@@ -206,6 +122,9 @@
     margin-top: 18px;
 }
 
+/* login screen copied ends */
+
+/* event screen copied starts */
 .login {
     display: none;
 }
@@ -348,3 +267,4 @@ h4 {
         width: 80%;
     }
 }
+/* event screen copied ends */

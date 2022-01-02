@@ -3,6 +3,8 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const Home = require('./routes/api/HomeRouter');
 const cors = require('cors')
+require('dotenv').config();
+
 //Initializing app
 const app = express()
 

@@ -1,16 +1,7 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useState } from "react";
 import Axios from "axios";
-import "../../css/eventScreen.css";
 import "../../css/add-scripts.css";
-import "../../css/loginScreen.css";
-import img1 from "../../assets/img/articles.jpg";
-import img2 from "../../assets/img/articles2.jpg";
-import img3 from "../../assets/img/img3.jpg";
-import img4 from "../../assets/img/img4.jpg";
-import img6 from "../../assets/img/img5.jpg";
-import img5 from "../../assets/img/img6.jpg";
-import img7 from "../../assets/img/img7.jpg";
 import logo from "../../assets/img/logo.png";
 import { useHistory } from "react-router-dom";
 
@@ -20,50 +11,69 @@ function AddScripts() {
   const [title, settitle] = useState("");
   const [content, setcontent] = useState("");
   const [email, setemail] = useState("");
+  const [selectedimage, setselectedimage] = useState(null);
+  const [preview, setpreview] = useState();
   const [redirect, setRedirect] = useState(false);
 
+  useEffect(() => {
+    if (!selectedimage) {
+      setpreview(undefined)
+      return
+    }
+    const objecturl = URL.createObjectURL(selectedimage)
+    setpreview(objecturl)
+
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(objecturl)
+  }, [selectedimage]);
+
+  const onselectimage = e => {
+    if (!e.target.files || e.target.files.length === 0) {
+      setselectedimage(undefined)
+      return
+    }
+    setselectedimage(e.target.files[0])
+  }
+
   const submitfunction = () => {
-    Axios.post("/api/scripts", {
-      contributor: contributor,
-      title: title,
-      content: content,
-      email: email,
-    })
-      .then((result) => {
-        if (result.data.success) {
-          alert("Scripts Contributed");
-          setRedirect(true);
-        }
-      })
-      .catch((err) => {
-        console.log(err.toString());
-      });
+
+    if(contributor===''){alert('Name could not be empty');return;}
+    if(title===''){alert('Title could not be empty');return;}
+    if(content===''){alert('Content could not be empty');return;}
+    if(email===''){alert('Email could not be empty');return;}
+    if(selectedimage===null){alert('No Image Uploaded');return;}
+
+    const record = new FormData();
+    record.append("contributor",contributor);
+    record.append("title",title);
+    record.append("content",content);
+    record.append("email",email);
+    record.append("image",selectedimage,contributor);
+
+    Axios.post('/api/scripts',record).then((result)=>{
+      if(result.data.success){
+        alert("Scripts Contributed");
+        setRedirect(true);
+      }else{
+        alert(result.data.message);
+      }
+    }).catch((err)=>{
+      console.log(err.toString());
+    });
   };
 
   if (redirect) {
     history.push("/allScripts");
   }
   return (
-    // <div className='add-scripts'>
-    //     <div className="modal-body row">
-    //         <div className="col-md-6">
-    //             <div className={"label-style"}>Contributor's name</div>
-    //             <input placeholder="Enter Contributor Name" name='contributor' onChange={(e)=>{setcontributor(e.target.value)}}/>
-    //             <div className={"label-style"}>Title</div>
-    //             <input placeholder="Enter Title" name='title' onChange={(e)=>{settitle(e.target.value)}}/>
-    //             <div className={"label-style"}>Email</div>
-    //             <input placeholder="Enter Email" name='email' onChange={(e)=>{setemail(e.target.value)}}/>
-    //             <div className={"label-style"}>Content</div>
-    //             <textarea placeholder="Enter content" name='content' onChange={(e)=>{setcontent(e.target.value)}}/>
-    //             <button type="submit" onClick={submitfunction}> Submit </button>
-    //         </div>
-    //     </div>
-    // </div>
     <div class="wrapper">
       <div class="row top-box">
-        <div class="col-8 background">
+        <div class="col-8 content-background">
           <div class="login-wrapper">
-            <h1 className="heading-text">Contribute Script</h1>
+            <h1 className="heading-text">Add Script</h1>
+            {selectedimage?
+                <img src={preview} alt="loaded event" className={'image-style'}/>
+                : <img src={logo} alt="loaded event" className={'image-style'}/>}
             <label className="form-labell formLabel">Name</label>
             <input
               type="text"
@@ -91,7 +101,7 @@ function AddScripts() {
               type="text"
               placeholder="Enter Your Title"
               onChange={(e) => {
-                setcontent(e.target.value);
+                settitle(e.target.value);
               }}
               className="form-control inputField"
               id="Content"
@@ -99,7 +109,7 @@ function AddScripts() {
             <label for="formFile" class="form-labell formLabel">
               Upload your image
             </label>
-            <input class="form-control inputField" type="file" id="formFile" />
+            <input class="form-control inputField" type="file" id="formFile" onChange={onselectimage}/>
             <label for="formFile" class="form-labell formLabel">
               Your Script
             </label>
@@ -109,11 +119,15 @@ function AddScripts() {
               rows="6"
               cols="50"
               placeholder="Enter your script here"
-            ></textarea>
+              onChange={(e) => {
+                setcontent(e.target.value);
+              }}
+              />
+            <button type="submit" onClick={submitfunction}> Submit </button>
           </div>
         </div>
-        <div class="col rightbox background">
-          <div className="content-wrapper">
+        <div class="col rightbox content-background">
+          <div className="login-content-wrapper">
             <img className="img" src={logo} alt="logo" />
             <h4 className="texts">Psg Tech Coding Club</h4>
             <h5 className="texts bot-text1">

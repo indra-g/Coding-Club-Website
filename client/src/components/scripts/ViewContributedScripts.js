@@ -4,6 +4,15 @@ import Axios from 'axios';
 import userObj from '../../config/user_credentials';
 //import {Redirect} from 'react-router-dom';
 import '../../css/contributeScriptsScreen.css';
+import MediaCard from "./ContributedScriptsCard";
+import Box from "@mui/material/Box";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import {Link} from "react-router-dom";
+import IconButton from "@mui/material/IconButton";
+import logo from "../../assets/img/logoCropped.png";
+import Typography from "@mui/material/Typography";
+
 function ViewContributedScripts() {
     const [scriptsList,setList]=useState([]);
     const [update,setUpdate]=useState(1);
@@ -43,29 +52,60 @@ function ViewContributedScripts() {
         })
         .catch((err)=>{console.log(err.toString())})
     },[update])
-    // if(username!=''){
-        
-    // }
-    // else{
-    //     return (
-    //         <Redirect to="/login" />
-    //     )
-    // }
+
     return(
-        scriptsList.map((script)=>{
-            return (
-                <div className="contribute-script-card">
-                    <h2>{script.Title}</h2>
-                    <h4>{script.Contributor}</h4>
-                    <h4>{script.Email}</h4>
-                    <button className="add-contribute-button" onClick={()=>{addscriptfunction(script._id)}}> Add this Script</button>
-                    <div className="edit-delete-area">
-                        <button><a href={`/edit-contributed-scripts/${script._id}`}>Edit</a></button>
-                        <button onClick={()=>{deletefunction(script._id)}}>Delete</button>
-                    </div>
+        <div>
+            <Box sx={{ flexGrow: 1 }}>
+                <AppBar color="transparent" elevation={0} position="static">
+                    <Toolbar>
+                        <Link to="/events-home">
+                            <IconButton
+                                size="large"
+                                edge="start"
+                                color="inherit"
+                                aria-label="menu"
+                                sx={{ mr: 2 }}
+                            >
+                                <img
+                                    src={logo}
+                                    alt="can't fetch"
+                                    style={{ height: "50px", width: "90px" }}
+                                />
+                            </IconButton>
+                        </Link>
+                        <Typography
+                            variant="h5"
+                            component="div"
+                            sx={{ flexGrow: 1, fontWeight: "bold" }}
+                        >
+                            PSG Tech Coding Club
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
+            </Box>
+            <hr/>
+            <div className="container">
+                <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                    {scriptsList &&
+                        scriptsList.map((script) => {
+                            return (
+                                <div className="col-xm-3" key={script._id}>
+                                    <MediaCard scriptData={script} />
+                                </div>
+                            );
+                        })}
                 </div>
-            )
-        })
+            </div>
+            <hr/>
+            <div className="footer">
+                <Link to="/" class="fa fa-instagram" />
+                <Link to="/" class="fa fa-facebook" />
+                <Link to="/" class="fa fa-envelope-square" />
+                <span className="copyright-text">
+              <p>© Copyright 2021 Coding Club</p>
+            </span>
+            </div>
+        </div>
     );
 }
 

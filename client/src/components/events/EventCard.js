@@ -15,7 +15,6 @@ function EventCard({event,deletefun}) {
         seturl(event.ImageUrl);
         console.log(title,presenter);
     },[]);
-    // 'https://images.pexels.com/photos/7551752/pexels-photo-7551752.jpeg?cs=srgb&dl=pexels-rodnae-productions-7551752.jpg&fm=jpg'
     return (
         <div className="event-card">
             <div className="event-card-header">
@@ -36,4 +35,4 @@ function EventCard({event,deletefun}) {
     );
 }
 
-export default EventCard
+export default EventCard;

@@ -1,0 +1,120 @@
+/* Add Events Screen Styles */
+.add-events-screen {
+    background: #e5e5e5;
+}
+
+.add-events-screen input {
+    display: block;
+    margin: 10px auto;
+    border: 1px solid;
+    border-radius: 5px;
+    padding-left: 20px;
+}
+
+.add-events-screen button {
+    display: block;
+    margin: 10px auto;
+    background: #2c219a;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.custom-file-input {
+    color: transparent;
+}
+.custom-file-input::-webkit-file-upload-button {
+    visibility: hidden;
+}
+.custom-file-input::before {
+    content: "Upload Image";
+    color: white;
+    display: inline-block;
+    background: #2c219a;
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+}
+
+.custom-file-input:hover::before {
+    border-color: black;
+}
+.custom-file-input:active {
+    outline: 0;
+}
+.custom-file-input:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+.label-style {
+    margin-left: 100px;
+    font-family: Ubuntu, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 28px;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.015em;
+    color: #000000;
+}
+
+.image-style {
+    width: 100%;
+    height: 70%;
+    margin-top: 70px;
+    border: 1px solid #000000;
+}
+
+.content-background {
+    background-color: rgba(196, 196, 196, 0.15);
+    margin: 0 30px;
+    height:auto;
+    padding: 5px;
+}
+
+.back-to-home{
+    text-decoration: none;
+    color: black;
+}
+
+.title {
+    display: inline-block;
+}
+
+button{
+    content: "Submit";
+    color: white;
+    display: inline-block;
+    background: #2c219a;
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+}
+
+.inputField {
+    margin-left: 100px;
+    padding: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.37);
+    box-sizing: border-box;
+    border-radius: 10px;
+    height: 50px;
+    background: rgba(196, 196, 196, 0.15);
+}
+
+.button-style{
+    display: block;
+    margin: 10px auto;
+    background: #2c219a;
+    color: #fff;
+    border-radius: 5px;
+}
+
+/* Add Events Screen Styles End*/

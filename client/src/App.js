@@ -2,13 +2,12 @@ import React, { Suspense } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./App.css";
-import "./css/eventScreen.css";
-import Home from "./components/home/Home";
-import EventScreen from "./components/events/EventScreen";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { ProtectedRoute } from "./components/RouteProtection/ProtectedRoute";
 import { ProtectedEntryRoute } from "./components/RouteProtection/ProtectedEntryRoute";
 
+//import Home from "./components/home/Home";
+//import EventScreen from "./components/events/EventScreen";
 // import AddEvents from "./components/events/AddEvents";
 // import EditEvents from "./components/events/EditEvents";
 // import ViewEvents from "./components/events/viewEvents";
@@ -52,6 +51,9 @@ const AddScripts = React.lazy(() => {
 const ListOfScripts = React.lazy(() => {
   return import("./components/scripts/listOfScripts");
 });
+const EventScreen = React.lazy(() => {
+  return import("./components/events/EventScreen");
+});
 const ScriptsScreen = React.lazy(() => {
   return import("./components/scripts/ScriptsScreen");
 });
@@ -70,6 +72,9 @@ const EditContributedScripts = React.lazy(() => {
 const ViewContributedScripts = React.lazy(() => {
   return import("./components/scripts/ViewContributedScripts");
 });
+const ViewIndividualContributedScripts = React.lazy(() => {
+  return import("./components/scripts/ViewIndividualContributedScripts");
+});
 const About = React.lazy(() => {
   return import("./components/About/about");
 });
@@ -79,8 +84,12 @@ const What = React.lazy(() => {
 const Officebearers = React.lazy(() => {
   return import("./components/OfficeBearers/officebearers");
 });
-
-//const Home = React.lazy(() => {return import('./components/home/Home')})
+const Home = React.lazy(() => {
+  return import('./components/home/Home')
+});
+const ContributedScriptsScreen = React.lazy(() =>{
+  return import("./components/scripts/ContributedScriptsScreen");
+});
 
 function App() {
   return (
@@ -89,39 +98,25 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/events-home" component={EventScreen} />
-          <Route exact path="/login" component={LoginScreen} />
-          <Route exact path="/signup" component={SignUpScreen} />
-          <Route exact path="/add-event" component={AddEvents} />
-          <Route exact path="/edit-event/:id" component={EditEvents} />
-          <Route exact path="/add-script" component={AddScripts} />
-          <Route
-            exact
-            path="/edit-script/:id"
-            component={EditScripts}
-          />
+          <ProtectedEntryRoute exact path="/login" component={LoginScreen} />
+          <ProtectedRoute exact path="/signup" component={SignUpScreen} />
+          <ProtectedRoute exact path="/add-event" component={AddEvents} />
+          <ProtectedRoute exact path="/edit-event/:id" component={EditEvents} />
+          <ProtectedRoute exact path="/add-script" component={AddScripts} />
+          <ProtectedRoute exact path="/edit-script/:id" component={EditScripts}/>
           <Route exact path="/scripts" component={ScriptsScreen} />
           <Route exact path="/allScripts" component={ListOfScripts} />
           <Route exact path="/allEvents" component={ListOfEvents} />
           <Route exact path="/view-script/:id" component={ViewScripts} />
           <Route exact path="/view-event/:id" component={ViewEvents} />
-          <Route
-            exact
-            path="/contribute-scripts"
-            component={ContributeScripts}
-          />
+          <Route exact path="/contribute-scripts" component={ContributeScripts}/>
           <Route exact path="/about" component={About} />
           <Route exact path="/what" component={What} />
           <Route exact path="/officebearers" component={Officebearers} />
-          <Route
-            exact
-            path="/edit-contributed-scripts/:id"
-            component={EditContributedScripts}
-          />
-          <Route
-            exact
-            path="/view-contributed-scripts"
-            component={ViewContributedScripts}
-          />
+          <ProtectedRoute exact path="/edit-contributed-scripts/:id" component={EditContributedScripts}/>
+          <ProtectedRoute exact path="/view-individual-contributed-script/:id" component={ViewIndividualContributedScripts}/>
+          <ProtectedRoute exact path="/view-contributed-scripts" component={ViewContributedScripts}/>
+          <ProtectedRoute exact path="/contributed-scripts-home" component={ContributedScriptsScreen}/>
           <Route path="*">
             <div class="position-absolute top-50 start-50 translate-middle">
               <h2>404, Page not found</h2>

@@ -2,16 +2,8 @@ import Axios from "axios";
 import React from "react";
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import "../../css/ScriptsScreen.css";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-//import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-//import MenuIcon from "@mui/icons-material/Menu";
-import { Link } from "react-router-dom";
-import logo from "../../assets/img/logoCropped.png";
+import "../../css/EditScripts.css";
+import logo from "../../assets/img/logo.png";
 
 function EditScripts(props) {
   const history = useHistory();
@@ -19,27 +11,58 @@ function EditScripts(props) {
   const [title, settitle] = useState("");
   const [email, setemail] = useState("");
   const [content, setcontent] = useState("");
+  const [selectedimage, setselectedimage] = useState(null);
+  const [imageurl,seturl]=useState('');
+  const [preview, setpreview] = useState();
+  const [redirect, setRedirect] = useState(false);
 
-  const goToAllScriptsPage = () => {
-    history.goBack();
-  };
+  useEffect(() => {
+    if (!selectedimage) {
+      setpreview(undefined)
+      return
+    }
+    const objecturl = URL.createObjectURL(selectedimage)
+    setpreview(objecturl)
+
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(objecturl)
+  }, [selectedimage]);
+
+  const onselectimage = e => {
+    if (!e.target.files || e.target.files.length === 0) {
+      setselectedimage(undefined)
+      return
+    }
+    setselectedimage(e.target.files[0])
+  }
 
   const submitfunction = () => {
-    Axios.post(`/api/scripts/${props.match.params.id}`, {
-      title: title,
-      contributor: contributor,
-      email: email,
-      content: content,
-    })
-      .then((result) => {
-        if (result.data.success) {
-          alert("Edited Successfully");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+
+    if(contributor===''){alert('Name could not be empty');return;}
+    if(title===''){alert('Title could not be empty');return;}
+    if(content===''){alert('Content could not be empty');return;}
+    if(email===''){alert('Email could not be empty');return;}
+    // if(selectedimage===null){alert('No Image Uploaded');return;}
+
+    const record = new FormData();
+    record.append("contributor",contributor);
+    record.append("title",title);
+    record.append("content",content);
+    record.append("email",email);
+    if(selectedimage!==null) record.append('image',selectedimage,contributor);
+
+    Axios.post(`/api/scripts/${props.match.params.id}`,record).then((result)=>{
+      if(result.data.success){
+        alert("Script Edited Successfully");
+        setRedirect(true);
+      }else{
+        alert(result.data.message);
+      }
+    }).catch((err)=>{
+      console.log(err.toString());
+    });
   };
+
   useEffect(() => {
     Axios.get(`/api/scripts/${props.match.params.id}`)
       .then((result) => {
@@ -47,101 +70,93 @@ function EditScripts(props) {
         settitle(result.data.Title);
         setemail(result.data.Email);
         setcontent(result.data.Content);
+        seturl(result.data.ImageUrl);
       })
       .catch((err) => {
         console.log(err.toString());
       });
   }, [props.match.params.id]);
 
-  return (
-    <div>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar color="transparent" elevation={0} position="static">
-          <Toolbar>
-            <Link to="/">
-              <IconButton
-                size="large"
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-                sx={{ mr: 2 }}
-              >
-                <img
-                  src={logo}
-                  alt="can't fetch"
-                  style={{ height: "50px", width: "90px" }}
-                />
-              </IconButton>
-            </Link>
-            <Typography
-              variant="h5"
-              component="div"
-              sx={{ flexGrow: 1, fontWeight: "bold" }}
-            >
-              PSG Tech Coding Club
-            </Typography>
-          </Toolbar>
-        </AppBar>
-      </Box>
-      <hr />
-      <div className="edit-scripts-screen">
-        <input
-          type="text"
-          name=""
-          placeholder="Enter Contributor Name"
-          value={contributor}
-          onChange={(e) => {
-            setcontributor(e.target.value);
-          }}
-        />
-        <input
-          type="text"
-          placeholder="Enter Email"
-          value={email}
-          onChange={(e) => {
-            setemail(e.target.value);
-          }}
-        />
-        <input
-          type="text"
-          placeholder="Enter Title"
-          value={title}
-          onChange={(e) => {
-            settitle(e.target.value);
-          }}
-        />
-        <textarea
-          placeholder="Enter Content"
-          value={content}
-          onChange={(e) => {
-            setcontent(e.target.value);
-          }}
-        />
-        <button type="submit" onClick={submitfunction}>
-          {" "}
-          Submit{" "}
-        </button>
-        <button onClick={goToAllScriptsPage}> Back to Scripts Page</button>
-      </div>
+  if (redirect) {
+    history.push("/allScripts");
+  }
 
-      <div className="event-screen-scroller-footer">
-        <hr />
-        <ul className="social-media-list">
-          <li className="social-media-icon">
-            <Link to="/" class="fa fa-instagram"></Link>
-          </li>
-          <li>
-            <Link to="/" class="fa fa-facebook"></Link>
-          </li>
-          <li className="social-media-icon">
-            <Link to="/" class="fa fa-envelope-square"></Link>
-          </li>
-        </ul>
-        <div className="copyright-text">
-          <p> &copy; Copyright 2021 Coding Club</p>
+  return (
+      <div className="wrapper">
+        <div className="row top-box">
+          <div className="col-8 content-background">
+            <div className="login-wrapper">
+              <h1 className="heading-text">Edit Script</h1>
+              {selectedimage ?
+                  <img src={preview} alt="loaded event" className={'image-style'}/>
+                  : <img src={imageurl} alt="loaded event" className={'image-style'}/>}
+              <label className="form-labell formLabel">Name</label>
+              <input
+                  type="text"
+                  name="contributor"
+                  placeholder="Enter Your Name"
+                  value={contributor}
+                  onChange={(e) => {
+                    setcontributor(e.target.value);
+                  }}
+                  className="form-control inputField"
+                  id="UserName1"
+              />
+              <label className="form-labell formLabel">Email id</label>
+              <input
+                  type="email"
+                  name="email"
+                  placeholder="Enter Your Email"
+                  value={email}
+                  onChange={(e) => {
+                    setemail(e.target.value);
+                  }}
+                  className="form-control inputField"
+                  id="Email1"
+              />
+              <label className="form-labell formLabel">Title</label>
+              <input
+                  type="text"
+                  placeholder="Enter Your Title"
+                  value={title}
+                  onChange={(e) => {
+                    settitle(e.target.value);
+                  }}
+                  className="form-control inputField"
+                  id="Content"
+              />
+              <label htmlFor="formFile" className="form-labell formLabel">
+                Upload your image
+              </label>
+              <input className="form-control inputField" type="file" id="formFile" onChange={onselectimage}/>
+              <label htmlFor="formFile" className="form-labell formLabel">
+                Your Script
+              </label>
+              <textarea
+                  id="formFile1"
+                  className="form-control inputField"
+                  rows="6"
+                  cols="50"
+                  value={content}
+                  placeholder="Enter your script here"
+                  onChange={(e) => {
+                    setcontent(e.target.value);
+                  }}
+              />
+              <button type="submit" onClick={submitfunction}> Submit</button>
+            </div>
+          </div>
+          <div className="col rightbox content-background">
+            <div className="login-content-wrapper">
+              <img className="sidebar-img" src={logo} alt="logo"/>
+              <h4 className="texts">Psg Tech Coding Club</h4>
+              <h5 className="texts bot-text1">
+                Simple things should be simple, complex things should be possible
+              </h5>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
   );
 }
 

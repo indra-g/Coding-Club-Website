@@ -5,6 +5,8 @@ const multer = require("multer");
 const fs = require("fs");
 const { google } = require('googleapis');
 const path = require('path');
+const bcrypt = require('bcrypt');
+require('dotenv').config();
 
 const Events = require('../../models/Events');
 const Users = require('../../models/Users');
@@ -87,11 +89,11 @@ router.get('/events/:id',(req,res)=>{
 // });
 
 /* Image Upload with google drive API */
-const CLIENT_ID = '492089325216-tvhvcd3367hn0vrq587a3ssm9s8oobr6.apps.googleusercontent.com';
-const CLIENT_SECRET = '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';
-const REDIRECT_URI = 'https://developers.google.com/oauthplayground';
-//const REFRESH_TOKEN = '1//04yAwALQuhMzPCgYIARAAGAQSNwF-L9Ir_H0KJ6lnq4xvDblPkBynZNoDC_9UPri909NZwuUYkUJB6B7G_8oy1xm5fW9n2MlXBFc';
-const REFRESH_TOKEN = '1//04r9snNgYmR2lCgYIARAAGAQSNwF-L9IrS3p2sYaGwYUb1eY4G-KaixdK_A7cHwquoxHkJelLakLMKpFFQcVCj4GIDIsQbkpZj8U';
+
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
+const REDIRECT_URI = process.env.REDIRECT_URI;
+const REFRESH_TOKEN = process.env.REFRESH_TOKEN;
 
 const oauth2Client = new google.auth.OAuth2(
     CLIENT_ID,CLIENT_SECRET,REDIRECT_URI
@@ -112,7 +114,6 @@ const MIME_TYPE_MAP = {
 };
 const imageStorage = multer.diskStorage({
     destination: (req,file,callback) => {
-        //console.log(file,MIME_TYPE_MAP[file.mimetype]);
         isValidImage = MIME_TYPE_MAP[file.mimetype];
         let error = new Error("Invalid Mime Type");
         if(isValidImage){
@@ -131,7 +132,6 @@ const imageStorage = multer.diskStorage({
 
 async function generatePublicUrl(file_Id){
     try{
-        //const fileId = '1Q8KOOPU2vw-MjUzCeaUTvY5cDFVNb5z5'
         const fileId = file_Id
         await drive.permissions.create({
             fileId: fileId,
@@ -178,6 +178,17 @@ async function uploadFile(filename,ext) {
     }
 }
 
+async function deleteFile(id) {
+    try{
+        const response = await drive.files.delete({
+            fileId: id,
+        });
+        console.log(response.data,response.status);
+    } catch(error){
+        console.log(error.message);
+    }
+}
+
 router.post('/events',multer({storage:imageStorage}).single("image"),async (req,res)=>{
     const PresenterName = req.body.presenter_name;
     const EventTitle = req.body.event_title;
@@ -187,7 +198,6 @@ router.post('/events',multer({storage:imageStorage}).single("image"),async (req,
     let imgUrl = ''
     if(uploadedFileId)  imgUrl = "https://drive.google.com/uc?export=view&id=" + uploadedFileId;
 
-    //const ImageUrl = req.body.imageUrl;
     const date = req.body.date;
     const event = new Events({
         PresenterName:PresenterName,
@@ -199,8 +209,6 @@ router.post('/events',multer({storage:imageStorage}).single("image"),async (req,
     });
     event.save((err)=>{
         if(err){
-            console.log(err.toString());
-            console.log('Error Occurred while adding');
             res.status(404).json({'success':false})
         }else{
             res.status(200).json({'success' : true});
@@ -219,7 +227,6 @@ router.post('/events/:id',multer({storage:imageStorage}).single("image"), async 
         const uploadedFileId = await uploadFile(user_img_name,user_img_ext);
         if(uploadedFileId)  imgUrl = "https://drive.google.com/uc?export=view&id=" + uploadedFileId;
     }
-    //const url=req.body.imageurl;
     const url = imgUrl;
     const date = req.body.date;
 
@@ -228,8 +235,13 @@ router.post('/events/:id',multer({storage:imageStorage}).single("image"), async 
             event.PresenterName=presentername;
             event.EventTitle=title;
             event.Description=description;
-            if(url!=null) event.ImageUrl=url;
-            // console.log(url);
+            if(url!=null){
+                const fileId = event.ImageUrl;
+                deleteFile(fileId.split('id=')[1]).then(() => {
+                    console.log('File Deleted Successful')
+                });
+                event.ImageUrl=url;
+            }
             event.EventLink=link;
             event.Date=date;
             event.save().then(()=>{
@@ -242,19 +254,7 @@ router.post('/events/:id',multer({storage:imageStorage}).single("image"), async 
         .catch((err)=>{
             console.log(err.toString());
         })
-
 })
-
-async function deleteFile(id) {
-    try{
-        const response = await drive.files.delete({
-            fileId: id,
-        });
-        console.log(response.data,response.status);
-    } catch(error){
-        console.log(error.message);
-    }
-}
 
 router.delete('/events/:id',(req,res)=>{
     Events.findById(req.params.id)
@@ -272,10 +272,7 @@ router.delete('/events/:id',(req,res)=>{
             .then(()=>{res.status(200).json({success : true})})
             .catch((err)=> {res.status(404).json({success : false})});
         }
-    })
-    .catch(err => {
-        console.log(err.toString());
-    });
+    }).catch(err => {console.log(err.toString());});
 });
 
 
@@ -291,24 +288,21 @@ router.post('/login/add',async (req,res)=>{
     const name = req.body.name;
     const isjs =true;
 
-    // console.log(email,username,name,password,isjs);
     const userExists = await Users.findOne({ Email: email});
-    //console.log(email,userExists);
     if(userExists)
         return res.json({'success':false, message:"User already exists"});
 
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password,salt);
     const user = new Users({
         Email:email,
-        Password:password,
+        Password:hashedPassword,
         Username:username,
         Name:name,
         isJs:isjs
     });
 
     user.save().then(response =>{
-        //let payload = {subject:user._id,username:username}
-        //console.log("The signed in user :" , user._id)
-        //let token = jwt.sign( payload, 'secretKey')
         res.status(200).json({'success':true, message:"Registration Successful"});
     }).catch((err)=>{
         console.log(err.toString());
@@ -316,43 +310,25 @@ router.post('/login/add',async (req,res)=>{
 });
 
 router.post('/login',(req,res)=>{
-    /*const email = req.body.email;
-    const password = req.body.password;
-    Users.find({Email:email}).then((users)=>{
-        users.forEach((user)=>{
-            if(user.Password==password){
-                res.status(200).json({'success':true,'username':user.Username,'name':user.Name})
-            }
-            else{
-                res.status(200).json({
-                    'success':false,
-                });
-            }
-        });
-    }).catch((err)=>{
-        console.log(err.toString());
-    });*/
 
     try {
-        Users.find({ Email: req.body.email }).then((currentUser)=>{
+        Users.find({ Email: req.body.email }).then(async (currentUser)=>{
             console.log(currentUser);
             if (currentUser !== []) {
                 console.log(currentUser[0].Password, req.body.password)
-                if (currentUser[0].Password === req.body.password) {
+                if (await bcrypt.compare(req.body.password,currentUser[0].Password)) {
 
                     console.log("Password match")
                     const id = currentUser[0]._id;
                     const username = currentUser[0].Username;
-                    const payload = {id,username};
+                    const email = currentUser[0].Email;
+                    const payload = {id,username,email};
                     jwt.sign( payload, 'secretKey',{expiresIn:"1d"}, (err,token) => {
                         if(err) console.log(err);
                         else{
                             return res.status(200).json({'success':true,'username':currentUser.Username,'name':currentUser.Name , token:token})
-                            //return res.status(200).json({'success':true,'username':currentUser.Username,'name':currentUser.Name , 'token':token})
                         }
                     });
-                    //console.log("Token Gen is : " , token )
-                    //return res.status(200).json({ currentUser: currentUser, message: "successfully"});
                 }
                 else {
                     console.log("password mismatch")
@@ -390,7 +366,6 @@ router.get('/scripts',(req,res)=>{
 router.get('/scripts/:id',(req,res)=>{
     Scripts.findById( req.params.id )
     .then((script)=>{
-        //console.log( script )
         res.status(200).json(script);
     })
     .catch((err)=>{
@@ -398,63 +373,103 @@ router.get('/scripts/:id',(req,res)=>{
     });
 })
 
-router.post('/scripts',(req,res)=>{
+router.post('/scripts',multer({storage:imageStorage}).single("image"),async(req,res)=>{
     const title= req.body.title;
     const content=req.body.content;
     const email=req.body.email;
     const contributor = req.body.contributor;
+
+    let imgUrl = null;
+    console.log("isValidImage :",isValidImage);
+    if(isValidImage){
+        const uploadedFileId = await uploadFile(user_img_name,user_img_ext);
+        console.log("inside api");
+        if(uploadedFileId)  imgUrl = "https://drive.google.com/uc?export=view&id=" + uploadedFileId;
+    }
+
     const script = new Scripts({
         Email:email,
         Content:content,
         Title:title,
-        Contributor:contributor
+        Contributor:contributor,
+        ImageUrl:imgUrl,
+        Date:new Date()
     });
     script.save().then(()=>{
         res.status(200).json({'success':true});
     }).catch((err)=>{
-        console.log(err.toString);
+        console.log(err.toString());
+        res.status(200).json({'success':false,'message':'error in uploading...'});
     })
 });
 
-router.post('/scripts/:id',(req,res)=>{
-    const title = req.body.title;
-    const contributor = req.body.contributor;
-    const content = req.body.content;
-    const email = req.body.email;
+router.post('/scripts/:id',multer({storage:imageStorage}).single("image"),async (req,res)=>{
+
+    const contributor = req.body.contributor
+    const title = req.body.title
+    const email = req.body.email
+    const content = req.body.content
+    const acceptor = req.body.acceptor
+
+    console.log("isValidImage :",isValidImage);
+    let imgUrl = null;
+    if(isValidImage){
+        const uploadedFileId = await uploadFile(user_img_name,user_img_ext);
+        if(uploadedFileId)  imgUrl = "https://drive.google.com/uc?export=view&id=" + uploadedFileId;
+    }
+    const url = imgUrl;
+    const date = new Date();
+
     Scripts.findById(req.params.id)
-    .then((script)=>{
-        script.Contributor = contributor;
-        script.Title = title;
-        script.Content = content;
-        script.Email = email;
-        script.save().then(()=>{
-            console.log('Edited Successfully');
-            res.status(200).json({'success':true});
-        }).catch((err)=>{
+        .then((script)=>{
+            if(script){
+                script.Contributor=contributor
+                script.Email = email
+                script.Content=content
+                script.Title=title
+                script.Acceptor=acceptor
+
+                if(url!=null){
+                    const fileId = script.ImageUrl;
+                    deleteFile(fileId.split('id=')[1]).then(() => {
+                        console.log('File Deleted Successful')
+                    })
+                    script.ImageUrl=url;
+                }
+                script.Date = date
+                script.save().then(()=>{
+                    res.status(200).json({'success':true})
+                })
+                    .catch((err)=>{
+                        console.log(err.toString())
+                        res.status(404).json({'success':false,'message':'Error In Saving'})
+                    })
+            }else{
+                res.status(404).json({'success':false})
+            }
+        })
+        .catch((err)=>{
             console.log(err.toString());
-            res.status(404).json({'success':false});
-        });
-    })
-    .catch((err)=>{
-        console.log(err)
-    });
+        })
 })
 
 router.delete('/scripts/:id',(req,res)=>{
+
     Scripts.findById(req.params.id)
-    .then((script)=>{
-        if(script){
-            script.remove()
-            .then(()=>{res.status(200).json({'success':true});})
-            .catch((err)=>{console.log(err.toString())});
-            
-        }else{
-            res.status(404).json({'success':false});
-        }
-    })
-    .catch((err)=>{
-        console.log(err);
-    })
+        .then((script)=>{
+            if(!script){
+                res.status(404).json({failure : 'No Such Id'});
+            }
+            else{
+                const fileId = script.ImageUrl;
+                deleteFile(fileId.split('id=')[1]).then(() => {
+                    console.log('File Deleted Successful')
+                })
+                script.remove()
+                    .then(()=>{res.status(200).json({success : true})})
+                    .catch((err)=> {res.status(404).json({success : false})});
+            }
+        }).catch(err => {console.log(err.toString());});
 })
 
 
@@ -473,6 +488,7 @@ router.get('/contribute-scripts',(req,res)=>{
         console.log(err.toString());
     });
 });
+
 router.get('/contribute-scripts/:id',(req,res)=>{
     Contributes.findById(req.params.id).then((contribute)=>{
         if(contribute){
@@ -487,112 +503,146 @@ router.get('/contribute-scripts/:id',(req,res)=>{
     })
 })
 
-router.post('/contribute-scripts',(req,res)=>{
+router.post('/contribute-scripts',multer({storage:imageStorage}).single("image"),async(req,res)=>{
     const contributor = req.body.contributor
     const title =req.body.title
     const content = req.body.content
     const email = req.body.email
-    const acceptor = ''
+
+    let imgUrl = null;
+    console.log("isValidImage :",isValidImage);
+    if(isValidImage){
+        const uploadedFileId = await uploadFile(user_img_name,user_img_ext);
+        console.log("inside api");
+        if(uploadedFileId)  imgUrl = "https://drive.google.com/uc?export=view&id=" + uploadedFileId;
+    }
+
     const contribute = new Contributes({
         Contributor:contributor,
         Title : title,
         Email:email,
         Content:content,
-        Acceptor:acceptor,
+        ImageUrl:imgUrl,
+        Date:new Date()
     });
     contribute.save().then(()=>{
         res.status(200).json({'success':true})
     })
     .catch((err)=>{
         console.log(err.toString())
-        res.status(404).json({'success':false})
+        res.status(404).json({'success':false,'message':'error in uploading...'})
     })
 
 });
-router.post('/contribute-scripts/:id',(req,res)=>{
+
+router.post('/contribute-scripts/:id',multer({storage:imageStorage}).single("image"),async (req,res)=>{
+
     const contributor = req.body.contributor
     const title = req.body.title
     const email = req.body.email
     const content = req.body.content
     const acceptor = req.body.acceptor
-    Contributes.findById(req.params.id).then((contribute)=>{
-        if(contribute){
-            contribute.Contributor=contributor
-            contribute.Email = email
-            contribute.Content=content
-            contribute.Title=title
-            contribute.Acceptor=acceptor
-            contribute.save().then(()=>{
-                res.status(200).json({'success':true})
-            })
-            .catch((err)=>{
-                console.log(err.toString())
-                res.status(404).json({'success':false,'message':'Error In Saving'})
-            })
-        }else{
-            res.status(404).json({'success':false})
-        }
-    })
+
+    console.log("isValidImage :",isValidImage);
+    let imgUrl = null;
+    if(isValidImage){
+        const uploadedFileId = await uploadFile(user_img_name,user_img_ext);
+        if(uploadedFileId)  imgUrl = "https://drive.google.com/uc?export=view&id=" + uploadedFileId;
+    }
+    const url = imgUrl;
+    const date = req.body.date;
+
+    Contributes.findById(req.params.id)
+        .then((contribute)=>{
+            if(contribute){
+                contribute.Contributor=contributor
+                contribute.Email = email
+                contribute.Content=content
+                contribute.Title=title
+                contribute.Acceptor=acceptor
+                if(url!=null){
+                    const fileId = contribute.ImageUrl;
+                    deleteFile(fileId.split('id=')[1]).then(() => {
+                        console.log('File Deleted Successful')
+                    })
+                    contribute.ImageUrl=url;
+                }
+                contribute.Date = new Date();
+                contribute.save().then(()=>{
+                    res.status(200).json({'success':true})
+                })
+                    .catch((err)=>{
+                        console.log(err.toString())
+                        res.status(404).json({'success':false,'message':'Error In Saving'})
+                    })
+            }else{
+                res.status(404).json({'success':false})
+            }
+        })
+        .catch((err)=>{
+            console.log(err.toString());
+        })
 
 })
+
 router.post('/add-contributed-script/:id',(req,res)=>{
-    var contributor;
-    var title ;
-    var content ;
-    var email ;
-    const acceptor = req.body.acceptor;
+    let contributor, title, email, content, acceptor = req.body.acceptor , imageurl, date;
     Contributes.findById(req.params.id).then((contribute)=>{
         if(contribute){
             contributor = contribute.Contributor
             title = contribute.Title
             email = contribute.Email
             content = contribute.Content
-            contribute.Acceptor = acceptor
-            contribute.save().then(()=>{
-                // res.status(200).json({'success':true})
-            })
-            .catch((err)=>{
-            console.log(err.toString())
-            })
-            const script = new Scripts({
-                Contributor:contributor,
-                Title:title,
-                Email:email,
-                Content:content
-            })
-        
-            script.save().then(()=>{
-                res.status(200).json({'success':true})
-            })
-            .catch((err)=>{
-                res.status(404).json({'success':false})
-                console.log(err.toString())
-            })
+            acceptor = contribute.Acceptor
+            imageurl = contribute.ImageUrl
+            date = contribute.Date
+
+            contribute.remove().then(()=>{
+                const script = new Scripts({
+                    Contributor:contributor,
+                    Title:title,
+                    Email:email,
+                    Content:content,
+                    Date:date,
+                    ImageUrl:imageurl
+                })
+
+                script.save().then(()=>{
+                    res.status(200).json({'success':true})
+                }).catch((err)=>{
+                        res.status(404).json({'success':false})
+                        console.log(err.toString())
+                    });
+            }).catch((err)=>{console.log(err.toString())});
         }
         else{
             console.log('No Such ID')
             res.status(404).json({'success':false,'message':'No such ID'})
         }
     })
-    .catch((err)=>{
-        console.log(err.toString())
-        req.status(404).json({'success':false})
-    }) 
+        .catch((err)=>{
+            console.log(err.toString())
+            req.status(404).json({'success':false})
+        })
 })
 
 router.delete('/contribute-scripts/:id',(req,res)=>{
-    Contributes.findById(req.params.id).then((contribute)=>{
-        contribute.remove().then(()=>{
-            res.status(200).json({'success':true})
-        })
-        .catch((err)=>{
-            console.log(err.toString())
-            res.status(404).json({'success':false})
-        })
-    })
-    .catch((err)=>{
-        console.log(err.toString())
-        res.status(200).json({'success':false})
-    })
-})
+
+    Contributes.findById(req.params.id)
+        .then((contribute)=>{
+            if(!contribute){
+                res.status(404).json({failure : 'No Such Id'});
+            }
+            else{
+                const fileId = contribute.ImageUrl;
+                deleteFile(fileId.split('id=')[1]).then(() => {
+                    console.log('File Deleted Successful')
+                })
+                contribute.remove()
+                    .then(()=>{res.status(200).json({success : true})})
+                    .catch((err)=> {res.status(404).json({success : false})});
+            }
+        }).catch(err => {console.log(err.toString());});
+});
+
 module.exports = router;

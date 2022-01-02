@@ -1,11 +1,8 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import "../../css/eventScreen.css";
-import SliderHome from "../home/slider_home";
-import EventSlider from "./eventSlider";
+import {Link, useHistory} from "react-router-dom";
 import User from "../../config/user_credentials";
-import { Link } from "react-router-dom";
 import jwt from "jsonwebtoken";
-import Card from "./card";
 import img1 from "../../assets/img/articles.jpg";
 import img2 from "../../assets/img/articles2.jpg";
 import img3 from "../../assets/img/img3.jpg";
@@ -14,85 +11,39 @@ import img6 from "../../assets/img/img5.jpg";
 import img5 from "../../assets/img/img6.jpg";
 import img7 from "../../assets/img/img7.jpg";
 import logo from "../../assets/img/logo.png";
-import sampleImg from "../../assets/img/SUPER DREAM OFFERS 2.png";
+import EventSlider from "./eventSlider";
 
 function EventScreen() {
-  const user = useState(User);
-  console.log(jwt.decode(localStorage.getItem("token")));
+
+  const history = useHistory();
+  const [user, setuser] = useState(User);
+
   let decode = jwt.decode(localStorage.getItem("token"));
 
+  const logOutFunction = () => {
+    alert("Logout Function Exceuted");
+    User.username = "";
+    setuser({ username: "" });
+    console.log("Username after logged out",user);
+    localStorage.removeItem("token");
+    history.push('/events-home');
+  };
+
+  const addLibraries = () => {
+    const script = document.createElement('script');
+    script.src = "https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js";
+    script.async = true;
+    document.body.appendChild(script);
+
+    const link = document.createElement('link');
+    link.href = "https://unpkg.com/flickity@2/dist/flickity.min.css";
+    console.log(document.body.appendChild(link));
+  }
+
   return (
-    // <div className="container page-top">
-    //     <div className="row">
-    //         <div className="col-md-12 col-lg-9">
-    //             <div className="col"/>
-    //             <div className="col-sm-10 col-md-8 left-box">
-    //                 <div className={"row"}>
-    //                     <div className="col"></div>
-    //                     <div className="col">
-    //                         <Navbar username={user.username} />
-    //                         <EventSlider />
-    //                         <div>
-    //                             <ul className="social-media-list">
-    //                                 <li className="social-media-icon">
-    //                                     <Link to="/" class="fa fa-instagram"/>
-    //                                 </li>
-    //                                 <li>
-    //                                     <Link to="/" class="fa fa-facebook"/>
-    //                                 </li>
-    //                                 <li className="social-media-icon">
-    //                                     <Link to="/" class="fa fa-envelope-square"/>
-    //                                 </li>
-    //                             </ul>
-    //                             <span className="copyright-text"><p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &copy; Copyright 2021 Coding Club</p></span>
-    //                         </div>
-    //                     </div>
-    //                     <div className="col"></div>
-    //                 </div>
-    //             </div>
-    //             <div className="col"/>
-    //         </div>
-    //         <div className="col-lg-3 right-box textStyle d-none d-lg-block d-xl-block">
-    //             <div>
-    //                 <div className="row scroller-header">
-    //                     <ul className="nav justify-content-end">
-    //                         <li className="nav-item">
-    //                             {localStorage.getItem("token")!=null?
-    //                                 <div style={{ color: 'white'}}>
-    //                                     {" "}
-    //                                     {localStorage.getItem("token") && decode && decode.username}{" "}
-    //                                 </div>
-    //                                 :null
-    //                             }
-    //                         </li>
-    //                         &nbsp;&nbsp;&nbsp;
-    //                         <li className="nav-item">
-    //                             {localStorage.getItem("token")!=null ?
-    //                                 <a className="btn nav-link signup" href="/signup">
-    //                                     Create New User
-    //                                 </a>
-    //                                 :null
-    //                             }
-    //                         </li>
-    //                         <li className="nav-item">
-    //                             {localStorage.getItem("token")==null ?
-    //                                 <a className="btn nav-link" href="/login">Login</a>
-    //                                 :null
-    //                                 // :<a className="btn nav-link" onClick={logOutfunction} href="/">Logout</a>
-    //                             }
-    //                         </li>
-    //                     </ul>
-    //                 </div>
-    //                 <div>
-    //                     <SliderHome />
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     </div>
-    // </div>
     <div class="content-wrapper">
       <div class="row">
-        <div class="col-lg-8 background ">
+        <div class="col-lg-8 content-background ">
           <nav className="navbar navbar-expand-lg navbar-light">
             <div className="container-fluid">
               <img className="logo" src={logo} alt="logo"></img>
@@ -108,117 +59,48 @@ function EventScreen() {
               >
                 <span class="navbar-toggler-icon"></span>
               </button>
-              <div
-                className="collapse navbar-collapse"
-                id="navbarSupportedContent"
-              >
+
+              <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                    <a
-                      class="nav-link active align-middle events"
-                      aria-current="page"
-                      href="/events-home"
-                    >
-                      Events
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a
-                      class="nav-link active align-middle"
-                      aria-current="page"
-                      href="/scripts"
-                    >
-                      Scripts
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a
-                      class="nav-link active align-middle login"
-                      aria-current="page"
-                      href="/login"
-                    >
-                      Login
-                    </a>
-                  </li>
-                  <li>
-                    <a class="nav-link active align-middle login" href="/about">
-                      About
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      class="nav-link active align-middle login"
-                      href="/officebearers"
-                    >
-                      Team
-                    </a>
-                  </li>
-                  <li>
-                    <a class="nav-link active align-middle login" href="/what">
-                      What we do
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      class="nav-link active align-middle login"
-                      href="/add-script"
-                    >
-                      Contribute Scripts
-                    </a>
-                  </li>
+                  <li class="nav-item"><a class="nav-link active align-middle events" aria-current="page" href="/events-home">Events</a></li>
+                  <li class="nav-item"><a class="nav-link active align-middle" aria-current="page" href="/scripts">Scripts</a></li>
+                  {localStorage.getItem("token")? null: <li class="nav-item"> <a className="nav-link active align-middle login" href="/login" aria-current="page"> Login </a> </li>}
+                  <li class="nav-item"> <a class="nav-link active align-middle login" href="/about" aria-current="page">About</a> </li>
+                  <li class="nav-item"> <a class="nav-link active align-middle login" href="/officebearers" aria-current="page">Team</a></li>
+                  <li class="nav-item"><a class="nav-link active align-middle login" href="/what" aria-current="page">What we do</a></li>
+                  {localStorage.getItem("token")? null: <li className="nav-item"><a className="nav-link active align-middle login" href="/contribute-scripts" aria-current="page">Contribute Scripts</a></li>}
+                  {localStorage.getItem("token")? <li class="nav-item"><a className="nav-link active align-middle login" href={"/add-event"} aria-current="page">Add Event</a></li> :null}
+                  {localStorage.getItem("token")? <li class="nav-item"><a className="nav-link active align-middle login" href={"/add-script"} aria-current="page">Add Script</a></li> :null}
+                  {localStorage.getItem("token") ? <li class="nav-item"><a className="nav-link active align-middle login" href={"/contributed-scripts-home"}  aria-current="page">View Contributed Scripts</a></li> : null}
+                  {/*{localStorage.getItem("token")? <li class="nav-item"><a className="nav-link active align-middle login" href={"/allEvents"} aria-current="page">All Events</a></li> :null}*/}
+                  {/*{localStorage.getItem("token")? <li class="nav-item"><a className="nav-link active align-middle login" href={"/allScripts"} aria-current="page">All Scripts</a></li> :null}*/}
+                  {localStorage.getItem("token")? <li class="nav-item"> <a className="nav-link active align-middle login" href="/signup" aria-current="page">Create New User</a></li>:null}
+                  {localStorage.getItem("token")? <li class="nav-item"><a className="nav-link active align-middle login logout-style" onClick={logOutFunction} aria-current="page">Logout</a></li> :null}
+
                   <li class="nav-item dropdown">
-                    <a
-                      class="nav-link dropdown-toggle"
-                      href="#"
-                      id="navbarDropdown"
-                      role="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      More
-                    </a>
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">More</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <li>
-                        <a class="dropdown-item" href="/what">
-                          What we do
-                        </a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="/officebearers">
-                          Team
-                        </a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="/about">
-                          About
-                        </a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="/add-script">
-                          Contribute Scripts
-                        </a>
-                      </li>
+                      <li><a class="dropdown-item" href="/what">What we do</a></li>
+                      <li><a class="dropdown-item" href="/officebearers">Team</a></li>
+                      <li><a class="dropdown-item" href="/about">About</a></li>
+                      {localStorage.getItem("token")? null: <li><a className="dropdown-item" href="/contribute-scripts">Contribute Scripts</a></li>}
+                      {localStorage.getItem("token")? <li><a className="dropdown-item" href={"/add-event"}>Add Event</a></li>:null}
+                      {localStorage.getItem("token")? <li><a className="dropdown-item" href={"/add-script"}>Add Script</a></li>:null}
+                      {localStorage.getItem("token") ? <li><a className="dropdown-item" href={"/contributed-scripts-home"}>View Contributed Scripts</a></li> : null}
+                      {/*{localStorage.getItem("token")? <li><a className="dropdown-item" href={"/allEvents"}>All Events</a></li>:null}*/}
+                      {/*{localStorage.getItem("token")? <li><a className="dropdown-item" href={"/allScripts"}>All Scripts</a></li>:null}*/}
+                      {localStorage.getItem("token")? <li><a className="dropdown-item" href="/signup">Create New User</a></li>:null}
+                      {localStorage.getItem("token")? <li><a className="dropdown-item logout-style" onClick={logOutFunction}>Logout</a></li>:null}
                     </ul>
                   </li>
                 </ul>
               </div>
             </div>
           </nav>
-          <h4 className="heading">Events</h4>
-          <hr className="line" />
           <div className="content-wrapperr">
-            <div className="carousel here" data-flickity>
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-            </div>
+            <EventSlider />
           </div>
-          <hr size="3" className="line bot-line"></hr>
+          {/*<hr size="3" className="line bot-line"></hr>*/}
           <div className="footer">
             <Link to="/" class="fa fa-instagram" />
             <Link to="/" class="fa fa-facebook" />
@@ -228,10 +110,12 @@ function EventScreen() {
             </span>
           </div>
         </div>
-        <div class="col rightBox background">
-          <a className="btn nav-link margin" href="/login">
-            Login
-          </a>
+        <div class="col rightBox content-background">
+          {localStorage.getItem("token")?
+              <a className="btn nav-link margin">{decode.username}</a>
+            :
+              <a className="btn nav-link margin" href="/login">Login</a>
+          }
           <div className="content-wrapperr">
             <div className="carousel" data-flickity>
               <img className="carousel-cell" src={img1}></img>
@@ -245,6 +129,7 @@ function EventScreen() {
           </div>
         </div>
       </div>
+      {addLibraries()}
     </div>
   );
 }

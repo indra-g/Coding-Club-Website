@@ -6,7 +6,6 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-//import food from "../../assets/img/food.jpg";
 import { grey } from "@mui/material/colors";
 import { useHistory } from "react-router-dom";
 import { CardActionArea } from "@mui/material";
@@ -28,7 +27,6 @@ export default function MediaCard(props) {
   useEffect(() => {
     setData(props.eventData);
   },[props.eventData]);
-  //console.log(props.eventData);
 
   const editEvent = (id) =>{
     console.log(id);
@@ -51,13 +49,12 @@ export default function MediaCard(props) {
 
   const viewEvent = (id) => {
     console.log(id);
-    //history.push("/view-event/123");
     history.push(`/view-event/${id}`);
   };
 
   return (
     <Card
-      sx={{ maxWidth: 395, borderRadius: 5 }}
+      sx={{ maxHeight: 345, maxWidth: 295, borderRadius: 5}}
       style={{ backgroundColor: "black", color: "white" }}
     >
       <CardActionArea>
@@ -67,13 +64,6 @@ export default function MediaCard(props) {
           image={data?data.ImageUrl:''}
           alt="green iguana"
         />
-        {/*<CardMedia*/}
-        {/*    component="img"*/}
-        {/*    height="140"*/}
-        {/*    image={data?data.ImageUrl:''}*/}
-        {/*    style={{objectFit:"contain",margin:10}}*/}
-        {/*    alt="green iguana"*/}
-        {/*/>*/}
         <CardContent sx={{ textAlign: "center" }}>
           <Typography
             sx={{ fontWeight: 700, fontSize: 18, pb: 2 }}
@@ -95,7 +85,6 @@ export default function MediaCard(props) {
           sx={{ borderRadius: 2, mx: "auto", fontWeight: 600 }}
           size="small"
           style={{ backgroundColor: grey800, color: "white" }}>
-          {/*<a target={'_blank'} href={data?data.EventLink:''} className={"anchor-style"}> View </a>*/}
           View
         </Button>
         {localStorage.getItem('token')?
