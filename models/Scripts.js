@@ -16,6 +16,15 @@ const ScriptsSchema = new mongoose.Schema({
     Content:{
         type:String,
         required:true,
+    },
+    Acceptor:{
+        type:String,
+        default:'',
+    },
+    Date:{type:Date,default:Date.now()},
+    ImageUrl : {
+        type:String,
+        required:true,
     }
 });
-var Scripts = module.exports = mongoose.model('Scripts',ScriptsSchema);
+let Scripts = module.exports = mongoose.model('Scripts',ScriptsSchema);

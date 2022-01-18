@@ -20,6 +20,11 @@ const ContributeSchema = new mongoose.Schema({
     Content:{
         type:String,
         required:true,
+    },
+    Date:{type:Date,default:Date.now()},
+    ImageUrl : {
+        type:String,
+        required:true,
     }
 });
 const ContributeScripts = module.exports=mongoose.model('Contributed-Scripts',ContributeSchema);

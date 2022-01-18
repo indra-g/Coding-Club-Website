@@ -1,84 +1,350 @@
-.contribute-scripts-screen input{
-    display:block;
-    margin:10px auto;
-    width:60%;
-    height:20%;
+/*.contribute-scripts-screen input{*/
+/*    display:block;*/
+/*    margin:10px auto;*/
+/*    width:60%;*/
+/*    height:20%;*/
+/*}*/
+/*.contribute-scripts-screen textarea{*/
+/*    display:block;*/
+/*    margin:20px auto;*/
+/*    width:60%;*/
+/*    height:60%;*/
+/*}*/
+
+/*.contribute-scripts-screen button{*/
+/*    display:block;*/
+/*    margin:10px auto;*/
+/*    width:20%;*/
+/*    border-radius: 15px;*/
+/*    background-color:#212122;*/
+/*    color:white;*/
+/*}*/
+
+/*!* View Contribute Scripts Styles *!*/
+
+/*.contribute-script-card{*/
+/*    text-align:center;*/
+/*    display:block;*/
+/*    margin:10px auto;*/
+/*    padding:10px;*/
+/*    width:50%;*/
+/*    height:20%;*/
+/*    border:2px solid black;*/
+/*}*/
+
+/*.add-contribute-button{*/
+/*    display:block;*/
+/*    margin:10px auto;*/
+/*    width:20%;*/
+/*    border-radius: 15px;*/
+/*    background-color:#212122;*/
+/*    color:white;*/
+/*}*/
+
+/*.edit-delete-area{*/
+/*    display:grid;*/
+/*    grid-template-columns: 1fr 1fr;*/
+/*    grid-gap:10rem;*/
+/*}*/
+
+/*.edit-delete-area button{*/
+/*    display:block;*/
+/*    margin:10px auto;*/
+/*    width:20%;*/
+/*    border-radius: 15px;*/
+/*    background-color:#212122;*/
+/*    color:white; */
+/*}*/
+/*!* View Contribute Scripts Styles End *!*/
+
+/*!* Edit Contributed Scripts Screen Styles *!*/
+
+/*.edit-contribute-screen input{*/
+/*    display:block;*/
+/*    margin:10px auto;*/
+/*    width:60%;*/
+/*    height:20%;*/
+/*}*/
+
+/*.edit-contribute-screen textarea{*/
+/*    display:block;*/
+/*    margin:20px auto;*/
+/*    width:60%;*/
+/*    height:60%;*/
+/*}*/
+
+/*.edit-contribute-screen button{*/
+/*    display:block;*/
+/*    margin:10px auto;*/
+/*    width:20%;*/
+/*    border-radius:15px;*/
+/*    background-color: #212122;*/
+/*    color:white;*/
+/*}*/
+/*!* Edit Contributed Scripts Screen Styles End*!*/
+
+.head {
+    margin: 30px;
+    font-size: 30px;
 }
-.contribute-scripts-screen textarea{
-    display:block;
-    margin:20px auto;
-    width:60%;
-    height:60%;
+.image-style {
+    width: 40%;
+    height: 40%;
+    margin: 5% auto;
+    border: 1px solid #000000;
+    border-radius: 50%;
+    display: block;
+}
+/*.login-wrapper {*/
+/*  margin: 30px !important;*/
+/*  width: 100% !important;*/
+/*}*/
+.heading-text {
+    margin: 0 !important;
+    padding: 10%;
 }
 
-.contribute-scripts-screen button{
-    display:block;
-    margin:10px auto;
-    width:20%;
+.login-wrapper button {
+    display: block;
+    margin: 10px auto;
+    background: #2c219a;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.inputField {
+    border: 1px solid rgba(0, 0, 0, 0.37);
+    box-sizing: border-box;
+    border-radius: 10px;
+    height: 50px;
+    background: rgba(196, 196, 196, 0.15);
+}
+#formFile {
+    height: auto;
+}
+#formFile1 {
+    height: auto;
+}
+@media screen and (max-width: 368px) {
+    .col-8 {
+        height: 100% !important;
+    }
+}
+
+.login-area input {
+    display: block;
+    margin: 10px auto;
+    width: 60%;
+    height: 20%;
+}
+.login-area button {
+    display: block;
+    margin: 10px auto;
+    width: 10%;
+}
+.bottomText {
+    font-weight: 100;
+    font-size: 20px;
+}
+.wrapper {
+    margin: 30px;
+}
+.col-8 {
+    display: flex;
+    vertical-align: middle;
+    height: 93vh;
+    background-color: rgba(196, 196, 196, 0.15);
+}
+.rightbox {
+    display: flex;
+    height: 93vh;
+    margin-left: 10px;
+    background: linear-gradient(
+            360deg,
+            #251993 0%,
+            rgba(62, 49, 183, 0.91) 99.48%
+    );
+}
+.texts {
+    color: white;
+}
+.login-content-wrapper {
+    text-align: center;
+    margin: auto;
+}
+.img {
+    height: 200px;
+    width: 200px;
+    margin-bottom: -80px;
+}
+.login-wrapper {
+    margin: auto;
+    width: 50%;
+}
+.heading-text {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+.form-labell {
+    margin-top: 30px;
+}
+.form-label {
+    margin: 0;
+}
+.formLabel {
+    font-family: Ubuntu;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    letter-spacing: -0.015em;
+}
+.bot-text1 {
+    font-size: 15px;
+    margin: 0 40px;
+    margin-top: 18px;
+}
+
+.login {
+    display: none;
+}
+.navbar {
+    padding: 0;
+}
+.col-lg-8 {
+    height: 93vh;
+    background-color: rgba(196, 196, 196, 0.15);
+}
+.rightBox {
+    height: 93vh;
+    margin-left: 10px;
+    text-align: end;
+    background: linear-gradient(
+            360deg,
+            #251993 0%,
+            rgba(62, 49, 183, 0.91) 99.48%
+    );
+}
+.content-wrapper {
+    margin: 30px;
+}
+.logo {
+    width: 150px;
+    height: 150px;
+    margin: -10px -40px;
+}
+.content-background {
     border-radius: 15px;
-    background-color:#212122;
-    color:white;
+    height:auto;
+}
+h4 {
+    font-weight: 600;
+    margin: 0 0 0 10px;
+}
+.nav-link {
+    font-weight: 500;
+    font-size: 20px;
+    margin-right: 20px;
+    color: black !important;
+}
+.heading {
+    margin-left: 6%;
+    display: inline-block;
+}
+.line {
+    margin: 28px 30px;
+    color: black;
+    opacity: 100%;
+}
+.events {
+    text-decoration: underline;
+}
+.col {
+    display: flex;
+}
+.content-wrapperr {
+    text-align: end;
+    margin: auto;
+    width: 100%;
 }
 
-/* View Contribute Scripts Styles */
-
-.contribute-script-card{
-    text-align:center;
-    display:block;
-    margin:10px auto;
-    padding:10px;
-    width:50%;
-    height:20%;
-    border:2px solid black;
+@media screen and (max-width: 991px) {
+    .nav-link {
+        text-align: end;
+    }
+    .dropdown-item {
+        text-align: end;
+    }
+    .rightBox {
+        display: none;
+    }
+    .login {
+        display: block;
+    }
+    .dropdown {
+        display: none;
+    }
 }
 
-.add-contribute-button{
-    display:block;
-    margin:10px auto;
-    width:20%;
-    border-radius: 15px;
-    background-color:#212122;
-    color:white;
+@media screen and (max-width: 600px) {
+    .logo {
+        height: 45%;
+        width: 45%;
+    }
+    .title {
+        margin-left: 10%;
+        font-size: 3.5vw !important;
+    }
+    .nav-link {
+        font-size: 2vw !important;
+    }
+    .heading {
+        position: relative;
+        bottom: 30px;
+    }
+    .line {
+        position: relative;
+        bottom: 30px;
+    }
+    p {
+        font-size: 15px !important;
+    }
+    .rightbox {
+        display: none;
+    }
+    .col-8 {
+        width: 100%;
+    }
+    .login-wrapper {
+        width: 80%;
+    }
 }
 
-.edit-delete-area{
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap:10rem;
+@media screen and (max-width: 1072px) {
+    .title {
+        font-size: 20px;
+        margin-right: auto;
+    }
+    .nav-link {
+        font-size: 16px;
+    }
+    .heading {
+        font-size: 2.5vw;
+    }
+    .line {
+        margin: 4% 4%;
+    }
+    .col-lg-8 {
+        height: 100%;
+    }
+    .rightbox {
+        display: none;
+    }
+    .col-8 {
+        width: 100%;
+    }
+    .login-wrapper {
+        width: 80%;
+    }
 }
-
-.edit-delete-area button{
-    display:block;
-    margin:10px auto;
-    width:20%;
-    border-radius: 15px;
-    background-color:#212122;
-    color:white; 
-}
-/* View Contribute Scripts Styles End */
-
-/* Edit Contributed Scripts Screen Styles */
-
-.edit-contribute-screen input{
-    display:block;
-    margin:10px auto;
-    width:60%;
-    height:20%;
-}
-
-.edit-contribute-screen textarea{
-    display:block;
-    margin:20px auto;
-    width:60%;
-    height:60%;
-}
-
-.edit-contribute-screen button{
-    display:block;
-    margin:10px auto;
-    width:20%;
-    border-radius:15px;
-    background-color: #212122;
-    color:white;
-}
-/* Edit Contributed Scripts Screen Styles End*/

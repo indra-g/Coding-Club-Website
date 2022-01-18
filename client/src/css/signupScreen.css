@@ -1,14 +1,75 @@
-.signup-screen input{
-    display:block;
-    margin:10px auto;
-    height:20%;
-    width:60%;
+.signup-screen input {
+  display: block;
+  margin: 10px auto;
+  height: 20%;
+  width: 60%;
 }
 
-.signup-screen button{
-    display:block;
-    margin:10px auto;
-    width:10%;
+.signup-screen button {
+  display: block;
+  margin: 10px auto;
+  width: 10%;
+}
+
+.loginTop {
+  top: 30px;
+}
+
+.leftbox {
+  position: absolute;
+  /* width: 928px; */
+  height: 700px;
+  /* left: 31px; */
+  top: 30px;
+  background: rgba(196, 196, 196, 0.15);
+  border-radius: 20px;
+}
+
+.login {
+  margin-top: 15%;
+}
+
+.inputField {
+  border: 1px solid rgba(0, 0, 0, 0.37);
+  box-sizing: border-box;
+  border-radius: 10px;
+  height: 50px;
+  background: rgba(196, 196, 196, 0.15);
+}
+
+.loginTitle {
+  font-family: Ubuntu;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 41px;
+}
+
+.loginbutton {
+  width: 150px;
+  height: 43px;
+  color: white;
+  background: #2c219a;
+  border-radius: 10px;
+  border-color: #2c219a;
+}
+
+.textStyle {
+  font-family: Ubuntu;
+  font-style: normal;
+  font-weight: bold;
+}
+
+.img_container {
+  position: relative;
+  margin-top: 140px;
+}
+
+.text-block {
+  position: absolute;
+  bottom: 8px;
+  color: white;
+  text-align: center;
 }
 
 

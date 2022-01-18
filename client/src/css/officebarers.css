@@ -1,0 +1,40 @@
+.carousel-item {
+  text-align: center;
+}
+.new {
+  margin-top: 40px;
+}
+button {
+  color: black !important;
+}
+.main-title {
+  font-size: 29px !important;
+}
+.caro {
+  margin-top: 30px;
+}
+.cont {
+  /*height: 93vh !important;*/
+  height:auto;
+}
+@media screen and (max-width: 465px) {
+  .main-title {
+    font-size: 6vw !important;
+    position: relative !important;
+    right: 30px !important;
+  }
+}
+@media screen and (max-width: 991px) {
+  .bot-col {
+    margin-top: 30px;
+  }
+  .cont {
+    height: 100% !important;
+    padding-bottom: 30px;
+  }
+}
+@media screen and (max-width: 575px) {
+  .mid-col {
+    margin-top: 30px;
+  }
+}

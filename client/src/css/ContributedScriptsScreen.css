@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
+.scripts-card{
+    display:block;
+    margin:20px auto;
+    padding:10px;
+    width:60%;
+    height:30%;
+    border:2px solid black;
+    border-radius: 15px;
+}
+.scripts-card .read-script-button{
+    display:block;
+    margin:10px auto;
+    padding:10px;
+    width:40%;
+    border-radius:15px;
+    background-color: #212122;
+    color:white;
+}
+
+.add-scripts{
+    background: #E5E5E5;
+    height: 100%;
+    width: 100%;
+}
+
+.label-style{
+    /*position: absolute;*/
+    /*width: 201px;*/
+    /*height: 28px;*/
+    /*left: 103px;*/
+    /*top: 86px;*/
+    margin-left: 100px;
+
+    font-family: Ubuntu, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 28px;
+    /* identical to box height */
+
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.015em;
+
+    color: #000000;
+
+}
+
+.add-scripts input{
+    display:block;
+    margin:10px auto;
+    height:50px;
+    width:450px;
+    border:1px solid;
+    border-radius:5px;
+    padding-left: 10px;
+}
+.add-scripts textarea{
+    display:block;
+    margin:20px auto;
+    height:150px;
+    width:450px;
+    border:1px solid;
+    border-radius:5px;
+    padding: 10px;
+}
+.add-scripts button{
+    display:block;
+    margin:20px auto;
+    background: #2C219A;
+    color: #fff;
+    /*height:50px;*/
+    /*width:120px;*/
+    border-radius:5px;
+}
+
+.scripts-button-area{
+    display:'grid';
+    grid-template-columns: 'auto auto';
+    grid-gap:20px;
+
+}
+.card-buttons{
+    color:white;
+    background-color: #212122;
+    text-align: center;
+    height:10%;
+    width:20%;
+}
+
+.edit-scripts-screen input{
+    display:block;
+    margin:10px auto;
+    width:60%;
+    height:20%;
+}
+
+.edit-scripts-screen textarea{
+    display:block;
+    margin:20px auto;
+    width:60%;
+    height:60%;
+    padding:10px;
+}
+
+.edit-scripts-screen button{
+    display:block;
+    margin:10px auto;
+    width:15%;
+    text-align: center;
+}
+
+/* View Scripts Screen Styles */
+.view-scripts-screen{
+    padding:10px;
+    display:block;
+    margin:10px auto;
+    text-align: center;
+}
+/* .view-scripts-screen h1{
+    text-align: center;
+} */
+.view-scripts-screen .content-box{
+    /* display:inline-block;
+    box-sizing: border-box; */
+    display:block;
+    margin:20px auto;
+    text-align: center;
+    padding:20px;
+}
+
+.view-scripts-screen .contributor-box{
+    padding:10px;
+    /* justify-content: left; */
+    text-align: left;
+}
+
+.carousel {
+    background: #eee;
+}
+
+.carousel-cell {
+    width: 33%;
+    height: 200px;
+    margin-right: 10px;
+    background: inherit;
+    border-radius: 10px;
+    counter-increment: gallery-cell;
+}
+
+.carousel-cell.size-180 {
+    width: 50%;
+}
+.carousel-cell.size-large {
+    width: 75%;
+}
+
+/* cell number */
+.carousel-cell:before {
+    display: block;
+    text-align: center;
+    content: counter(gallery-cell);
+    line-height: 200px;
+    font-size: 80px;
+    color: white;
+}
+
+.carousel {
+    background: 0;
+    width: 100%;
+}
+.flickity-viewport {
+    height: 55vh !important;
+}
+.here {
+    height: 35vh !important;
+}
+.carousel-cell {
+    height: 100%;
+    width: 70%;
+}
+.dot {
+    background: gray !important;
+    opacity: 1 !important;
+}
+.is-selected {
+    background-color: white !important;
+}
+/* View Scripts Screen Styles End*/
+
+.content-background {
+    border-radius: 15px;
+    height:auto;
+}
+.logout-style{
+    cursor: pointer;
+}
