@@ -90,6 +90,9 @@ const Home = React.lazy(() => {
 const ContributedScriptsScreen = React.lazy(() =>{
   return import("./components/scripts/ContributedScriptsScreen");
 });
+const ForgotPasswordScreen = React.lazy(()=>{
+  return import('./components/forgotpassword/ForgotPasswordScreen');
+})
 
 function App() {
   return (
@@ -99,6 +102,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/events-home" component={EventScreen} />
           <ProtectedEntryRoute exact path="/login" component={LoginScreen} />
+          <ProtectedEntryRoute exact path="/forgotpassword" component={ForgotPasswordScreen} />
           <ProtectedRoute exact path="/signup" component={SignUpScreen} />
           <ProtectedRoute exact path="/add-event" component={AddEvents} />
           <ProtectedRoute exact path="/edit-event/:id" component={EditEvents} />
@@ -113,6 +117,7 @@ function App() {
           <Route exact path="/about" component={About} />
           <Route exact path="/what" component={What} />
           <Route exact path="/officebearers" component={Officebearers} />
+          
           <ProtectedRoute exact path="/edit-contributed-scripts/:id" component={EditContributedScripts}/>
           <ProtectedRoute exact path="/view-individual-contributed-script/:id" component={ViewIndividualContributedScripts}/>
           <ProtectedRoute exact path="/view-contributed-scripts" component={ViewContributedScripts}/>

@@ -94,8 +94,8 @@ function LoginScreen() {
                 </h5>
               </div>
               <div className="col frg">
-                <Link style={{ float: "right" }} to="/forgetpassword">
-                  <h5 className="bot-text forget-pass">Forget Password?</h5>
+                <Link style={{ float: "right" }} to="/forgotpassword">
+                  <h5 className="bot-text forget-pass">Forgot Password?</h5>
                 </Link>
               </div>
             </div>

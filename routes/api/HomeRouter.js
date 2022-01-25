@@ -7,11 +7,15 @@ const { google } = require('googleapis');
 const path = require('path');
 const bcrypt = require('bcrypt');
 require('dotenv').config();
+const nodemailer = require('nodemailer');
+
+
 
 const Events = require('../../models/Events');
 const Users = require('../../models/Users');
 const Scripts = require('../../models/Scripts');
 const Contributes = require('../../models/contributedScripts');
+const { rawListeners } = require('process');
 
 /* Token Verifier */
 // Use this token verifier whenever verification of user is required
@@ -90,10 +94,15 @@ router.get('/events/:id',(req,res)=>{
 
 /* Image Upload with google drive API */
 
-const CLIENT_ID = process.env.CLIENT_ID;
-const CLIENT_SECRET = process.env.CLIENT_SECRET;
-const REDIRECT_URI = process.env.REDIRECT_URI;
-const REFRESH_TOKEN = process.env.REFRESH_TOKEN;
+// const CLIENT_ID = process.env.CLIENT_ID;
+// const CLIENT_SECRET = process.env.CLIENT_SECRET;
+// const REDIRECT_URI = process.env.REDIRECT_URI;
+// const REFRESH_TOKEN = process.env.REFRESH_TOKEN;
+
+CLIENT_ID = '492089325216-tvhvcd3367hn0vrq587a3ssm9s8oobr6.apps.googleusercontent.com'
+CLIENT_SECRET = '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'
+REDIRECT_URI = 'https://developers.google.com/oauthplayground'
+REFRESH_TOKEN = '1//04nTaCm6JsRv2CgYIARAAGAQSNwF-L9Irwt_1pQ3UNLTXhpR42vnLEGB-iJqwMg2mNI9W0Z3XI5JQ0d3BHgEDbqT5DpV6iV3KDlc'
 
 const oauth2Client = new google.auth.OAuth2(
     CLIENT_ID,CLIENT_SECRET,REDIRECT_URI
@@ -281,6 +290,48 @@ router.get('/login',(req,res)=>{
     res.json({'Hello':'From Server'});
 });
 
+//Email Auth Configurations
+const EMAIL_CLIENT_ID = '693355589626-4gvecrmajdavsb1alfv5t0ed0khea7nu.apps.googleusercontent.com';
+const EMAIL_CLIENT_SECRET = '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';
+const EMAIL_REDIRECT_URI = 'https://developers.google.com/oauthplayground';
+const EMAIL_REFRESH_TOKEN = '1//04sXjEUeeg2KcCgYIARAAGAQSNwF-L9IrQkXPuEPCePS9lpZq1wkLbb1I0QfXCIlNWm3u3PIM8ZdXeodM47Bd_ZuX5Egryox6xdM';
+
+
+const EmailOAuth2Client = new google.auth.OAuth2(
+    EMAIL_CLIENT_ID,EMAIL_CLIENT_SECRET,EMAIL_REDIRECT_URI
+);
+EmailOAuth2Client.setCredentials( { refresh_token:EMAIL_REFRESH_TOKEN});
+
+async function sendMail(receiverEmail,subject,text){
+    try{
+        const accessToken = await EmailOAuth2Client.getAccessToken();
+        const transport = nodemailer.createTransport({
+            service: 'gmail',
+            auth:{
+                type: 'OAuth2',
+                user:'coding007club@gmail.com',
+                clientId:EMAIL_CLIENT_ID,
+                clientSecret:EMAIL_CLIENT_SECRET,
+                refreshToken:EMAIL_REFRESH_TOKEN,
+                accessToken:accessToken
+            }
+        });
+
+        const mailOptions = {
+            from: 'Coding_Club_2022 <coding007club@gmail.com>',
+            to:receiverEmail,
+            subject:subject,
+            text:text,
+            html:`<h2>
+                ${text}</h2>
+            `,
+        };
+        const result = await transport.sendMail(mailOptions);
+        return result;
+    }catch(error){
+        return error;
+    }
+}
 router.post('/login/add',async (req,res)=>{
     const email = req.body.email;
     const password = req.body.password;
@@ -291,7 +342,9 @@ router.post('/login/add',async (req,res)=>{
     const userExists = await Users.findOne({ Email: email});
     if(userExists)
         return res.json({'success':false, message:"User already exists"});
-
+    if(!email.includes('psgtech.ac.in')){
+        return res.json({'success':false,message:"The Entered Email Doesn't Belong to PSG Domain"});
+    }
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password,salt);
     const user = new Users({
@@ -301,9 +354,15 @@ router.post('/login/add',async (req,res)=>{
         Name:name,
         isJs:isjs
     });
-
     user.save().then(response =>{
-        res.status(200).json({'success':true, message:"Registration Successful"});
+        sendMail(email,'Authentication for User Signup',`Greetings from Coding Club,\nThis is an email to authenticate that you have been added as a JS of Coding Club . \n Now you can login into the website using the following credentials :\n Username : ${username}\nPassword : ${password}.`).then((result)=>{
+            console.log('Email Sent..');
+            // console.log(result);
+            res.status(200).json({'success':true, message:"Registration Successful"});
+        }).catch((err)=>{
+            console.log(err);
+        });
+        
     }).catch((err)=>{
         console.log(err.toString());
     });
@@ -348,6 +407,49 @@ router.post('/login',(req,res)=>{
         return res.status(200).json({'success':false,"message": "Invalid EmailID or Password"})
     }
 
+});
+
+//Forgot Password Routes
+
+router.post('/forgotpassword',(req,res)=>{
+    const email = req.body.email;
+    const password = req.body.password;
+    Users.findOne({Email:email}).then(async (user)=>{
+        if(user){
+            const Salt = await bcrypt.genSalt(10)
+            const hashedPasswd = await bcrypt.hash(password,Salt);
+            user.Password = hashedPasswd;
+            user.save().then(()=>{
+                sendMail(email,'Acknowledgement of Password Updation',
+                `Greetings from coding Club\n Dear ${user.Name} \n Your password has been successfully updated to ${password}.Kindly use this password to login hereafter.`)
+                .then((result)=>{
+                    console.log('Email Sent...');
+                    res.status(200).json({
+                        success:true,
+                        message:'Password Updated Succesfully!!'
+                    });
+                }).catch((err)=>{
+                    console.log(err);
+                });
+            }).catch((err)=>{
+                console.log(err);
+                res.status(200).json({
+                    success:false,
+                    message:'Password Not Updated'
+                });
+            })
+        }else{
+            res.status(200).json({
+                success:false,
+                message:"User Doesn't Exist",
+            });
+        }
+    }).catch((err)=>{
+        res.status(200).json({
+            success:false,
+            message:"User Doesn't Exist",
+        });
+    });
 });
 
 //Scripts Page Routes

@@ -1,0 +1,8 @@
+OAuth Details
+
+Project ID : coding-club-project-339106
+
+Oauth client ID : 693355589626-4gvecrmajdavsb1alfv5t0ed0khea7nu.apps.googleusercontent.com
+Oauth client secret : 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
+
+Refresh Token : 1//04sXjEUeeg2KcCgYIARAAGAQSNwF-L9IrQkXPuEPCePS9lpZq1wkLbb1I0QfXCIlNWm3u3PIM8ZdXeodM47Bd_ZuX5Egryox6xdM
