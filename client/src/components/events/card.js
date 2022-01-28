@@ -54,7 +54,7 @@ export default function MediaCard(props) {
 
   return (
     <Card
-      sx={{ maxHeight: 345, maxWidth: 295, borderRadius: 5}}
+      sx={{ maxHeight: 345, maxWidth: 345, borderRadius: 5}}
       style={{ backgroundColor: "black", color: "white" }}
     >
       <CardActionArea>

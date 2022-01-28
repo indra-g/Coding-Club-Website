@@ -94,15 +94,10 @@ router.get('/events/:id',(req,res)=>{
 
 /* Image Upload with google drive API */
 
-// const CLIENT_ID = process.env.CLIENT_ID;
-// const CLIENT_SECRET = process.env.CLIENT_SECRET;
-// const REDIRECT_URI = process.env.REDIRECT_URI;
-// const REFRESH_TOKEN = process.env.REFRESH_TOKEN;
-
-CLIENT_ID = '492089325216-tvhvcd3367hn0vrq587a3ssm9s8oobr6.apps.googleusercontent.com'
-CLIENT_SECRET = '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'
-REDIRECT_URI = 'https://developers.google.com/oauthplayground'
-REFRESH_TOKEN = '1//04nTaCm6JsRv2CgYIARAAGAQSNwF-L9Irwt_1pQ3UNLTXhpR42vnLEGB-iJqwMg2mNI9W0Z3XI5JQ0d3BHgEDbqT5DpV6iV3KDlc'
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
+const REDIRECT_URI = process.env.REDIRECT_URI;
+const REFRESH_TOKEN = process.env.REFRESH_TOKEN;
 
 const oauth2Client = new google.auth.OAuth2(
     CLIENT_ID,CLIENT_SECRET,REDIRECT_URI
@@ -178,11 +173,11 @@ async function uploadFile(filename,ext) {
             }
         })
 
-        console.log(response.data);
+        console.log('problem - ',response.data);
         await generatePublicUrl(response.data.id);
         return response.data.id;
     } catch(error){
-        console.log(error.message);
+        console.log('problem - ',error.message);
         return null;
     }
 }
@@ -617,8 +612,9 @@ router.post('/contribute-scripts',multer({storage:imageStorage}).single("image")
         const uploadedFileId = await uploadFile(user_img_name,user_img_ext);
         console.log("inside api");
         if(uploadedFileId)  imgUrl = "https://drive.google.com/uc?export=view&id=" + uploadedFileId;
+        console.log("imgUrl 1", imgUrl);
     }
-
+    console.log("imgUrl 2", imgUrl);
     const contribute = new Contributes({
         Contributor:contributor,
         Title : title,
