@@ -2,13 +2,9 @@ import React from "react";
 import { useState } from "react";
 import "../../css/ScriptsScreen.css";
 import {Link, useHistory} from "react-router-dom";
-import img1 from "../../assets/img/articles.jpg";
-import img2 from "../../assets/img/articles2.jpg";
-import img3 from "../../assets/img/img3.jpg";
-import img4 from "../../assets/img/img4.jpg";
-import img6 from "../../assets/img/img5.jpg";
-import img5 from "../../assets/img/img6.jpg";
-import img7 from "../../assets/img/img7.jpg";
+import img1 from "../../assets/img/1.jpg";
+import img2 from "../../assets/img/2.jpg";
+import img3 from "../../assets/img/3.jpg";
 import logo from "../../assets/img/logo.png";
 import User from "../../config/user_credentials";
 import jwt from "jsonwebtoken";
@@ -128,10 +124,6 @@ function ContributedScriptsScreen() {
                             <img className="carousel-cell" src={img1}></img>
                             <img className="carousel-cell" src={img2}></img>
                             <img className="carousel-cell" src={img3}></img>
-                            <img className="carousel-cell" src={img4}></img>
-                            <img className="carousel-cell" src={img5}></img>
-                            <img className="carousel-cell" src={img6}></img>
-                            <img className="carousel-cell" src={img7}></img>
                         </div>
                     </div>
                 </div>
